@@ -1,0 +1,136 @@
+﻿@model _20LHWebPortal.Models.RateOrganizerHangoutViewModel
+@{
+    ViewBag.Title = "Rate";
+}
+
+<h2>Rate Organizer and Hangout</h2>
+
+
+
+
+@using (Html.BeginForm("Rate", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Rate Organizer and Hangout.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.UserId)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Name, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Description, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.Description)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Date, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Date, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.Date)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Location, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Location, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.Location)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Address, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.Address)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PartySize, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.PartySize, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.PartySize)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Duration, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Duration, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.Duration)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ContactInfo, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.ContactInfo, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.ContactInfo)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GenderRatio, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.GenderRatio, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.GenderRatio)
+
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.OrganizerRating, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(
+            model => model.OrganizerRating,
+            new SelectList(
+            new List<object>
+                {
+                new { value = 1 , text = "1 Star"  },
+                new { value = 2, text = "2 Star" },
+                new { value = 3, text = "3 Star"},
+                new { value = 4, text = "4 Star"},
+                },
+                "value",
+                "text",
+             Model.OrganizerRating
+                )
+                )
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.HangoutRating, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(
+            model => model.HangoutRating,
+            new SelectList(
+            new List<object>
+                {
+                new { value = 1 , text = "1 Star"  },
+                new { value = 2, text = "2 Star" },
+                new { value = 3, text = "3 Star"},
+                new { value = 4, text = "4 Star"},
+                },
+                "value",
+                "text",
+          Model.HangoutRating
+                )
+                )
+
+        </div>
+    </div>
+
+    <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Rate" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

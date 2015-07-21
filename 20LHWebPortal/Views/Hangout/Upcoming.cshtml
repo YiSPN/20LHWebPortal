@@ -1,0 +1,144 @@
+﻿@using Microsoft.AspNet.Identity
+@model _20LHWebPortal.Models.HangoutsListViewModel
+
+@{
+    ViewBag.Title = "UpcomingHangouts";
+}
+
+<h2>Upcoming Hangouts</h2>
+<h3> Lets go!</h3>
+@Html.AntiForgeryToken()
+<style>
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+
+    table#t01 tr:nth-child(even) {
+        background-color: #eee;
+    }
+
+    table#t01 tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    table#t01 th {
+        background-color: black;
+        color: white;
+    }
+</style>
+
+<table style="width:100%">
+    <tr>
+        <th>
+            Host Name
+        </th>
+        <th>
+            Name of event
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            How many spots are left?
+        </th>
+        <th>
+            Wanna join?
+        </th>
+        <th>
+            Guest list
+        </th>
+
+    </tr>
+    
+    @foreach (var item in @Model.ListOfHangouts)
+    {
+        <tr>
+            <td>
+                @item.HostName Average Rating of
+            @if (@item.HostAverageRating.Equals(double.NaN))
+            {
+                <b>
+                    0
+                </b>
+            }
+            else
+            {
+                <b>
+                    @item.HostAverageRating
+                </b>
+            }
+                </td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.Date</td>
+            
+                       
+            
+            
+            @if (@item.OpenSpots > 0)
+            {
+                <td>
+                    There are @item.OpenSpots spots left.
+                    @if (@item.GenderRatio)
+                    {
+                        <div>
+                            @item.MaleOpenSpots Guy spot(s) & @item.FemaleOpenSpots Girl(s) remaning.
+                        </div>
+                    }                  
+                </td>
+                <td>
+                    @if(@item.GenderRatio && @item.MaleOpenSpots > 0 && @Model.UserGender.Equals("male") ||
+                        @item.GenderRatio && @item.FemaleOpenSpots > 0 && @Model.UserGender.Equals("female"))
+                    {
+                        @Html.ActionLink(
+                        "RSVP",
+                        "Join",
+                        new { id = item.Id })
+                    }
+                    
+                </td>
+            }
+            else
+            {
+                <td>
+                    There aren't any open spots left. Please Waitlist.
+                </td>
+                <td>
+                </td>
+            }
+
+            @if (item.AttendingList.Count() > 0)
+            {
+                <td>
+                    <ol>
+                        @foreach (var u in item.AttendingList)
+                        {
+                            <li>
+                                @u.username
+                            </li>
+                        }
+                    </ol>
+                </td>
+            }
+            
+
+            
+    </tr>
+    }
+</table>
+
+
+

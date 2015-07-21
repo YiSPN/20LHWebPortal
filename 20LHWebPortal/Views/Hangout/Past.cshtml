@@ -1,0 +1,114 @@
+﻿@model IQueryable<_20LHWebPortal.Models.HangoutViewModel>
+@{
+    ViewBag.Title = "PastHangouts";
+}
+
+<h2>Past Hangouts :D</h2>
+
+
+@Html.AntiForgeryToken()
+<style>
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+
+    table#t01 tr:nth-child(even) {
+        background-color: #eee;
+    }
+
+    table#t01 tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    table#t01 th {
+        background-color: black;
+        color: white;
+    }
+</style>
+
+<table style="width:100%">
+    <tr>
+        <th>
+            Host Name
+        </th>
+        <th>
+            Name of event
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Guest List
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.HostName</td>
+            <td>@item.Name Average Rating of
+            @if (@item.HangoutAverageRating.Equals(double.NaN))
+            {
+                <b>
+                    0
+                </b>
+            }
+            else
+            {
+                <b>
+                    @item.HangoutAverageRating
+                </b>
+            }</td>
+            <td>@item.Description</td>
+            <td>@item.Date</td>
+            <td>
+                @if (item.AttendingList.Count() > 0)
+                {
+
+                    <ol>
+                        @foreach (var u in item.AttendingList)
+                        {
+                            <li>
+                                @u.username
+                            </li>
+                        }
+                    </ol>
+
+                }
+            </td> 
+            @if(item.IsRsvp || item.IsHost)
+            {
+            <td>
+                Attended &#10003
+                @if(!item.IsHost)
+                {
+                    @Html.ActionLink(
+                "Rate Organizer and Event?",
+                "Rate",
+                new { id = item.Id })
+                }
+                
+            </td>
+            }
+        </tr>
+    }
+</table>
+
+
+
+
+

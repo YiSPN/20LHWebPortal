@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="aspnet-20LHWebPortal-20150420113045" Class="HangoutRatingsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-20LHWebPortal-20150420113045.mdf;Initial Catalog=aspnet-20LHWebPortal-20150420113045;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="aspnet_20LHWebPortal_20150420113045ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.HangoutRatings" Member="HangoutRatings">
+    <Type Name="HangoutRating">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HangoutId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AttendeeId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Rating" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

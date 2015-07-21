@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="AspNetUsers_Hangout">
+  <DataContextMoniker Name="/AspNetUsers_HangoutDataContext" />
+  <nestedChildShapes>
+    <classShape Id="e6d097cc-f352-470a-9ae9-ccc45b0c3ff6" absoluteBounds="5.125, 1.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/AspNetUsers_HangoutDataContext/AspNetUsers_Hangout" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a490cfd6-dd72-434e-8c81-0ef5d07b10a9" absoluteBounds="5.14, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

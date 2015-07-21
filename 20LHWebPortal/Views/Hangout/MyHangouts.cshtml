@@ -1,0 +1,126 @@
+﻿@model IQueryable<_20LHWebPortal.Models.HangoutViewModel>
+@{
+    ViewBag.Title = "MyHangouts";
+}
+
+<h2>My Hangouts -_^</h2>
+@Html.AntiForgeryToken()
+<style>
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+
+    table#t01 tr:nth-child(even) {
+        background-color: #eee;
+    }
+
+    table#t01 tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    table#t01 th {
+        background-color: black;
+        color: white;
+    }
+</style>
+
+<table style="width:100%">
+    <tr>
+        <th>
+            Host Name
+        </th>
+        <th>
+            Name of event
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Guest List
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.HostName Average Rating of 
+                @if (@item.HostAverageRating.Equals(double.NaN))
+                {
+                    <b>
+                        0
+                    </b>
+                }
+                else
+                {
+                    <b>
+                        @item.HostAverageRating
+                    </b>
+                }
+            </td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.Date</td>
+            <td>
+                @if (item.AttendingList.Count() > 0)
+                {
+
+                    <ol>
+                        @foreach (var u in item.AttendingList)
+                        {
+                            <li>
+                                @u.username
+                            </li>
+                        }
+                    </ol>
+
+                }
+            </td>          
+            @if (item.IsHost)
+            {
+                <td>
+                    @Html.ActionLink(
+                "Edit",
+                "Edit",
+                new { id = item.Id })
+                </td>
+                <td>
+                    @Html.ActionLink(
+                "Delete",
+                "Delete",
+                new { id = item.Id },
+                new { onclick = "return confirm('Are you sure you wish to delete this event?');" })
+            </td>
+            }
+            else if(item.IsRsvp)
+            {
+                <td>
+                    @Html.ActionLink(
+                "UnRSVP",
+                "UnRSVP",
+                new { id = item.Id })
+                </td>
+            }
+            
+
+
+            
+        </tr>
+    }
+</table>
+
+
+
