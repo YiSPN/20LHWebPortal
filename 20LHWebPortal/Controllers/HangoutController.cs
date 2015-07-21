@@ -47,6 +47,8 @@ namespace _20LHWebPortal.Controllers
                 ListOfHangouts = hangouts
             };
 
+            //Test comment
+
             //Map to view model
            
             return View(listViewModel.ListOfHangouts.AsQueryable());
