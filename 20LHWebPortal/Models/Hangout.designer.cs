@@ -102,7 +102,7 @@ namespace _20LHWebPortal.Models
 		
 		private bool _GenderRatio;
 		
-		private System.Nullable<int> _AttendeeCount;
+		private int _AttendeeCount;
 		
 		private int _MaleAttendingCount;
 		
@@ -134,7 +134,7 @@ namespace _20LHWebPortal.Models
     partial void OnContactInfoChanged();
     partial void OnGenderRatioChanging(bool value);
     partial void OnGenderRatioChanged();
-    partial void OnAttendeeCountChanging(System.Nullable<int> value);
+    partial void OnAttendeeCountChanging(int value);
     partial void OnAttendeeCountChanged();
     partial void OnMaleAttendingCountChanging(int value);
     partial void OnMaleAttendingCountChanged();
@@ -367,8 +367,8 @@ namespace _20LHWebPortal.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttendeeCount", DbType="Int")]
-		public System.Nullable<int> AttendeeCount
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttendeeCount", DbType="Int NOT NULL")]
+		public int AttendeeCount
 		{
 			get
 			{

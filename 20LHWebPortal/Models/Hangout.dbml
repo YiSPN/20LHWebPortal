@@ -13,7 +13,7 @@
       <Column Name="Duration" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ContactInfo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="GenderRatio" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="AttendeeCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AttendeeCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaleAttendingCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="FemaleAttendingCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
