@@ -100,8 +100,9 @@
                     }                  
                 </td>
                 <td>
-                    @if(@item.GenderRatio && @item.MaleOpenSpots > 0 && @Model.UserGender.Equals("male") ||
-                        @item.GenderRatio && @item.FemaleOpenSpots > 0 && @Model.UserGender.Equals("female"))
+                    @if((@item.GenderRatio && @item.MaleOpenSpots > 0 && @Model.UserGender.Equals("male")) ||
+                        (@item.GenderRatio && @item.FemaleOpenSpots > 0 && @Model.UserGender.Equals("female")) ||
+                        (!@item.GenderRatio && @item.OpenSpots > 0))
                     {
                         @Html.ActionLink(
                         "RSVP",
