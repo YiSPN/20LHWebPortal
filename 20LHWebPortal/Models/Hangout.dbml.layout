@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Hangout">
   <DataContextMoniker Name="/HangoutDataContext" />
   <nestedChildShapes>
-    <classShape Id="cc6e2523-b8c4-4e19-8a4e-5e695bc08fe4" absoluteBounds="6.5, 0.5, 2, 3.5016097005208326">
+    <classShape Id="2b5735a8-2470-4f0d-9413-ad45aabd33f5" absoluteBounds="4, 1.625, 2, 3.5016097005208326">
       <DataClassMoniker Name="/HangoutDataContext/Hangout" />
       <nestedChildShapes>
-        <elementListCompartment Id="9b675638-893e-4acb-b744-5a04c6116baa" absoluteBounds="6.515, 0.96, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="afc7efcc-e627-4349-a1ec-6f65c7e6747d" absoluteBounds="4.015, 2.085, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
