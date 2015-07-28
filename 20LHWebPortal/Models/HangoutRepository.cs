@@ -182,6 +182,7 @@ namespace _20LHWebPortal.Models
                         }
 
                         // Use aggregate in future...it wasnt working before.
+                        // test commit
 
                         var average = sum / hostAverageRating.Count();
 
