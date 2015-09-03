@@ -25,6 +25,7 @@ namespace _20LHWebPortal.Models
 
         [Required]
         [Display(Name = "Party Size")]
+        [Range(4, 12, ErrorMessage = "Part size must be between 4 and 12")]
         public int PartySize { get; set; }
 
         [Display(Name = "Duration")]

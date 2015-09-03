@@ -8,12 +8,8 @@
     <ul class="nav navbar-nav navbar-right">
         <li>
             @Html.ActionLink("My Hangouts", "MyHangouts", "Hangout");
-        </li>
-        <li>
-            @Html.ActionLink("Upcoming", "Upcoming", "Hangout");
-        </li>
-        <li>
-            @Html.ActionLink("Past", "Past", "Hangout");
+            @Html.ActionLink("My Hangouts", "Upcomig", "Hangout");
+            @Html.ActionLink("My Hangouts", "Past", "Hangout");
         </li>
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })

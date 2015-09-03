@@ -4,6 +4,9 @@
 }
 
 <h2>Past Hangouts :D</h2>
+<div>
+    @Html.ActionLink("+ Create a Hangout", "Create", "Hangout")
+</div>
 
 
 @Html.AntiForgeryToken()
@@ -36,7 +39,10 @@
     }
 </style>
 
+
+
 <table style="width:100%">
+
     <tr>
         <th>
             Host Name
@@ -90,6 +96,18 @@
 
                 }
             </td> 
+            @if (item.IsHost)
+            {
+                <td>
+                    
+                        @Html.ActionLink(
+                "Show/No shows",
+                "ShowNoShow",
+                new { id = item.Id })
+                    
+
+                </td>
+            }
             @if(item.IsRsvp || item.IsHost)
             {
             <td>

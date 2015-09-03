@@ -35,5 +35,11 @@ namespace _20LHWebPortal.Models
 
         double GetUserRating(string userId);
 
+        string GetUserProfilePicture(string userId);
+
+        void ShoworNoShowSubmit(ShowNoShowHangoutViewModel model);
+
+        ShowNoShowHangoutViewModel GetShowNoShow(int hangoutId);
+
     }
 }

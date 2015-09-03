@@ -12,6 +12,7 @@ namespace _20LHWebPortal.Controllers
         public ActionResult Index()
         {
             return View();
+            //return View("~/Views/Hangout/MyHangouts.cshtml");
         }
 
         public ActionResult About()

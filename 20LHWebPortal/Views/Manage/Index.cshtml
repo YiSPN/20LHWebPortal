@@ -10,6 +10,27 @@
     <h4>Change your account settings</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        <dt>Image:</dt>
+        <dd>
+            <form action="" method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <legend> Upload Image </legend>
+                    <label for="Image">Image</label>
+                    <input type="file" name="Image" />
+                    <br />
+                    <input type="submit" value="Upload" />
+                </fieldset>
+            </form>
+            <h1>Uploaded Image</h1>
+            @*@if (Model != "")*@
+            @* { *@
+                <div class="result">
+                    <img src=" @Model.ProfilePicture" alt="image" />
+
+                </div>
+            @*  }*@
+        </dd>
         <dt>Password:</dt>
         <dd>
             [

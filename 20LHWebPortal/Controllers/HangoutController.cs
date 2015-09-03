@@ -190,6 +190,29 @@ namespace _20LHWebPortal.Controllers
             return View(model);
         }
 
+        public ActionResult ShowNoShow(int id)
+        {
+            var model = _hangoutRepository.GetShowNoShow(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ShowNoShow(ShowNoShowHangoutViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userInfo = User.Identity.GetUserId();
+                //model.AttendeeId = userInfo;
+                _hangoutRepository.ShoworNoShowSubmit(model);
+
+                return RedirectToAction("Past");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
 
         [HttpPost]
@@ -232,6 +255,9 @@ namespace _20LHWebPortal.Controllers
         {
             _hangoutRepository.Delete(id);
             return RedirectToAction("MyHangouts");
+
+            var testList = new List<int>();
+            var count = testList.Count;
         }
 
         public async Task<ActionResult> Join(int id)

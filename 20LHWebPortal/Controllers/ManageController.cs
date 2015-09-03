@@ -15,15 +15,20 @@ namespace _20LHWebPortal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IHangoutRepository _hangoutRepository;
 
-        public ManageController()
+
+        public ManageController() 
         {
+            _hangoutRepository = new HangoutRepository();
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IHangoutRepository hangoutRepository)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _hangoutRepository = hangoutRepository;
+
         }
 
         public ApplicationSignInManager SignInManager
@@ -70,7 +75,8 @@ namespace _20LHWebPortal.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                ProfilePicture = File(_hangoutRepository.GetUserProfilePicture(userId), "image/jpeg").FileDownloadName
             };
             return View(model);
         }
@@ -334,6 +340,7 @@ namespace _20LHWebPortal.Controllers
 #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
+        private HangoutRepository hangoutRepository;
 
         private IAuthenticationManager AuthenticationManager
         {

@@ -573,51 +573,6 @@ namespace _20LHWebPortal.Models
             }  
         }
 
-        public ShowNoShowHangoutViewModel GetShowNoShow(int hangoutId)
-        {
-            var showNoShowHangoutViewModel = new ShowNoShowHangoutViewModel();
-            var userHangout = (from a in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                               where a.HangoutId == hangoutId
-                               select a);
-            showNoShowHangoutViewModel.Id = hangoutId;
-
-            foreach (var u in userHangout)
-            {
-                showNoShowHangoutViewModel.UserList.Add(new ShowOrNoShowUser
-                {
-                    AttendeeId = u.AspNetUsers,
-                    Username = GetUserName(u.AspNetUsers),
-                    Showed = u.Showed
-                });
-            }
-
-            return showNoShowHangoutViewModel;
-
-        }
-
-        public void ShoworNoShowSubmit(ShowNoShowHangoutViewModel model)
-        {
-            foreach (var m in model.UserList)
-            {
-                var userHangout = (from a in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                   where a.HangoutId == model.Id && a.AspNetUsers == m.AttendeeId
-                                   select a).Single();
-                userHangout.Showed = m.Showed;
-
-                // Can I just make one submit call?
-                try
-                {
-                    AspNetUsers_Hangout_db.SubmitChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    // Provide for exceptions.
-                }
-            }
-
-        }
-
         public void RateOrganizerAndHangout(RateOrganizerHangoutViewModel model)
         {
             OrganizerRating orgRating = new OrganizerRating
@@ -776,7 +731,8 @@ namespace _20LHWebPortal.Models
         public string GetUserProfilePicture(string userId)
         {
             var dir = HttpContext.Current.Server.MapPath("~/Images");
-            return Path.Combine(dir, "am_eskimo3" + ".jpg");
+            var path = Path.Combine(dir, "am_eskimo3" + ".jpg");
+            return base.File(path, "image/jpeg");
         }
     }
 }

@@ -1,0 +1,50 @@
+﻿@model _20LHWebPortal.Models.ShowNoShowHangoutViewModel
+
+@{
+    ViewBag.Title = "ShowNoShow";
+}
+
+<h2>Show No Show</h2>
+
+@using (Html.BeginForm("ShowNoShow", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Mark Show or No Show for user.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <table class="table">
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                Attended
+            </th>
+            <th></th>
+        </tr>
+
+
+        @for (var i = 0; i < Model.UserList.Count; i++)
+        {
+            <tr>
+                @Html.HiddenFor(x => Model.UserList[i].AttendeeId, new { name = "attendeeId[" + i + "]" })
+                <td>
+                    @Html.DisplayFor(x => Model.UserList[i].Username, new { name = "username[" + i + "]" })
+                </td>
+                <td>
+                    @Html.CheckBoxFor(x => Model.UserList[i].Showed, new { name = "showed[" + i + "]" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <input type="submit" class="btn btn-default" value="Submit" />
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -7,6 +7,9 @@
 
 <h2>Upcoming Hangouts</h2>
 <h3> Lets go!</h3>
+<div>
+    @Html.ActionLink("+ Create a Hangout", "Create", "Hangout")
+</div>
 @Html.AntiForgeryToken()
 <style>
     table {
@@ -36,6 +39,7 @@
         color: white;
     }
 </style>
+
 
 <table style="width:100%">
     <tr>

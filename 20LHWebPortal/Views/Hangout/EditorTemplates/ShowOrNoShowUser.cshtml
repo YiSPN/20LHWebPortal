@@ -1,0 +1,19 @@
+﻿@model _20LHWebPortal.Models.ShowOrNoShowUser
+@{
+    ViewBag.Title = "ShowOrNoShowUser";
+}
+
+
+    <tr>
+        @Html.HiddenFor(x => x.AttendeeId)
+        <td>
+            @Html.DisplayFor(x => x.Username)
+        </td>
+        <td>
+            @Html.CheckBoxFor(x => x.Showed)
+        </td>
+    </tr>
+
+        <input type="submit" class="btn btn-default" value="Submit" />
+
+

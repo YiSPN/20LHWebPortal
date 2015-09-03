@@ -17,15 +17,19 @@ namespace _20LHWebPortal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IHangoutRepository _hangoutRepository;
+
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IHangoutRepository hangoutRepository)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _hangoutRepository = hangoutRepository;
+
         }
 
         public ApplicationSignInManager SignInManager
