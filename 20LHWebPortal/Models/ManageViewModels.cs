@@ -13,6 +13,7 @@ namespace _20LHWebPortal.Models
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
         public string ProfilePicture { get;  set;}
+        public double UserRating { get; set; }
     }
 
     public class ManageLoginsViewModel

@@ -76,8 +76,9 @@ namespace _20LHWebPortal.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                ProfilePicture = File(_hangoutRepository.GetUserProfilePicture(userId), "image/jpeg").FileDownloadName
-            };
+                ProfilePicture = File(_hangoutRepository.GetUserProfilePicture(userId), "image/jpeg").FileDownloadName,
+                UserRating = _hangoutRepository.GetStrikeCount(userId)
+        };
             return View(model);
         }
 
