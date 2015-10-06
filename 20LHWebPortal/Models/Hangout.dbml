@@ -3,7 +3,7 @@
   <Table Name="dbo.Hangout" Member="Hangouts">
     <Type Name="Hangout">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UserCreator" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
@@ -16,6 +16,9 @@
       <Column Name="AttendeeCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaleAttendingCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="FemaleAttendingCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="EventDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -108,6 +108,12 @@ namespace _20LHWebPortal.Models
 		
 		private int _FemaleAttendingCount;
 		
+		private System.Nullable<System.TimeSpan> _StartTime;
+		
+		private System.Nullable<System.TimeSpan> _EndTime;
+		
+		private System.Nullable<System.DateTime> _EventDate;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -140,6 +146,12 @@ namespace _20LHWebPortal.Models
     partial void OnMaleAttendingCountChanged();
     partial void OnFemaleAttendingCountChanging(int value);
     partial void OnFemaleAttendingCountChanged();
+    partial void OnStartTimeChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnStartTimeChanged();
+    partial void OnEndTimeChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnEndTimeChanged();
+    partial void OnEventDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEventDateChanged();
     #endregion
 		
 		public Hangout()
@@ -167,7 +179,7 @@ namespace _20LHWebPortal.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(200)")]
 		public string Name
 		{
 			get
@@ -423,6 +435,66 @@ namespace _20LHWebPortal.Models
 					this._FemaleAttendingCount = value;
 					this.SendPropertyChanged("FemaleAttendingCount");
 					this.OnFemaleAttendingCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="Time")]
+		public System.Nullable<System.TimeSpan> StartTime
+		{
+			get
+			{
+				return this._StartTime;
+			}
+			set
+			{
+				if ((this._StartTime != value))
+				{
+					this.OnStartTimeChanging(value);
+					this.SendPropertyChanging();
+					this._StartTime = value;
+					this.SendPropertyChanged("StartTime");
+					this.OnStartTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="Time")]
+		public System.Nullable<System.TimeSpan> EndTime
+		{
+			get
+			{
+				return this._EndTime;
+			}
+			set
+			{
+				if ((this._EndTime != value))
+				{
+					this.OnEndTimeChanging(value);
+					this.SendPropertyChanging();
+					this._EndTime = value;
+					this.SendPropertyChanged("EndTime");
+					this.OnEndTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventDate", DbType="Date")]
+		public System.Nullable<System.DateTime> EventDate
+		{
+			get
+			{
+				return this._EventDate;
+			}
+			set
+			{
+				if ((this._EventDate != value))
+				{
+					this.OnEventDateChanging(value);
+					this.SendPropertyChanging();
+					this._EventDate = value;
+					this.SendPropertyChanged("EventDate");
+					this.OnEventDateChanged();
 				}
 			}
 		}
