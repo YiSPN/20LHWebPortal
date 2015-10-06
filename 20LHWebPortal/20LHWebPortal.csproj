@@ -277,6 +277,7 @@
     </Compile>
     <Compile Include="Models\RateOrganizerHangoutViewModel.cs" />
     <Compile Include="Models\ShowNoShowHangoutViewModel.cs" />
+    <Compile Include="Models\UserGravatarModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
