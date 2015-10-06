@@ -5,12 +5,10 @@
 
 <h2>Create</h2>
 
-<link href="https://code.jquery.com/ui/1.10.2/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script src="~/Scripts/jquery.js"></script>
-<script src="~/Scripts/jquery-ui.js"></script>
-<script src="~/Scripts/jquery-ui.min.js"></script>
-@*<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>*@
+<link rel="stylesheet" href="jquery-ui.min.css">
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.min.js"></script>
+
 @using (Html.BeginForm("Create", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -84,7 +82,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#Date").Datepicker();
+        $("#Date").datepicker();
     });
 </script>
 

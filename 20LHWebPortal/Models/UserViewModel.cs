@@ -12,5 +12,7 @@ namespace _20LHWebPortal.Models
         public double userRating { get; set; }
 
         public string gender { get; set; }
+
+        public int strikes { get; set; }
     }
 }

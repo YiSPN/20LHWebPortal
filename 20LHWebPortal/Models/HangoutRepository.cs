@@ -745,7 +745,12 @@ namespace _20LHWebPortal.Models
 
         }
 
-
+        public int GetStrikeCount(string userId)
+        {
+            return (from a in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
+                    where a.AspNetUsers == userId && a.Showed == false
+                    select a).Count();
+        }
 
         public string GetUserGender(string userId)
         {

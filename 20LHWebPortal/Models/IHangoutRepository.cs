@@ -25,6 +25,8 @@ namespace _20LHWebPortal.Models
 
         string GetUserName(string userId);
 
+        int GetStrikeCount(string userId);
+
         void Delete(int id);
 
         Hangout GetHangoutById(int id);

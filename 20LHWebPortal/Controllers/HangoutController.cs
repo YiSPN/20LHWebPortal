@@ -32,6 +32,7 @@ namespace _20LHWebPortal.Controllers
             userInfo.userRating = _hangoutRepository.GetUserRating(userId);
             userInfo.gender = _hangoutRepository.GetUserGender(userId);
             userInfo.username = _hangoutRepository.GetUserName(userId);
+            userInfo.strikes = _hangoutRepository.GetStrikeCount(userId);
             return View(userInfo);
         }
 
@@ -51,7 +52,8 @@ namespace _20LHWebPortal.Controllers
             //test commit 2
 
             //Map to view model
-           
+
+            ViewBag.Strikes = _hangoutRepository.GetStrikeCount(userInfo);
             return View(listViewModel.ListOfHangouts.AsQueryable());
         }
 
@@ -67,7 +69,7 @@ namespace _20LHWebPortal.Controllers
             listViewModel.UserGender = _hangoutRepository.GetUserGender(userInfo);
 
             //Map to view model
-
+            ViewBag.Strikes = _hangoutRepository.GetStrikeCount(userInfo);
             return View(listViewModel);
         }
 
@@ -83,6 +85,7 @@ namespace _20LHWebPortal.Controllers
 
             //Map to view model
 
+            ViewBag.Strikes = _hangoutRepository.GetStrikeCount(userInfo);
             return View(listViewModel.ListOfHangouts.AsQueryable());
 
             
