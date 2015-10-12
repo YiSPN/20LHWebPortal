@@ -46,5 +46,7 @@ namespace _20LHWebPortal.Models
 
         public string UserId { get; set; }
 
+        public DateTime? EndDateTime { get; set; }
+
     }
 }
