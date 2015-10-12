@@ -7,12 +7,20 @@
 
 <head>
     <meta charset="utf-8">
-    @*<link href="~/Content/jquery-ui.css" rel="stylesheet" />*@
-    @*<script src="~/Scripts/jquery-2.1.4.js"></script>*@
-    @*<script src="~/Scripts/jquery-ui.js"></script>*@
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
     
+    <script>
 
-    
+    jQuery(document).ready(function ($) {
+
+        $("#datepicker").datepicker();
+
+
+    });
+    </script>
 </head>
 
 
@@ -87,12 +95,9 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-<script type="text/javascript">
-        $(document).ready(function () {
 
-            $("#datepicker").datepicker();
-        });
-</script>
+
+
 
 
 
