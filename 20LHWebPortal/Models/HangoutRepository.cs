@@ -28,7 +28,7 @@ namespace _20LHWebPortal.Models
                                     where m.AspNetUsers == userId && m.IsRSVPd == true || m.IsWaitlist == true
                                     select m;
             var myHangouts = from m in Hangout_db.Hangouts
-                             where m.UserCreator == userId && m.Date >= DateTime.Now
+                             where m.UserCreator == userId && m.Date.Value.AddHours(m.StartTime.Value.Hours) >= DateTime.Now
                              select m;
 
             var returnList = new List<HangoutViewModel>();
@@ -57,6 +57,8 @@ namespace _20LHWebPortal.Models
                 var hangout = new HangoutViewModel
                 {
                     Date = h.Date,
+                    StartTime = h.StartTime,
+                    EndTime = h.EndTime,
                     Description = h.Description,
                     Id = h.Id,
                     Name = h.Name,
@@ -85,7 +87,7 @@ namespace _20LHWebPortal.Models
                 foreach(var h in hangoutsAttending)
                 {
                     var tempHangout = (from a in Hangout_db.Hangouts
-                                       where a.Id == h.HangoutId && a.Date >= DateTime.Now
+                                       where a.Id == h.HangoutId && a.Date.Value.AddHours(a.StartTime.Value.Hours) >= DateTime.Now
                                    select a).SingleOrDefault();
                     if(tempHangout != null)
                     {
@@ -143,10 +145,10 @@ namespace _20LHWebPortal.Models
                                     where m.AspNetUsers == userId && m.IsRSVPd == true || m.IsWaitlist == true
                                     select m;
             var myHangouts = from m in Hangout_db.Hangouts
-                             where m.UserCreator == userId && m.Date >= DateTime.Now
+                             where m.UserCreator == userId && m.Date.Value.AddHours(m.StartTime.Value.Hours) >= DateTime.Now
                              select m;
             var allHangouts = from m in Hangout_db.Hangouts
-                             where m.Date >= DateTime.Now
+                             where m.Date.Value.AddHours(m.StartTime.Value.Hours) >= DateTime.Now
                              select m;
             var hangoutsGoing = new List<int>();
             foreach (var h in HangoutsAttending)
@@ -197,7 +199,9 @@ namespace _20LHWebPortal.Models
                             MaleOpenSpots = (tempHangout.PartySize/2) - tempHangout.MaleAttendingCount,
                             FemaleOpenSpots = (tempHangout.PartySize / 2) - tempHangout.FemaleAttendingCount,
                             GenderRatio = tempHangout.GenderRatio,
-                            HostAverageRating = Math.Round(average, 2)
+                            HostAverageRating = Math.Round(average, 2),
+                            StartTime = tempHangout.StartTime,
+                            EndTime = tempHangout.EndTime
                         };
 
                         foreach(var a in allAtendees)
@@ -271,7 +275,9 @@ namespace _20LHWebPortal.Models
                     IsRsvp = isRsvp,
                     Name = h.Name,
                     HostName = GetUserName(h.UserCreator),
-                    HangoutAverageRating = Math.Round(average, 2)
+                    HangoutAverageRating = Math.Round(average, 2),
+                    StartTime = h.StartTime,
+                    EndTime = h.EndTime
                     
                 };
 
@@ -669,7 +675,9 @@ namespace _20LHWebPortal.Models
                 PartySize = model.PartySize,
                 Duration = model.Duration,
                 ContactInfo = model.ContactInfo,
-                GenderRatio = model.GenderRatio
+                GenderRatio = model.GenderRatio,
+                StartTime = model.StartTime,
+                EndTime = model.EndTime
                 
             };
 
@@ -732,6 +740,8 @@ namespace _20LHWebPortal.Models
             hangout.Location = model.Location;
             hangout.PartySize = model.PartySize;
             hangout.GenderRatio = model.GenderRatio;
+            hangout.StartTime = model.StartTime;
+            hangout.EndTime = model.EndTime;
 
             try
             {

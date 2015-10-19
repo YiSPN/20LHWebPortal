@@ -1,15 +1,14 @@
 ﻿@model IQueryable<_20LHWebPortal.Models.HangoutViewModel>
 @{
-    ViewBag.Title = "PastHangouts";
+    ViewBag.Title = "MyHangouts";
 }
 
-<h2>Past Hangouts :D</h2>
+<h2>My Hangouts -_^</h2>
 <div>
     @Html.ActionLink("+ Create a Hangout", "Create", "Hangout")
 </div>
+
 You have @ViewBag.Strikes strikes.
-
-
 @Html.AntiForgeryToken()
 <style>
     table {
@@ -40,10 +39,7 @@ You have @ViewBag.Strikes strikes.
     }
 </style>
 
-
-
 <table style="width:100%">
-
     <tr>
         <th>
             Host Name
@@ -66,26 +62,23 @@ You have @ViewBag.Strikes strikes.
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.HostName</td>
-            <td>@item.Name Average Rating of
-            @if (@item.HangoutAverageRating.Equals(double.NaN))
-            {
-                <b>
-                    0
-                </b>
-            }
-            else
-            {
-                <b>
-                    @item.HangoutAverageRating
-                </b>
-            }</td>
+            <td>@item.HostName Average Rating of 
+                @if (@item.HostAverageRating.Equals(double.NaN))
+                {
+                    <b>
+                        0
+                    </b>
+                }
+                else
+                {
+                    <b>
+                        @item.HostAverageRating
+                    </b>
+                }
+            </td>
+            <td>@item.Name</td>
             <td>@item.Description</td>
-            <td>@if (@item.Date.HasValue)
-            { @String.Format("{0:dddd, MMMM d, yyyy}", item.Date)}
-            @if (@item.StartTime.HasValue)
-            { @item.StartTime.Value.ToString("hh\\:mm")} @if (@item.EndTime.HasValue)
-            { <p>to @item.EndTime.Value.ToString("hh\\:mm")</p> }</td>
+            <td>@String.Format("{0:dddd, MMMM d, yyyy}", item.Date) @item.StartTime to @item.EndTime</td>
             <td>
                 @if (item.AttendingList.Count() > 0)
                 {
@@ -100,38 +93,39 @@ You have @ViewBag.Strikes strikes.
                     </ol>
 
                 }
-            </td> 
+            </td>          
             @if (item.IsHost)
             {
                 <td>
-                    
-                        @Html.ActionLink(
-                "Show/No shows",
-                "ShowNoShow",
-                new { id = item.Id })
-                    
-
-                </td>
-            }
-            @if(item.IsRsvp || item.IsHost)
-            {
-            <td>
-                Attended &#10003
-                @if(!item.IsHost)
-                {
                     @Html.ActionLink(
-                "Rate Organizer and Event?",
-                "Rate",
+                "Edit",
+                "Edit",
                 new { id = item.Id })
-                }
-                
+                </td>
+                <td>
+                    @Html.ActionLink(
+                "Delete",
+                "Delete",
+                new { id = item.Id },
+                new { onclick = "return confirm('Are you sure you wish to delete this event?');" })
             </td>
             }
+            else if(item.IsRsvp)
+            {
+                <td>
+                    @Html.ActionLink(
+                "UnRSVP",
+                "UnRSVP",
+                new { id = item.Id })
+                </td>
+            }
+            
+
+
+            
         </tr>
     }
 </table>
-
-
 
 
 

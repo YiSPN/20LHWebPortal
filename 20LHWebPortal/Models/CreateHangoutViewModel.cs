@@ -36,6 +36,8 @@ namespace _20LHWebPortal.Models
 
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
         public DateTime? Date { get; set; }
 
@@ -46,7 +48,13 @@ namespace _20LHWebPortal.Models
 
         public string UserId { get; set; }
 
-        public DateTime? EndDateTime { get; set; }
+        [Required]
+        [Display(Name = "Start Time")]
+        public TimeSpan? StartTime { get; set; }
+
+        [Required]
+        [Display(Name = "End Time")]
+        public TimeSpan? EndTime { get; set; }
 
     }
 }

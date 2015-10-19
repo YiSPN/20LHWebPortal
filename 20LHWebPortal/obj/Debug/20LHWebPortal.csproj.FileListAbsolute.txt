@@ -59,3 +59,5 @@
 \\usmormsfp01\users\y.mei\documents\visual studio 2013\Projects\20LHWebPortal\20LHWebPortal\obj\Debug\20LHWebPortal.dll
 \\usmormsfp01\users\y.mei\documents\visual studio 2013\Projects\20LHWebPortal\20LHWebPortal\obj\Debug\20LHWebPortal.pdb
 \\usmormsfp01\users\y.mei\documents\visual studio 2013\Projects\20LHWebPortal\20LHWebPortal\obj\Debug\20LHWebPortal.csprojResolveAssemblyReference.cache
+\\usmormsfp01\users\y.mei\Documents\Visual Studio 2013\Projects\20LHWebPortal\20LHWebPortal\bin\NodaTime.dll
+\\usmormsfp01\users\y.mei\Documents\Visual Studio 2013\Projects\20LHWebPortal\20LHWebPortal\bin\NodaTime.xml

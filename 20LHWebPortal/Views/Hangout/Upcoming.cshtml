@@ -89,7 +89,11 @@ You have @ViewBag.Strikes strikes.
                 </td>
             <td>@item.Name</td>
             <td>@item.Description</td>
-            <td>@item.Date</td>
+            <td>@if (@item.Date.HasValue)
+            { @String.Format("{0:dddd, MMMM d, yyyy}", item.Date)}
+            @if (@item.StartTime.HasValue)
+            { @item.StartTime.Value.ToString("hh\\:mm")} @if (@item.EndTime.HasValue)
+            { <p>to @item.EndTime.Value.ToString("hh\\:mm")</p> }</td>
             
                        
             

@@ -30,6 +30,10 @@ namespace _20LHWebPortal.Models
         public string Description { get; set; }
         public DateTime? Date  { get; set; }
 
+        public TimeSpan? StartTime { get; set; }
+
+        public TimeSpan? EndTime { get; set; }
+
         public int OpenSpots { get; set; }
         public bool IsRsvp { get; set; }
         public bool IsHost { get; set; }
@@ -51,5 +55,6 @@ namespace _20LHWebPortal.Models
         {
             AttendingList = new List<UserViewModel>();
         }
+
     }
 }

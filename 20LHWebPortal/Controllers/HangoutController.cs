@@ -111,7 +111,9 @@ namespace _20LHWebPortal.Controllers
                 ContactInfo = item.ContactInfo,
                 Duration = item.Duration,
                 PartySize = item.PartySize,
-                GenderRatio = item.GenderRatio
+                GenderRatio = item.GenderRatio,
+                StartTime = item.StartTime,
+                EndTime = item.EndTime
                 
             };
             return View(model);
@@ -223,12 +225,14 @@ namespace _20LHWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateHangoutViewModel model)
         {
+            
+
             if (ModelState.IsValid)
             {
                 var userInfo = User.Identity.GetUserId();
                 model.UserId = userInfo;
                 _hangoutRepository.Create(model);
-
+                
                 return RedirectToAction("MyHangouts");
 
                 //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
