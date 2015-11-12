@@ -80,7 +80,7 @@ You have @ViewBag.Strikes strikes.
             <td>@item.Description</td>
             <td><p></p>
             @if (@item.Date.HasValue) { @String.Format("{0:dddd, MMMM d, yyyy}", item.Date)}
-            @if (@item.StartTime.HasValue) { @item.StartTime.Value.ToString("hh\\:mm")} @if (@item.EndTime.HasValue) { <p>to @item.EndTime.Value.ToString("hh\\:mm")</p> }
+            @if (@item.StartTime.HasValue) { @item.StartTime.Value.ToString("h:mm tt")} @if (@item.EndTime.HasValue) { <p>to @item.EndTime.Value.ToString("h:mm tt")</p> }
             <td>
                 @if (item.AttendingList.Count() > 0)
                 {
