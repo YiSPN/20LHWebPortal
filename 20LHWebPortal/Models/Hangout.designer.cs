@@ -108,9 +108,9 @@ namespace _20LHWebPortal.Models
 		
 		private int _FemaleAttendingCount;
 		
-		private System.Nullable<System.TimeSpan> _StartTime;
+		private System.Nullable<System.DateTime> _StartTime;
 		
-		private System.Nullable<System.TimeSpan> _EndTime;
+		private System.Nullable<System.DateTime> _EndTime;
 		
 		private System.Nullable<System.DateTime> _EventDate;
 		
@@ -146,9 +146,9 @@ namespace _20LHWebPortal.Models
     partial void OnMaleAttendingCountChanged();
     partial void OnFemaleAttendingCountChanging(int value);
     partial void OnFemaleAttendingCountChanged();
-    partial void OnStartTimeChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
     partial void OnStartTimeChanged();
-    partial void OnEndTimeChanging(System.Nullable<System.TimeSpan> value);
+    partial void OnEndTimeChanging(System.Nullable<System.DateTime> value);
     partial void OnEndTimeChanged();
     partial void OnEventDateChanging(System.Nullable<System.DateTime> value);
     partial void OnEventDateChanged();
@@ -439,8 +439,8 @@ namespace _20LHWebPortal.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="Time")]
-		public System.Nullable<System.TimeSpan> StartTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StartTime
 		{
 			get
 			{
@@ -459,8 +459,8 @@ namespace _20LHWebPortal.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="Time")]
-		public System.Nullable<System.TimeSpan> EndTime
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndTime
 		{
 			get
 			{

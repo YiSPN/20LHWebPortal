@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -102,20 +103,19 @@ namespace _20LHWebPortal.Controllers
             var model = new CreateHangoutViewModel
             {
                 Id = item.Id,
-                Date = item.Date,
+                Date = (item.Date != null ? item.Date.Value.ToShortDateString() : ""),
                 Description = item.Description,
                 Name = item.Name,
                 UserId = item.UserCreator,
                 Location = item.Location,
                 Address = item.Address,
                 ContactInfo = item.ContactInfo,
-                Duration = item.Duration,
                 PartySize = item.PartySize,
                 GenderRatio = item.GenderRatio,
-                StartTime = item.StartTime,
-                EndTime = item.EndTime
-                
-            };
+                StartTime = (item.StartTime != null ? item.StartTime.Value.ToString("h:mmtt") : ""),
+                EndTime = (item.EndTime != null ? item.EndTime.Value.ToString("h:mmtt") : "")
+
+        };
             return View(model);
         }
 
@@ -124,6 +124,21 @@ namespace _20LHWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CreateHangoutViewModel model)
         {
+            bool startTimeIsValid, endTimeIsValid;
+            startTimeIsValid = IsValidTime(model.StartTime);
+            endTimeIsValid = IsValidTime(model.EndTime);
+            if (!startTimeIsValid)
+            {
+                ModelState.AddModelError(string.Empty, model.StartTime + " is an invalid time. E.g. 10:00am");
+            }
+            if (!endTimeIsValid)
+            {
+                ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
+            }
+            if ((startTimeIsValid && endTimeIsValid) && (DateTime.Parse(model.StartTime) >= DateTime.Parse(model.EndTime)))
+            {
+                ModelState.AddModelError(string.Empty, "End Time must be later than Start Time");
+            }
             if (ModelState.IsValid)
             {
                 _hangoutRepository.Update(model);
@@ -151,20 +166,25 @@ namespace _20LHWebPortal.Controllers
             return View(model);
         }
 
+        public bool IsValidTime(string time)
+        {
+            DateTime outTime;
+            return (DateTime.TryParseExact(time, "h:mmtt", CultureInfo.InvariantCulture, DateTimeStyles.AllowInnerWhite, out outTime));
+        }
+
         public ActionResult Rate(int id)
         {
             var item = _hangoutRepository.GetHangoutById(id);
             var model = new RateOrganizerHangoutViewModel
             {
                 Id = item.Id,
-                Date = item.Date,
+                Date = (item.Date != null ? item.Date.Value.ToShortDateString() : ""),
                 Description = item.Description,
                 Name = item.Name,
                 UserId = item.UserCreator,
                 Location = item.Location,
                 Address = item.Address,
                 ContactInfo = item.ContactInfo,
-                Duration = item.Duration,
                 PartySize = item.PartySize,
                 GenderRatio = item.GenderRatio
 
@@ -225,7 +245,21 @@ namespace _20LHWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateHangoutViewModel model)
         {
-            
+            bool startTimeIsValid, endTimeIsValid;
+            startTimeIsValid = IsValidTime(model.StartTime);
+            endTimeIsValid = IsValidTime(model.EndTime);
+            if (!startTimeIsValid)
+            {
+                ModelState.AddModelError(string.Empty, model.StartTime + " is an invalid time. E.g. 10:00am");
+            }
+            if (!endTimeIsValid)
+            {
+                ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
+            }
+            if ((startTimeIsValid && endTimeIsValid) && (DateTime.Parse(model.StartTime) >= DateTime.Parse(model.EndTime)))
+            {
+                ModelState.AddModelError(string.Empty, "End Time must be later than Start Time");
+            }
 
             if (ModelState.IsValid)
             {
@@ -303,6 +337,7 @@ namespace _20LHWebPortal.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+        
 
     }
 

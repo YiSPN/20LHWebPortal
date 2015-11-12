@@ -28,18 +28,15 @@ namespace _20LHWebPortal.Models
         [Range(4, 12, ErrorMessage = "Part size must be between 4 and 12")]
         public int PartySize { get; set; }
 
-        [Display(Name = "Duration")]
-        public int Duration { get; set; }
-
         [Display(Name = "Contact Info")]
         public string ContactInfo { get; set; }
 
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
-        public DateTime? Date { get; set; }
+        public string Date { get; set; }
 
         [Required]
         [Display(Name = "GenderRatio")]
@@ -48,13 +45,23 @@ namespace _20LHWebPortal.Models
 
         public string UserId { get; set; }
 
-        [Required]
-        [Display(Name = "Start Time")]
-        public TimeSpan? StartTime { get; set; }
+        //[Required]
+        //[Display(Name = "Start Time")]
+        //public DateTime? StartTime { get; set; }
+
+        //[Required]
+        //[Display(Name = "End Time")]
+        //public DateTime? EndTime { get; set; }
 
         [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "Start Time")]
+        public string StartTime { get; set; }
+
+        [Required]
+        [DataType(DataType.Time)]
         [Display(Name = "End Time")]
-        public TimeSpan? EndTime { get; set; }
+        public string EndTime { get; set; }
 
     }
 }
