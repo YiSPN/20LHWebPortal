@@ -135,6 +135,10 @@ namespace _20LHWebPortal.Controllers
             {
                 ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
             }
+            if(DateTime.Parse(model.Date) < DateTime.Today)
+            {
+                ModelState.AddModelError(string.Empty, "Date cannot be paste due.");
+            }
             if ((startTimeIsValid && endTimeIsValid) && (DateTime.Parse(model.StartTime) >= DateTime.Parse(model.EndTime)))
             {
                 ModelState.AddModelError(string.Empty, "End Time must be later than Start Time");
@@ -255,6 +259,10 @@ namespace _20LHWebPortal.Controllers
             if (!endTimeIsValid)
             {
                 ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
+            }
+            if (DateTime.Parse(model.Date) < DateTime.Today)
+            {
+                ModelState.AddModelError(string.Empty, "Date cannot be paste due.");
             }
             if ((startTimeIsValid && endTimeIsValid) && (DateTime.Parse(model.StartTime) >= DateTime.Parse(model.EndTime)))
             {
