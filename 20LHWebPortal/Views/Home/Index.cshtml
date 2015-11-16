@@ -1,6 +1,7 @@
 ﻿
 ﻿@{
     @model _20LHWebPortal.Models.UserGravatarModel
+    }
 
 @{
         ViewBag.Title = "20LH Home Page";
@@ -16,8 +17,8 @@
 </div>
 
 <div id="map"></div>
-    <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script>
+<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script>
     (function () {
         "use strict";
         if (document.getElementById("map") && typeof google === "object") {
@@ -49,5 +50,5 @@
             }
         }
     }());
-
-@*<div class="row">
+</script>
+@*<div class="row">*@

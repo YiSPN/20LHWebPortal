@@ -2,14 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Hangout">
   <DataContextMoniker Name="/HangoutDataContext" />
   <nestedChildShapes>
-    <classShape Id="2deb75a3-4005-43a8-a29b-ec492c48b490" absoluteBounds="4.875, 1.875, 2, 4.0785139973958326">
+    <classShape Id="88add51b-1df6-4872-bd10-a25cb15831ce" absoluteBounds="5.25, 2, 2, 4.0785139973958326">
       <DataClassMoniker Name="/HangoutDataContext/Hangout" />
       <nestedChildShapes>
-        <elementListCompartment Id="9a201cbf-40bd-4aac-a834-a35fce08e982" absoluteBounds="4.89, 2.335, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-    <classShape Id="64e400d0-3365-40f1-907a-6a54d5a4aee8" absoluteBounds="3.125, 0.75, 2, 4.0785139973958326">
-      <DataClassMoniker Name="/HangoutDataContext/Hangout" />
-      <nestedChildShapes>
-        <elementListCompartment Id="83d604fd-ada8-4d2e-822b-6d0f4884420f" absoluteBounds="3.1399999999999997, 1.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="2bbd22a8-3466-457b-a5d7-134cbc53753c" absoluteBounds="5.265, 2.46, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
