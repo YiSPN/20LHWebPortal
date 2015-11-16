@@ -39,7 +39,7 @@ namespace _20LHWebPortal.Models
         public string Date { get; set; }
 
         [Required]
-        [Display(Name = "GenderRatio")]
+        [Display(Name = "Gender Ratio")]
         public bool GenderRatio { get; set; }
 
 

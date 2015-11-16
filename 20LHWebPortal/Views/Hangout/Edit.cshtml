@@ -14,8 +14,10 @@
     <script>
 
     jQuery(document).ready(function ($) {
-
-        $("#datepicker").datepicker();
+        var dateToday = new Date();
+        $("#datepicker").datepicker({
+            minDate: dateToday
+        });
         $("#timepicker").timepicker();
         $("#timepicker2").timepicker();
 
