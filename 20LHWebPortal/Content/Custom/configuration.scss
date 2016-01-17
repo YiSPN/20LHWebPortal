@@ -1,0 +1,30 @@
+﻿// Button configuration
+$button-min-width: 120px;
+$button-padding: 6px 12px;
+$button-text-weight: 700;
+$button-border-radius: 30px;
+
+// Text
+$text-color-dark: #555;
+$text-color-light: #eee;
+
+// Colors
+$blue: #1DB4C5;
+$green: #10a461;
+$yellow: #EF9D27;
+$orange: #F47838;
+$red: #E1593D;
+$default-color: #10a461;
+
+$hover-shade: 10%;
+$blue-hover: darken($blue, $hover-shade);
+$green-hover: darken($green, $hover-shade);
+$yellow-hover: darken($yellow, $hover-shade);
+$orange-hover: darken($orange, $hover-shade);
+$red-hover: darken($red, $hover-shade);
+$default-color-hover: darken($default-color, $hover-shade);
+
+// Sitewide configuration
+$site-font-family : 'Open Sans', sans-serif;
+$site-font-size: 14px;
+$site-input-height: 36px;

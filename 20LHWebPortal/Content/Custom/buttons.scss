@@ -1,0 +1,27 @@
+﻿@import 'configuration.scss';
+
+/* 	Button configuration
+*****************************************/
+.button{
+	border-radius: 0;
+	color: $text-color-light;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: $button-text-weight;
+	margin: 0 2px 2px 0;
+	min-width: $button-min-width;
+	outline: none;
+	padding: $button-padding;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	box-sizing: border-box;
+	border-bottom: 2px solid transparent;
+}
+.button:hover{
+	border-bottom: 2px solid rgba(0,0,0,0.3);
+    text-decoration: none;
+}
+.button:focus{
+	box-shadow: 0 0 0px 3px transparentize($default-color, 0.7);
+}

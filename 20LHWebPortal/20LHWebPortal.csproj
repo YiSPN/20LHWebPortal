@@ -295,6 +295,37 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom\animate.css" />
+    <Content Include="Content\Custom\bootstrapOverrides.css">
+      <DependentUpon>bootstrapOverrides.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\bootstrapOverrides.min.css">
+      <DependentUpon>bootstrapOverrides.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\buttons.css">
+      <DependentUpon>buttons.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\buttons.min.css">
+      <DependentUpon>buttons.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\colors.css">
+      <DependentUpon>colors.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\colors.min.css">
+      <DependentUpon>colors.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\configuration.css">
+      <DependentUpon>configuration.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\configuration.min.css">
+      <DependentUpon>configuration.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\formComponents.css">
+      <DependentUpon>formComponents.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\formComponents.min.css">
+      <DependentUpon>formComponents.css</DependentUpon>
+    </Content>
     <Content Include="Content\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\Images\ui-bg_flat_10_000000_40x100.png" />
@@ -316,10 +347,15 @@
     <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\jquery.timepicker.css" />
+    <Content Include="Content\site.css">
+      <DependentUpon>site.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Icon.png" />
     <Content Include="Models\Hangout.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -352,6 +388,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\Custom\configuration.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Content\Custom\buttons.scss" />
+    <Content Include="Content\Custom\colors.scss" />
+    <Content Include="Content\Custom\bootstrapOverrides.scss" />
+    <Content Include="Content\Custom\formComponents.scss" />
+    <Content Include="Content\site.scss" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Content\Images\am_eskimo3.jpg" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -419,6 +465,7 @@
     <Content Include="Views\Hangout\Rate.cshtml" />
     <Content Include="Views\Hangout\ShowNoShow.cshtml" />
     <Content Include="Views\Hangout\EditorTemplates\ShowOrNoShowUser.cshtml" />
+    <Content Include="Views\Shared\menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AspNetUsers_Hangout.dbml.layout">

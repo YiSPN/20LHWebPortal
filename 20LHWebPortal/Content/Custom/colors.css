@@ -1,0 +1,66 @@
+﻿/*	Text colors
+***********************************/
+.text-color-dark {
+  color: #555; }
+
+.text-color-light {
+  color: #eee; }
+
+/*	Color Classes [with hover effects]
+***********************************/
+.blue {
+  background-color: #1DB4C5; }
+
+.green {
+  background-color: #25AF38; }
+
+.yellow {
+  background-color: #EF9D27; }
+
+.orange {
+  background-color: #F47838; }
+
+.red {
+  background-color: #E1593D; }
+
+.default-color {
+  background-color: #2C3E50; }
+
+.blue:hover {
+  background-color: #168b99; }
+
+.green:hover {
+  background-color: #1c852b; }
+
+.yellow:hover {
+  background-color: #d38310; }
+
+.orange:hover {
+  background-color: #ec590d; }
+
+.red:hover {
+  background-color: #cc3d1f; }
+
+.default-color:hover {
+  background-color: #1a252f; }
+
+/*	Color Classes [without hover effects]
+***********************************/
+.blue-no-hover {
+  background-color: #1DB4C5; }
+
+.green-no-hover {
+  background-color: #25AF38; }
+
+.yellow-no-hover {
+  background-color: #EF9D27; }
+
+.orange-no-hover {
+  background-color: #F47838; }
+
+.red-no-hover {
+  background-color: #E1593D; }
+
+.default-color-no-hover {
+  background-color: #2C3E50; }
+

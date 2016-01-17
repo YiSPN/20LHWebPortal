@@ -1,0 +1,199 @@
+﻿/* DEFAULT THEME
+******************************/
+.dropdown {
+  outline: 0;
+  border: none; }
+
+.dropdown button .caret {
+  color: #eee; }
+
+.dropdown-menu {
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background-color: #eee;
+  padding: 0; }
+
+.dropdown-menu li {
+  padding: 5px 10px; }
+
+.dropdown-menu li:hover {
+  background-color: #ddd; }
+
+.dropdown-menu li a:hover {
+  background-color: inherit; }
+
+.dropdown-menu li:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+
+[data-component=buttonGroup] button {
+  height: 36px;
+  color: #eee; }
+
+.btn-group[role=group] {
+  border: none; }
+
+.btn-group[role=group] button {
+  border: none;
+  display: inline-block;
+  float: left;
+  margin: 0;
+  outline: 0;
+  padding: 5px 10px; }
+
+.btn-group[role=group] button:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, 0.15); }
+
+.btn-group[role=group] button:first-child {
+  border-radius: 10px 0 0 10px; }
+
+.btn-group[role=group] button:last-child {
+  border-radius: 0 10px 10px 0; }
+
+.input-group .input-group-addon {
+  border: none;
+  cursor: pointer;
+  color: #eee; }
+
+.input-group .input-group-addon.checkboxWrap {
+  border: none;
+  color: #eee;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; }
+
+.input-group .input-group-addon.checkboxWrap label {
+  padding: 6px 12px;
+  height: 100%;
+  color: #eee;
+  font-size: 16px;
+  margin-bottom: 0;
+  cursor: pointer; }
+
+.nav.nav-tabs[role=tablist] {
+  border: none;
+  background-color: #2C3E50; }
+
+.nav.nav-tabs[role=tablist] li {
+  border: none; }
+
+.nav.nav-tabs[role=tablist] li.active {
+  margin-bottom: 0; }
+
+.nav.nav-tabs[role=tablist] li.active a {
+  background-color: #ccc;
+  color: #555; }
+
+.nav.nav-tabs[role=tablist] li a {
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  color: #eee;
+  font-size: 16px; }
+
+.nav.nav-tabs[role=tablist] li:not(.active) a:hover {
+  background-color: rgba(0, 0, 0, 0.3); }
+
+.popover .popover-title, [class^=tooltip] .tooltip-inner {
+  background-color: #2C3E50; }
+
+.tab-content {
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 5px; }
+
+.tooltip.top .tooltip-arrow {
+  border-top-color: #2C3E50; }
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: #2C3E50; }
+
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #2C3E50; }
+
+.tooltip.left .tooltip-arrow {
+  border-left-color: #2C3E50; }
+
+.popover {
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+
+.popover .popover-title {
+  color: #eee;
+  font-weight: 700;
+  border-radius: 0; }
+
+.panel-group .panel + .panel {
+  margin-top: 0;
+  border: none; }
+
+.panel-group .panel {
+  border: none; }
+
+.panel-group .panel-default > .panel-heading {
+  background-color: #2C3E50;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #eee; }
+
+.panel-group .panel-default > .panel-collapse.collapse {
+  background-color: #eee; }
+
+/*  Panels
+****************************/
+.panel.panel-default {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: transparent;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  overflow: hidden; }
+
+.panel.panel-default .panel-heading {
+  background-color: #0068b3;
+  border-radius: 0;
+  border: none;
+  font-size: 16px;
+  color: #eee; }
+
+.panel.panel-default .panel-body {
+  border: none;
+  background-color: #fff; }
+
+.panel.panel-default .panel-body ul {
+  list-style: disc;
+  margin-left: 15px; }
+
+.panel.panel-default .panel-body ul li {
+  padding: 3px; }
+
+/*  Tables
+****************************/
+.table {
+  /*box-shadow: 1px 1px 1px rgba(0,0,0,0.3);*/ }
+
+.table tbody tr td, .table thead tr td {
+  border: none; }
+
+.table thead {
+  border-right: 1px solid #2C3E50;
+  border-left: 1px solid #2C3E50; }
+
+.table thead tr th {
+  background-color: #2C3E50;
+  color: #eee;
+  font-size: 16px;
+  border-bottom: none; }
+
+.table tbody {
+  border: 1px solid #e1e4e7;
+  border-top: none; }
+
+.table tbody tr:nth-child(even) td {
+  background-color: #ecf0f5; }
+
+.table tbody tr td:not(:last-child) {
+  border-right: 1px solid #e1e8ef; }
+
