@@ -72,7 +72,7 @@
 
 .nav.nav-tabs[role=tablist] {
   border: none;
-  background-color: #2C3E50; }
+  background-color: #10a461; }
 
 .nav.nav-tabs[role=tablist] li {
   border: none; }
@@ -95,7 +95,7 @@
   background-color: rgba(0, 0, 0, 0.3); }
 
 .popover .popover-title, [class^=tooltip] .tooltip-inner {
-  background-color: #2C3E50; }
+  background-color: #10a461; }
 
 .tab-content {
   border: 1px solid #ccc;
@@ -103,16 +103,16 @@
   padding: 5px; }
 
 .tooltip.top .tooltip-arrow {
-  border-top-color: #2C3E50; }
+  border-top-color: #10a461; }
 
 .tooltip.right .tooltip-arrow {
-  border-right-color: #2C3E50; }
+  border-right-color: #10a461; }
 
 .tooltip.bottom .tooltip-arrow {
-  border-bottom-color: #2C3E50; }
+  border-bottom-color: #10a461; }
 
 .tooltip.left .tooltip-arrow {
-  border-left-color: #2C3E50; }
+  border-left-color: #10a461; }
 
 .popover {
   border: none;
@@ -133,7 +133,7 @@
   border: none; }
 
 .panel-group .panel-default > .panel-heading {
-  background-color: #2C3E50;
+  background-color: #10a461;
   border-radius: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   color: #eee; }
@@ -178,11 +178,11 @@
   border: none; }
 
 .table thead {
-  border-right: 1px solid #2C3E50;
-  border-left: 1px solid #2C3E50; }
+  border-right: 1px solid #10a461;
+  border-left: 1px solid #10a461; }
 
 .table thead tr th {
-  background-color: #2C3E50;
+  background-color: #10a461;
   color: #eee;
   font-size: 16px;
   border-bottom: none; }

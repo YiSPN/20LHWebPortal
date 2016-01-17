@@ -17,13 +17,13 @@ select {
   padding: 5px 10px;
   height: 36px;
   border: 1px solid transparent;
-  border-bottom-color: #cbd7e3; }
+  border-bottom-color: #e9fdf4; }
 
 input[type=text]:focus,
 input[type=password]:focus,
 input[type=url]:focus,
 select:focus {
-  border-color: #698bac; }
+  border-color: #5eefad; }
 
 select {
   border-bottom: 1px solid transparent; }

@@ -13,13 +13,14 @@
     <link href="~/Content/site.css" rel="stylesheet" />
     <link href="~/Content/Custom/bootstrapOverrides.min.css" rel="stylesheet"/>
     <link href="~/Content/Custom/formComponents.min.css" rel="stylesheet"/>
+    <link href="~/Content/Custom/mediaQueries.min.css" rel="stylesheet" />
 
     @Scripts.Render("~/bundles/modernizr")
     
 </head>
 <body>
 <div id="contentWrap">
-    <header>
+    <header class="hidden-xs hidden-md">
         <div id="logo"></div>
         <div id="desktopNav">
             @Html.Partial("menu")
@@ -45,9 +46,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                @RenderBody()
+                <h1>@ViewBag.Title</h1>
+                <hr/>
             </div>
         </div>
+        @RenderBody()
     </div>
 </div>
 <footer>

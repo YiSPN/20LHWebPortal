@@ -326,6 +326,12 @@
     <Content Include="Content\Custom\formComponents.min.css">
       <DependentUpon>formComponents.css</DependentUpon>
     </Content>
+    <Content Include="Content\Custom\mediaQueries.css">
+      <DependentUpon>mediaQueries.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom\mediaQueries.min.css">
+      <DependentUpon>mediaQueries.css</DependentUpon>
+    </Content>
     <Content Include="Content\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\Images\ui-bg_flat_10_000000_40x100.png" />
@@ -398,6 +404,7 @@
     <Content Include="Content\Custom\bootstrapOverrides.scss" />
     <Content Include="Content\Custom\formComponents.scss" />
     <Content Include="Content\site.scss" />
+    <Content Include="Content\Custom\mediaQueries.scss" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Content\Images\am_eskimo3.jpg" />
     <Content Include="Scripts\bootstrap-datepicker.js" />

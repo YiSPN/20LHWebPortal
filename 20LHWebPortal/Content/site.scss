@@ -87,14 +87,22 @@ header #desktopNav ul li a{
     font-size: 18px;
     line-height: 100px;
 }
+header #desktopNav ul li a:hover,
+header #desktopNav ul li a:focus{
+    background-color: $default-color-hover;
+}
 header #desktopNav ul li:first-child a{
-    border-left: 1px solid rgba(0,0,0,0.1)
+    border-left: 1px solid $default-color-hover;
 }
 header #desktopNav ul li:not(:last-child) a{
-    border-right: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid $default-color-hover;
 }
 
-
+/* Sticky footer
+**************************************/
+.navbar-inverse{
+    background-color: $default-color;
+}
 
 /* Sticky footer
 **************************************/
