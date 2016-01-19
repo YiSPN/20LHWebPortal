@@ -1,0 +1,39 @@
+﻿@import 'configuration.scss';
+
+/*Custom CSS For Extra Small creens*/
+@media (max-width: 767px) {
+    .button, .button-default, [class^=button-], a.button-default, button.button-default, input[type=checkbox]+label[data-role=standaloneCheckbox] {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    /* MOBILE NAV */
+    .navbar-inverse{
+        background-color: $default-color;
+    }
+    #contentWrap .container-fluid{
+        margin-top: 50px;
+    }
+    /* FOOTER */
+    #contentWrap{
+        margin-bottom: -140px;
+    }
+}
+
+/*Custom CSS For Small Screens*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/*Custom CSS for medium screens*/
+@media (min-width: 992px) and (max-width: 1199px) {
+    .button, .button-default, [class^=button-], a.button-default, button.button-default, input[type=checkbox]+label[data-role=standaloneCheckbox] {
+        margin-top: 5px;
+    }
+
+}
+
+/*Custom CSS For Larger Screens*/
+@media (min-width: 1200px) {
+
+}

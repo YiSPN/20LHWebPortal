@@ -1,0 +1,31 @@
+﻿@import 'configuration.scss';
+
+/*	Text colors
+***********************************/
+.text-color-dark{color: $text-color-dark;}
+.text-color-light{color: $text-color-light;}
+
+/*	Color Classes [with hover effects]
+***********************************/
+.blue{ background-color: $blue; }
+.green{background-color: $green;}
+.yellow{background-color: $yellow;}
+.orange{background-color: $orange;}
+.red{background-color: $red;}
+.default-color{background-color: $default-color;}
+
+.blue:hover{ background-color: $blue-hover; }
+.green:hover{background-color: $green-hover;}
+.yellow:hover{background-color: $yellow-hover;}
+.orange:hover{background-color: $orange-hover;}
+.red:hover{background-color: $red-hover;}
+.default-color:hover{background-color: $default-color-hover;}
+
+/*	Color Classes [without hover effects]
+***********************************/
+.blue-no-hover{ background-color: $blue; }
+.green-no-hover{background-color: $green;}
+.yellow-no-hover{background-color: $yellow;}
+.orange-no-hover{background-color: $orange;}
+.red-no-hover{background-color: $red;}
+.default-color-no-hover{background-color: $default-color;}

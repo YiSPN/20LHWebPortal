@@ -1,0 +1,30 @@
+﻿[
+  {
+    "outputFile": "Content/Custom/configuration.css",
+    "inputFile": "Content/Custom/configuration.scss"
+  },
+  {
+    "outputFile": "Content/Custom/buttons.css",
+    "inputFile": "Content/Custom/buttons.scss"
+  },
+  {
+    "outputFile": "Content/Custom/colors.css",
+    "inputFile": "Content/Custom/colors.scss"
+  },
+  {
+    "outputFile": "Content/Custom/bootstrapOverrides.css",
+    "inputFile": "Content/Custom/bootstrapOverrides.scss"
+  },
+  {
+    "outputFile": "Content/Custom/formComponents.css",
+    "inputFile": "Content/Custom/formComponents.scss"
+  },
+  {
+    "outputFile": "Content/site.css",
+    "inputFile": "Content/site.scss"
+  },
+  {
+    "outputFile": "Content/Custom/mediaQueries.css",
+    "inputFile": "Content/Custom/mediaQueries.scss"
+  }
+]
