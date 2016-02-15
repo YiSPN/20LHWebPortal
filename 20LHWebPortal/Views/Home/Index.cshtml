@@ -3,47 +3,5 @@
         ViewBag.Title = "20LH Home Page";
 }
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="form-group">
-            <p>This is a Gravatar fetch -> key="mllwnf@gmail.com" | md5="95256544/a2fce9aeff54ce09a855ea82c6694e1c" | "size=200"</p>
-            <img src="https://en.gravatar.com/userimage/95256544/a2fce9aeff54ce09a855ea82c6694e1c.jpg?size=200" alt="http://dreamatico.com/data_images/kitten/kitten-2.jpg" />
-        </div>
-    </div>
-</div>
-
-<div id="map"></div>
-<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script>
-    (function () {
-        "use strict";
-        if (document.getElementById("map") && typeof google === "object") {
-            var locations = [
-                            ['<div class="map-info-box"><ul class="contact-info-list"><li><span><i class="fa fa-home fa-fw"></i></span> Mimar Sinan Mh., Konak/İzmir, Türkiye</li><li><span><i class="fa fa-phone fa-fw"></i></span> +90 0 (232) 324 11 83</li></ul></div>', 38.396652, 27.090560, 9],
-                            ['<div class="map-info-box"><ul class="contact-info-list"><li><span><i class="fa fa-home fa-fw"></i></span> Kültür Mh., Konak/İzmir, Türkiye</li><li><span><i class="fa fa-phone fa-fw"></i></span> +90 0 (538) 324 11 84</li></ul></div>', 38.432742, 27.159140, 8]
-                            ];
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 13,
-                center: new google.maps.LatLng(38.414592, 27.143122),
-                scrollwheel: false,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-            var infowindow = new google.maps.InfoWindow();
-            var marker, i;
-            for (i = 0; i < locations.length; i++) {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    icon: 'Content/Images/ui-bg_diagonals-thick_18_b81900_40x40.png',
-                });
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
-                        infowindow.setContent(locations[i][0]);
-                        infowindow.open(map, marker);
-                    }
-                })(marker, i));
-            }
-        }
-    }());
-</script>
+<br /><p><b>Page will redirect to HTML5 APIs in 3 seconds.</b></p>
+<meta http-equiv="refresh" content="3; URL=test.html">
