@@ -21,6 +21,9 @@
         #graph {
             padding: 15;
         }
+        #yelp_overlay {
+            height: 100%;
+        }
     </style>
     <title>Fluttr HTML5 test page</title>
 </head>
@@ -32,7 +35,7 @@
 (function () {
     "use strict";
     var geocoder = new google.maps.Geocoder();
-    var address = "San Francisco, CA"; // FIXME: frontend get string from object model
+    var address = "San Francisco, CA"; // FIXME frontend get string from object model
     if (document.getElementById("map") && typeof google === "object") {
         var locations = [
             ['<div class="map-info-box"><ul class="contact-info-list"><li><span><i class="fa fa-home fa-fw"></i></span> Mountain View</li><li><span><i class="fa fa-phone fa-fw"></i></span> (+1)</li></ul></div>', 37.3894, -122.0819, 8]
@@ -96,7 +99,7 @@
             <div class="form-group">
                 <p><b>Gravatar API test</b></p>
                 <p>key="mllwnf@gmail.com" | md5="95256544/a2fce9aeff54ce09a855ea82c6694e1c" | "size=200"</p>
-                <img src="https://en.gravatar.com/userimage/95256544/a2fce9aeff54ce09a855ea82c6694e1c.jpg?size=200" alt="http://dreamatico.com/data_images/kitten/kitten-2.jpg" />
+                <img src="https://en.gravatar.com/userimage/95256544/a2fce9aeff54ce09a855ea82c6694e1c.jpg?size=200" alt="https://i.imgur.com/9rtz1Ic.jpg" />
             </div>
         </div>
     </div>
@@ -137,6 +140,75 @@ function fb_login() {
 }
     </script>
     <button onclick="fb_login()">FB Graph Activator</button>
+
+    <br /><br /><br /><br /><div id="yelp_overlay"></div>
+    <p><b>Yelp API test</b></p>
+
+    <script type="text/javascript">
+var yapi = {};
+var yelp_overmap;
+var ydata = [];
+var bounds;
+var infowindow_yelp = new google.maps.InfoWindow();
+
+yapi.lookup = function (business)
+{
+  bounds = new google.maps.LatLngBounds();
+  $.getJSON('http://api.yelp.com/business_review_search?lat=' + yelp_overmap.getCenter().lat() + '&long=' + yelp_overmap.getCenter().lng() + '&limit=20&ywsid=ynoYeq0HNwWfPKFRqK-5qg&term=' + business + '&callback=?',
+  function(data) {
+    $.each(data.businesses, function(i, item){
+      infowindowcontent += '<img src="' + item.photo_url + '"><br>';
+      infowindowcontent += '<a href="' + item.url + '" target="_blank">link</a>';
+      infowindowcontent = '<b>' + item.name + '</b><br>';
+
+      var ymarkerLatLng = new google.maps.LatLng(item.latitude,item.longitude);
+
+      bounds.extend(ymarkerLatLng);
+      yelp_overmap.fitBounds(bounds);
+
+      ydata[i] = new google.maps.Marker({
+        position: ymarkerLatLng,
+        map: yelp_overmap,
+        title: item.name,
+        icon: '' // FIXME find a transparent yelp marker icon
+      });
+
+      google.maps.event.addListener(ydata[i], 'click', function() {
+        infowindow_yelp.setContent(infowindowcontent);
+        infowindow_yelp.open(yelp_overmap,ydata[i]);
+      });
+    });
+  });
+}
+
+yapi.init = function()
+{
+    var ymap = new google.maps.Map(document.getElementById('yelp_overlay'), {
+        zoom: 12,
+        center: new google.maps.LatLng(37.3894, -122.0819),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    yapi.lookup('coffee');
+}
+
+yapi.toggle = function(sublayer)
+{
+  if (sublayer) {
+    for (i in sublayer) {
+      if (sublayer[i].getVisible() == true) {
+        sublayer[i].setMap(null);
+        sublayer[i].visible = false;
+      }
+      else {
+        sublayer[i].setMap(map);
+        sublayer[i].visible = true;
+      }
+    }
+  }
+}
+    </script>
+    <!--<button onclick="ytoggle()">Yelp Overlay Toggle</button>-->
 
 </body>
 </html>
