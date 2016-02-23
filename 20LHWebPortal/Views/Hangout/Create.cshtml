@@ -13,6 +13,7 @@
     <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.timepicker.min.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?"></script>
     <script>
 
     jQuery(document).ready(function ($) {
@@ -24,6 +25,67 @@
         $("#timepicker2").timepicker();
 
     });
+    </script>
+    <script type="text/javascript">
+        (function () {
+            "use strict";
+            var geocoder = new google.maps.Geocoder();
+            var address = "San Francisco, CA"; // FIXME: frontend get string from object model
+            if (document.getElementById("map") && typeof google === "object") {
+                var locations = [
+                    ['<div class="map-info-box"><ul class="contact-info-list"><li><span><i class="fa fa-home fa-fw"></i></span> Mountain View</li><li><span><i class="fa fa-phone fa-fw"></i></span> (+1)</li></ul></div>', 37.3894, -122.0819, 8]
+                ];
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 13,
+                    center: new google.maps.LatLng(37.3894, -122.0819),
+                    scrollwheel: false,
+                    navigationControl: true,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+                var infowindow_original = new google.maps.InfoWindow({
+                    content: '<b>' + 'redirect in 3 sec' + '</b>',
+                    size: new google.maps.Size(150, 50)
+                });
+                var marker_original = new google.maps.Marker({
+                    position: new google.maps.LatLng(37.3894, -122.0819),
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    title: 'mountain view'
+                });
+                google.maps.event.addListener(marker_original, 'click', function () {
+                    infowindow_original.open(map, marker_original);
+                });
+                var delay = 3000;
+                setTimeout(function () {
+                    if (geocoder) {
+                        geocoder.geocode({ 'address': address }, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                                    map.setCenter(results[0].geometry.location);
+                                    var infowindow = new google.maps.InfoWindow({
+                                        content: '<b>' + address + '</b>',
+                                        size: new google.maps.Size(150, 50)
+                                    });
+                                    var marker = new google.maps.Marker({
+                                        position: results[0].geometry.location,
+                                        map: map,
+                                        animation: google.maps.Animation.DROP,
+                                        title: address
+                                    });
+                                    google.maps.event.addListener(marker, 'click', function () {
+                                        infowindow.open(map, marker);
+                                    });
+                                }
+                            }
+                            else {
+                                alert(status);
+                                debugger;
+                            }
+                        });
+                    }
+                }, delay);
+            }
+        }());
     </script>
 </head>
 
@@ -76,6 +138,11 @@
             @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
         </div>
     </div>
+    <div class="form-group">
+        <p><b>Gmaps API test</b></p>
+        <div id="map"></div>
+    </div>
+    
     <div class="form-group">
         @Html.LabelFor(m => m.PartySize, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
