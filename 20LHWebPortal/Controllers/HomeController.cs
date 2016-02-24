@@ -29,5 +29,10 @@ namespace _20LHWebPortal.Controllers
 
             return View();
         }
+
+        public ActionResult TestView()
+        {
+            return View();
+        }
     }
 }

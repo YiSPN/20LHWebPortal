@@ -1,0 +1,212 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 15;
+        }
+
+        #map {
+            height: 50%;
+            width: 50%;
+            padding: 15;
+        }
+
+        #gravatar {
+            padding: 15;
+        }
+
+        #graph {
+            padding: 15;
+        }
+
+        #yelp_overlay {
+            height: 100%;
+        }
+    </style>
+    <title>Fluttr HTML5 test page test changes</title>
+</head>
+<body>
+    <p><b>Gmaps API test changes</b></p>
+    <div id="map"></div>
+    <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+(function () {
+    "use strict";
+    var geocoder = new google.maps.Geocoder();
+    var address = "San Francisco, CA"; // FIXME frontend get string from object model
+    if (document.getElementById("map") && typeof google === "object") {
+        var locations = [
+            ['<div class="map-info-box"><ul class="contact-info-list"><li><span><i class="fa fa-home fa-fw"></i></span> Mountain View</li><li><span><i class="fa fa-phone fa-fw"></i></span> (+1)</li></ul></div>', 37.3894, -122.0819, 8]
+        ];
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            center: new google.maps.LatLng(37.3894, -122.0819),
+            scrollwheel: false,
+            navigationControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        var infowindow_original = new google.maps.InfoWindow({
+            content: '<b>' + 'redirect in 3 sec' + '</b>',
+            size: new google.maps.Size(150, 50)
+        });
+        var marker_original = new google.maps.Marker({
+            position: new google.maps.LatLng(37.3894, -122.0819),
+            map: map,
+            animation: google.maps.Animation.DROP,
+            title: 'mountain view'
+        });
+        google.maps.event.addListener(marker_original, 'click', function () {
+            infowindow_original.open(map, marker_original);
+        });
+        var delay = 3000;
+        setTimeout(function () {
+            if (geocoder) {
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                            map.setCenter(results[0].geometry.location);
+                            var infowindow = new google.maps.InfoWindow({
+                                content: '<b>' + address + '</b>',
+                                size: new google.maps.Size(150, 50)
+                            });
+                            var marker = new google.maps.Marker({
+                                position: results[0].geometry.location,
+                                map: map,
+                                animation: google.maps.Animation.DROP,
+                                title: address
+                            });
+                            google.maps.event.addListener(marker, 'click', function () {
+                                infowindow.open(map, marker);
+                            });
+                        }
+                    }
+                    else {
+                        alert(status);
+                        debugger;
+                    }
+                });
+            }
+        }, delay);
+    }
+}());
+    </script>
+
+    <br /><br /><br /><br /><div class="row">
+        <div id="gravatar"></div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <p><b>Gravatar API test</b></p>
+                <p>key="mllwnf@gmail.com" | md5="95256544/a2fce9aeff54ce09a855ea82c6694e1c" | "size=200"</p>
+                <img src="https://en.gravatar.com/userimage/95256544/a2fce9aeff54ce09a855ea82c6694e1c.jpg?size=200" alt="https://i.imgur.com/9rtz1Ic.jpg" />
+            </div>
+        </div>
+    </div>
+
+    <br /><br /><br /><br /><div id="graph"></div>
+    <p><b>FB Graph API test</b></p>
+    <script>
+window.fbAsyncInit = function() {
+    FB.init({
+        appId  : '1550986835212355',
+        xfbml  : true,
+        version: 'v2.5'
+    });
+};
+(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+function fb_login() {
+    FB.login(function () {
+        FB.api('/me', function (response) {
+            fbinfo = new Array();
+            fbinfo[0] = response.id;
+            fbinfo[1] = response.first_name;
+            fbinfo[2] = response.last_name;
+            fbinfo[3] = response.email;
+            var img = document.createElement("img");
+            img.src = "http://graph.facebook.com/" + fbinfo[0] + "/picture?type=normal";
+            document.body.appendChild(img);
+        });
+    }, { scope: 'publish_actions' });
+}
+    </script>
+    <button onclick="fb_login()">FB Graph Activator</button>
+
+    <br /><br /><br /><br /><div id="yelp_overlay"></div>
+    <p><b>Yelp API test</b></p>
+
+    <script type="text/javascript">
+var yapi = {};
+var yelp_overmap;
+var ydata = [];
+var bounds;
+var infowindow_yelp = new google.maps.InfoWindow();
+yapi.lookup = function (business)
+{
+  bounds = new google.maps.LatLngBounds();
+  $.getJSON('http://api.yelp.com/business_review_search?lat=' + yelp_overmap.getCenter().lat() + '&long=' + yelp_overmap.getCenter().lng() + '&limit=20&ywsid=ynoYeq0HNwWfPKFRqK-5qg&term=' + business + '&callback=?',
+  function(data) {
+    $.each(data.businesses, function(i, item){
+      infowindowcontent += '<img src="' + item.photo_url + '"><br>';
+      infowindowcontent += '<a href="' + item.url + '" target="_blank">link</a>';
+      infowindowcontent = '<b>' + item.name + '</b><br>';
+      var ymarkerLatLng = new google.maps.LatLng(item.latitude,item.longitude);
+      bounds.extend(ymarkerLatLng);
+      yelp_overmap.fitBounds(bounds);
+      ydata[i] = new google.maps.Marker({
+        position: ymarkerLatLng,
+        map: yelp_overmap,
+        title: item.name,
+        icon: '' // FIXME find a transparent yelp marker icon
+      });
+      google.maps.event.addListener(ydata[i], 'click', function() {
+        infowindow_yelp.setContent(infowindowcontent);
+        infowindow_yelp.open(yelp_overmap,ydata[i]);
+      });
+    });
+  });
+}
+yapi.init = function()
+{
+    var ymap = new google.maps.Map(document.getElementById('yelp_overlay'), {
+        zoom: 12,
+        center: new google.maps.LatLng(37.3894, -122.0819),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    yapi.lookup('coffee');
+}
+yapi.toggle = function(sublayer)
+{
+  if (sublayer) {
+    for (i in sublayer) {
+      if (sublayer[i].getVisible() == true) {
+        sublayer[i].setMap(null);
+        sublayer[i].visible = false;
+      }
+      else {
+        sublayer[i].setMap(map);
+        sublayer[i].visible = true;
+      }
+    }
+  }
+}
+    </script>
+    <!--<button onclick="ytoggle()">Yelp Overlay Toggle</button>-->
+
+</body>
+</html>

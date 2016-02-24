@@ -429,8 +429,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Home\test.html">
-      <BrowseToURL>~/Home/test.html</BrowseToURL>
+    <Content Include="Views\Home\test.cshtml">
+      <BrowseToURL>~/Home/test</BrowseToURL>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -476,6 +476,7 @@
     <Content Include="Views\Hangout\ShowNoShow.cshtml" />
     <Content Include="Views\Hangout\EditorTemplates\ShowOrNoShowUser.cshtml" />
     <Content Include="Views\Shared\menu.cshtml" />
+    <Content Include="Views\Home\TestView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AspNetUsers_Hangout.dbml.layout">
