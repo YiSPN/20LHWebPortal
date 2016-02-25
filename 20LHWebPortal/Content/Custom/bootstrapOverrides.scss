@@ -203,3 +203,15 @@
 .table tbody tr td:not(:last-child) {
     border-right: 1px solid #e1e8ef;
 }
+
+
+/*  Jumbotrons
+****************************/
+.jumbotron{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.container .jumbotron, 
+.container-fluid .jumbotron{
+    border-radius: 0;
+}

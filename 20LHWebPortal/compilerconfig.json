@@ -26,5 +26,9 @@
   {
     "outputFile": "Content/Custom/mediaQueries.css",
     "inputFile": "Content/Custom/mediaQueries.scss"
+  },
+  {
+    "outputFile": "Content/Custom/uiComponents.css",
+    "inputFile": "Content/Custom/uiComponents.scss"
   }
 ]

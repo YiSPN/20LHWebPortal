@@ -1,11 +1,48 @@
 ﻿@model _20LHWebPortal.Models.UserGravatarModel
 @{
-        ViewBag.Title = "20LH Home Page";
+    ViewBag.Title = "20LH Home Page";
+    ViewBag.HideTitle = true;
 }
 
-<br /><p><b>Page will redirect to HTML5 APIs in 3 seconds.</b></p>
-@*<meta http-equiv="refresh" content="3; URL=test.html">*@
-@Html.ActionLink("Test Page", "TestView", "Home")
+
 
 @*<meta http-equiv="refresh" content="3; URL=/Home/test.html">*@
 
+<div class="jumbotron">
+    <div class="container">
+        <img src="http://2.bp.blogspot.com/-bJOSzvQLkP8/USo0jJSjAII/AAAAAAAAKvI/PXbQXDUAlbY/s1600/Crazy_Cyclist_With_Mountain_Bike_On_Hills_2013_Hd_Desktop_Wallpaper_citiesandteams.blogspot.com.jpg" alt=""/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1>
+            20LH
+        </h1>
+        <br/>
+        <p>
+            Page will redirect to HTML5 APIs in 3 seconds.
+        </p>
+        @*<meta http-equiv="refresh" content="3; URL=test.html">*@
+        <a href="@Url.Action("TestView", "Home")" class="button blue">Test Page</a>
+    </div>
+</div>
+
+
+<style>
+    .jumbotron {
+        height: 600px;
+        padding: 0 !important;
+        overflow: hidden;
+    }
+    .jumbotron .container {
+        padding: 0;
+        width: 100%;
+    }
+    .jumbotron img {
+        display: inline-block;
+        width: 100%;
+        top: -200px;
+        position: relative;
+    }
+</style>
