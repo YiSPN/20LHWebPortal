@@ -4,10 +4,6 @@ $button-padding: 6px 12px;
 $button-text-weight: 700;
 $button-border-radius: 30px;
 
-// Text
-$text-color-dark: #555;
-$text-color-light: #eee;
-
 // Colors
 $blue: #1DB4C5;
 $green: #10a461;
@@ -15,6 +11,14 @@ $yellow: #EF9D27;
 $orange: #F47838;
 $red: #E1593D;
 $default-color: #10a461;
+$dark: #222627;
+$light: #F2F5F7;
+$white: #fff;
+
+// Text
+$text-color-dark: #555;
+$text-color-light: #eee;
+$text-color-default: $default-color; 
 
 $hover-shade: 10%;
 $blue-hover: darken($blue, $hover-shade);
@@ -23,6 +27,9 @@ $yellow-hover: darken($yellow, $hover-shade);
 $orange-hover: darken($orange, $hover-shade);
 $red-hover: darken($red, $hover-shade);
 $default-color-hover: darken($default-color, $hover-shade);
+$dark-hover: darken($dark, $hover-shade);
+$light-hover: darken($light, $hover-shade);
+$white-hover: darken($white, $hover-shade);
 
 // Sitewide configuration
 $site-font-family : 'Open Sans', sans-serif;
