@@ -247,6 +247,6 @@ C:\Users\y.mei\Desktop\GitHub\20LHWebPortal\20LHWebPortal\bin\System.Web.WebPage
 C:\Users\y.mei\Desktop\GitHub\20LHWebPortal\20LHWebPortal\bin\System.Web.WebPages.Deployment.xml
 C:\Users\y.mei\Desktop\GitHub\20LHWebPortal\20LHWebPortal\bin\System.Web.WebPages.Razor.xml
 C:\Users\y.mei\Desktop\GitHub\20LHWebPortal\20LHWebPortal\bin\System.Web.Optimization.xml
-C:\Users\y.mei\Desktop\GitHub\20LHWebPortal\20LHWebPortal\obj\Debug\20LHWebPortal.csprojResolveAssemblyReference.cache
 C:\Users\y.mei\Desktop\GitHub\20LHWebPortal\20LHWebPortal\obj\Debug\20LHWebPortal.dll
 C:\Users\y.mei\Desktop\GitHub\20LHWebPortal\20LHWebPortal\obj\Debug\20LHWebPortal.pdb
+C:\Users\y.mei\Desktop\GitHub\20LHWebPortal\20LHWebPortal\obj\Debug\20LHWebPortal.csprojResolveAssemblyReference.cache
