@@ -13,6 +13,7 @@
     <link href="~/Content/site.css" rel="stylesheet" />
     <link href="~/Content/Custom/bootstrapOverrides.min.css" rel="stylesheet"/>
     <link href="~/Content/Custom/formComponents.min.css" rel="stylesheet"/>
+    <link href="~/Content/Custom/uiComponents.min.css" rel="stylesheet"/>
     <link href="~/Content/Custom/mediaQueries.min.css" rel="stylesheet" />
 
     @Scripts.Render("~/bundles/modernizr")
@@ -21,7 +22,9 @@
 <body>
 <div id="contentWrap">
     <header class="hidden-xs hidden-md">
-        <div id="logo"></div>
+        <div id="logo">
+            <strong>20LH</strong>
+        </div>
         <div id="desktopNav">
             @Html.Partial("menu")
         </div>
@@ -44,12 +47,21 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1>@ViewBag.Title</h1>
-                <hr/>
+        @{
+            if (ViewBag.HideTitle == null)
+            {
+                ViewBag.HideTitle = false;
+            }
+        }
+        @if (!ViewBag.HideTitle)
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>@ViewBag.Title</h1>
+                </div>
             </div>
-        </div>
+        }
+
         @RenderBody()
     </div>
 </div>
