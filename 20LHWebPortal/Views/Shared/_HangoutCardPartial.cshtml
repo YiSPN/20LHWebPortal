@@ -1,0 +1,66 @@
+﻿@model _20LHWebPortal.Models.HangoutViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="event">
+    <div class="title">
+        @Model.Name
+    </div>
+    <div class="banner">
+        <img src="/Content/Images/event-banner.jpg" alt="event banner" />
+    </div>
+    <div class="user-info">
+        <img src="/Content/Images/user.png" alt="user photo" />
+        <p>@Model.HostName</p>
+    </div>
+    <div class="description">
+        @Model.Description
+        @if (Model.Description.Length > 120)
+        {
+            <a href="@Url.Action("View", "Event")">...read more</a>
+        }
+    </div>
+    <div class="location">
+        @Model.Location
+
+        @if (Model.IsHost)
+            {
+            @Html.ActionLink(
+                "Edit",
+                "Edit",
+                new { id = Model.Id })
+            @Html.ActionLink(
+                "Delete",
+                "Delete",
+                new { id = Model.Id },
+                new { onclick = "return confirm('Are you sure you wish to delete this event?');" })
+        }
+        else if (Model.IsRsvp)
+        {
+            @Html.ActionLink(
+                "UnRSVP",
+                "UnRSVP",
+                new { id = Model.Id })
+        }
+    </div>
+    
+                    <div class="time-frame">
+                        <span class="date">
+                            @if (@Model.Date.HasValue)
+                            { @String.Format("{0:dddd, MMMM d, yyyy}", Model.Date)}
+                        </span>
+                        <div class="from">
+                            @if (@Model.StartTime.HasValue)
+                            { @Model.StartTime.Value.ToString("h:mm tt")}
+                        </div>
+                        <div class="to">
+                            @if (@Model.EndTime.HasValue)
+                            { <p>to @Model.EndTime.Value.ToString("h:mm tt")</p> }
+                        </div>
+
+                    </div>
+</div>
+
+

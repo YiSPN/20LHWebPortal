@@ -489,6 +489,7 @@
     <Content Include="Views\Home\TestView.cshtml" />
     <Content Include="Views\Home\Ui.cshtml" />
     <Content Include="Views\Shared\_EventCardPartial.cshtml" />
+    <Content Include="Views\Shared\_HangoutCardPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AspNetUsers_Hangout.dbml.layout">

@@ -66,7 +66,8 @@ namespace _20LHWebPortal.Models
                     HostName = GetUserName(h.UserCreator),
                     IsHost = true,
                     IsRsvp = false,
-                    HostAverageRating = Math.Round(average, 2)
+                    HostAverageRating = Math.Round(average, 2),
+                    Location = h.Location
                 };
 
                 foreach (var a in allAtendees)
@@ -117,7 +118,8 @@ namespace _20LHWebPortal.Models
                             OpenSpots = tempHangout.PartySize - allAtendees.Count(),
                             HostName = GetUserName(tempHangout.UserCreator),
                             HostAverageRating = Math.Round(average, 2),
-                            IsRsvp = true
+                            IsRsvp = true,
+                            Location = tempHangout.Location
                         };
 
                         foreach (var a in allAtendees)

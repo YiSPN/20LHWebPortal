@@ -1,7 +1,5 @@
 ﻿@model IQueryable<_20LHWebPortal.Models.HangoutViewModel>
-@{
-    ViewBag.Title = "MyHangouts";
-}
+
 
 <h2>My Hangouts -_^</h2>
 <div>
@@ -39,6 +37,16 @@ You have @ViewBag.Strikes strikes.
     }
 </style>
 
+@foreach (var item in Model)
+{
+    <div class="row" style="text-align: center">
+        <div class="col-lg-12">
+            @Html.Partial("_HangoutCardPartial", item)
+        </div>
+    </div>
+
+}
+
 <table style="width:100%">
     <tr>
         <th>
@@ -58,6 +66,9 @@ You have @ViewBag.Strikes strikes.
         </th>
 
     </tr>
+
+    
+
 
     @foreach (var item in Model)
     {
