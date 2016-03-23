@@ -1,0 +1,20 @@
+﻿@model IQueryable<_20LHWebPortal.Models.ActivityViewModel>
+
+
+
+<h2>Activity</h2>
+<div>
+    @Html.ActionLink("+ Create a Hangout", "Create", "Hangout")
+</div>
+You have @ViewBag.Strikes strikes.
+
+@Html.AntiForgeryToken()
+@foreach (var item in Model)
+{
+    <div class="row" style="text-align: center">
+        <div class="col-lg-12">
+            @Html.Partial("_ActivityCardPartial", item)
+        </div>
+    </div>
+
+}

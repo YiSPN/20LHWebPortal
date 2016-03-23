@@ -92,6 +92,16 @@ namespace _20LHWebPortal.Controllers
             
         }
 
+        public ActionResult Activity()
+        {
+            var activityListViewModel = new ActivityListViewModel
+            {
+                ListOfActivities = _hangoutRepository.ListActivityLog()
+            };
+
+            return View(activityListViewModel.ListOfActivities.AsQueryable());
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -274,6 +284,7 @@ namespace _20LHWebPortal.Controllers
                 var userInfo = User.Identity.GetUserId();
                 model.UserId = userInfo;
                 _hangoutRepository.Create(model);
+                
                 
                 return RedirectToAction("MyHangouts");
 

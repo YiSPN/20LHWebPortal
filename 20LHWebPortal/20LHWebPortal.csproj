@@ -242,6 +242,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HangoutController.cs" />
+    <Compile Include="Models\ActivityLog.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActivityLog.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ActivityTypeEnum.cs" />
+    <Compile Include="Models\ActivityListViewModel.cs" />
     <Compile Include="Models\AspNetUsers.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -415,6 +422,14 @@
     <Content Include="Content\site.scss" />
     <Content Include="Content\Custom\mediaQueries.scss" />
     <Content Include="Content\Custom\uiComponents.scss" />
+    <Content Include="Models\ActivityLog.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ActivityLog.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Models\ActivityLog.dbml.layout">
+      <DependentUpon>ActivityLog.dbml</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Content\Images\am_eskimo3.jpg" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -490,6 +505,8 @@
     <Content Include="Views\Home\Ui.cshtml" />
     <Content Include="Views\Shared\_EventCardPartial.cshtml" />
     <Content Include="Views\Shared\_HangoutCardPartial.cshtml" />
+    <Content Include="Views\Hangout\Activity.cshtml" />
+    <Content Include="Views\Shared\_ActivityCardPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AspNetUsers_Hangout.dbml.layout">

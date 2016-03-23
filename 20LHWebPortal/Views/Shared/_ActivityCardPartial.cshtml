@@ -1,0 +1,35 @@
+﻿@model _20LHWebPortal.Models.ActivityViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="event">
+    <div class="title">
+        <img src="/Content/Images/user.png" alt="user photo" />
+        @{
+            var activity = " ";
+            if (Model.activityType == 0)
+            {
+                activity = "created";
+            }
+            else if (Model.activityType == 1)
+            {
+                activity = "joined";
+            }
+            <p>
+                @Model.username @activity 
+                @Model.hangoutName at @Model.timeStamp
+            </p>
+        }
+        
+    </div>
+    
+    <div class="description">
+        
+        
+        
+    </div>
+</div>
+
+

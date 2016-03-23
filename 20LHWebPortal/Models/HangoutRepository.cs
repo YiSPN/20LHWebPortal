@@ -13,6 +13,7 @@ namespace _20LHWebPortal.Models
         private AspNetUsersDataContext AspNetUsers_db;
         private OrganizerRatingsDataContext OrganizerRatings_db;
         private HangoutRatingsDataContext HangoutRatings_db;
+        private ActivityLogDataContext ActivityLog_db;
 
         public HangoutRepository()
         {
@@ -21,6 +22,7 @@ namespace _20LHWebPortal.Models
             AspNetUsers_db = new AspNetUsersDataContext();
             OrganizerRatings_db = new OrganizerRatingsDataContext();
             HangoutRatings_db = new HangoutRatingsDataContext();
+            ActivityLog_db = new ActivityLogDataContext();
         }
         public List<HangoutViewModel> ListMyHangouts(string userId)
         {
@@ -139,6 +141,26 @@ namespace _20LHWebPortal.Models
 
             return returnList;
         }
+
+        public List<ActivityViewModel> ListActivityLog()
+        {
+            var returnList = new List<ActivityViewModel>();
+            var activities = from m in ActivityLog_db.ActivityLogs
+                                    select m;
+            foreach (var a in activities.ToList())
+            {
+                var activity = new ActivityViewModel
+                {
+                    activityType = a.ActivityType,
+                    hangoutName = GetHangoutById(a.HangoutId).Name,
+                    timeStamp = a.TimeStamp,
+                    username = GetUserName(a.AspNetUserId)
+                };
+                returnList.Add(activity);
+            }
+            return returnList;
+        }
+
 
         public List<HangoutViewModel> ListUpcomingHangouts(string userId)
         {
@@ -624,8 +646,7 @@ namespace _20LHWebPortal.Models
                 Address = model.Address,
                 PartySize = model.PartySize,
                 ContactInfo = model.ContactInfo,
-                GenderRatio = model.GenderRatio
-                ,
+                GenderRatio = model.GenderRatio,
                 StartTime = DateTime.Parse(model.StartTime),
                 EndTime = DateTime.Parse(model.EndTime)
                 
@@ -634,10 +655,12 @@ namespace _20LHWebPortal.Models
             //Need to grab user in controller
             Hangout_db.Hangouts.InsertOnSubmit(hang);
 
+            
+
             try
             {
                 Hangout_db.SubmitChanges();
-
+                // TODO: Add log entry for create event.
             }
             catch (Exception e)
             {
@@ -647,7 +670,31 @@ namespace _20LHWebPortal.Models
                 // Try again.
                 Hangout_db.SubmitChanges();
             }
-                      
+
+            ActivityLog actLog = new ActivityLog
+            {
+                AspNetUserId = model.UserId,
+                HangoutId = hang.Id,
+                TimeStamp = DateTime.Now,
+                ActivityType = (int) ActivityType.Create
+            };
+
+            ActivityLog_db.ActivityLogs.InsertOnSubmit(actLog);
+
+            try
+            {
+                ActivityLog_db.SubmitChanges();
+                // TODO: Add log entry for create event.
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // Make some adjustments. 
+                // ... 
+                // Try again.
+                ActivityLog_db.SubmitChanges();
+            }
+
         }
 
         public void Delete(int id)

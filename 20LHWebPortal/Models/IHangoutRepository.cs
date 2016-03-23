@@ -43,5 +43,7 @@ namespace _20LHWebPortal.Models
 
         ShowNoShowHangoutViewModel GetShowNoShow(int hangoutId);
 
+        List<ActivityViewModel> ListActivityLog();
+
     }
 }
