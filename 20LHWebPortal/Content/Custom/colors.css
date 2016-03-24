@@ -12,7 +12,7 @@
   background-color: #1DB4C5; }
 
 .green {
-  background-color: #10a461; }
+  background-color: #85cd3f; }
 
 .yellow {
   background-color: #EF9D27; }
@@ -24,13 +24,13 @@
   background-color: #E1593D; }
 
 .default-color {
-  background-color: #10a461; }
+  background-color: #85cd3f; }
 
 .blue:hover {
   background-color: #168b99; }
 
 .green:hover {
-  background-color: #0b7646; }
+  background-color: #6cac2d; }
 
 .yellow:hover {
   background-color: #d38310; }
@@ -42,7 +42,7 @@
   background-color: #cc3d1f; }
 
 .default-color:hover {
-  background-color: #0b7646; }
+  background-color: #6cac2d; }
 
 /*	Color Classes [without hover effects]
 ***********************************/
@@ -50,7 +50,7 @@
   background-color: #1DB4C5; }
 
 .green-no-hover {
-  background-color: #10a461; }
+  background-color: #85cd3f; }
 
 .yellow-no-hover {
   background-color: #EF9D27; }
@@ -62,5 +62,5 @@
   background-color: #E1593D; }
 
 .default-color-no-hover {
-  background-color: #10a461; }
+  background-color: #85cd3f; }
 

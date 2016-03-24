@@ -57,7 +57,7 @@
   display: inline-block;
   width: 100%;
   padding: 10px;
-  border-bottom: 1px dotted #10a461; }
+  border-bottom: 1px dotted #85cd3f; }
 
 .event .location::before {
   display: inline-block;
@@ -65,7 +65,7 @@
   margin-top: -2px;
   margin-right: 10px;
   content: "\e062";
-  color: #10a461;
+  color: #85cd3f;
   font-family: 'Glyphicons Halflings';
   font-size: 18px; }
 
@@ -99,6 +99,6 @@
 
 .event .time-frame .date {
   text-transform: uppercase;
-  color: #10a461;
+  color: #85cd3f;
   font-weight: 600; }
 
