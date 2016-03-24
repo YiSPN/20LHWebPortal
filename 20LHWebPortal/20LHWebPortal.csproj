@@ -346,6 +346,7 @@
     <Content Include="Content\Custom\uiComponents.min.css">
       <DependentUpon>uiComponents.css</DependentUpon>
     </Content>
+    <Content Include="Content\Images\Custom\20lh_logo.png" />
     <Content Include="Content\Images\event-banner.jpg" />
     <Content Include="Content\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />

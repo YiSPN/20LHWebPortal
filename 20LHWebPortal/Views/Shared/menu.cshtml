@@ -2,36 +2,21 @@
 
 <ul>
     @*<li><a href="@Url.Action("Ui", "Home")">UI Components</a></li>*@
-    @if (Request.IsAuthenticated)
+    @if (Request.IsAuthenticated || true)
     {
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = "navbar-right"}))
-        {
-            @Html.AntiForgeryToken()
 
-            <li>
-                @Html.ActionLink("Home", "Index", "Home");
-            </li>
-            <li>
-                @Html.ActionLink("My Hangouts", "MyHangouts", "Hangout");
-            </li>
-            <li>
-                @Html.ActionLink("Upcoming", "Upcoming", "Hangout");
-            </li>
-            <li>
-                @Html.ActionLink("Activity", "Activity", "Hangout");
-            </li>
-            <li>
-                @Html.ActionLink("Past", "Past", "Hangout");
-            </li>
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Manage"})
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        }
+        <li>
+            <a href="#">Upcoming</a>
+        </li>
+        <li>
+            <a href="#">Activity</a>
+        </li>
+        <li>
+            <a href="#">My Hangouts</a>
+        </li>
     }
     else
     {
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new {id = "registerLink"})</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"})</li>
+        <!-- Links when not logged in goes here -->
     }
 </ul>
