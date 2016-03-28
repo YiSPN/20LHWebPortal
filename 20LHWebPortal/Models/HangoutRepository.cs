@@ -146,6 +146,7 @@ namespace _20LHWebPortal.Models
         {
             var returnList = new List<ActivityViewModel>();
             var activities = from m in ActivityLog_db.ActivityLogs
+                             orderby m.TimeStamp descending
                                     select m;
             foreach (var a in activities.ToList())
             {
@@ -332,39 +333,40 @@ namespace _20LHWebPortal.Models
                            select a).SingleOrDefault();
             if (Hangout.AttendeeCount < Hangout.PartySize)
             {
-                                              
-                if(Hangout.GenderRatio)
-                {
-                                        
-                    var UserAccount = (from a in AspNetUsers_db.AspNetUsers
+
+                var UserAccount = (from a in AspNetUsers_db.AspNetUsers
                                    where a.Id == userId
                                    select a).SingleOrDefault();
+                //if (AspNetUsers_Hangout_db.AspNetUsers_Hangouts.Any())
+                //    {
+                var UserHangout = (from a in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
+                                   where a.HangoutId == hangoutId && a.AspNetUsers == userId
+                                   select a).SingleOrDefault();
 
-                    if((UserAccount.Gender == 0 && Hangout.MaleAttendingCount < Hangout.PartySize/2) || ((UserAccount.Gender == 1 && Hangout.FemaleAttendingCount < Hangout.PartySize/2))) // Male
+                if (UserHangout == null)
+                {
+                    UserHangout = new AspNetUsers_Hangout
                     {
-                        //if (AspNetUsers_Hangout_db.AspNetUsers_Hangouts.Any())
-                        //    {
-                                var UserHangout = (from a in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                                   where a.HangoutId == hangoutId && a.AspNetUsers == userId
-                                                   select a).SingleOrDefault();
+                        AspNetUsers = userId,
+                        HangoutId = hangoutId,
+                        IsRSVPd = true,
+                        IsWaitlist = false
+                    };
 
-                                if (UserHangout == null)
-                                {
-                                    UserHangout = new AspNetUsers_Hangout
-                                    {
-                                        AspNetUsers = userId,
-                                        HangoutId = hangoutId,
-                                        IsRSVPd = true,
-                                        IsWaitlist = false
-                                    };
+                    AspNetUsers_Hangout_db.AspNetUsers_Hangouts.InsertOnSubmit(UserHangout);
+                }
+                else
+                {
+                    UserHangout.IsRSVPd = true;
+                }
+                //}
 
-                                    AspNetUsers_Hangout_db.AspNetUsers_Hangouts.InsertOnSubmit(UserHangout);
-                                }
-                                else
-                                {
-                                    UserHangout.IsRSVPd = true;
-                                }
-                            //}
+                
+
+                if (Hangout.GenderRatio)
+                {
+                    if ((UserAccount.Gender == 0 && Hangout.MaleAttendingCount < Hangout.PartySize / 2) || ((UserAccount.Gender == 1 && Hangout.FemaleAttendingCount < Hangout.PartySize / 2)))
+                    {
                         try
                         {
                             if (UserAccount.Gender == 0)
@@ -376,9 +378,20 @@ namespace _20LHWebPortal.Models
                                 Hangout.FemaleAttendingCount++;
                             }
                             Hangout.AttendeeCount++;
+
+                            ActivityLog actLog = new ActivityLog
+                            {
+                                AspNetUserId = UserAccount.Id,
+                                HangoutId = Hangout.Id,
+                                TimeStamp = DateTime.Now,
+                                ActivityType = (int)ActivityType.Join
+                            };
+
+                            ActivityLog_db.ActivityLogs.InsertOnSubmit(actLog);
+
                             Hangout_db.SubmitChanges();
                             AspNetUsers_Hangout_db.SubmitChanges();
-                            
+                            ActivityLog_db.SubmitChanges();
                         }
                         catch (Exception e)
                         {
@@ -386,66 +399,21 @@ namespace _20LHWebPortal.Models
                             // Make some adjustments. 
                             // ... 
                             // Try again.
+                            Hangout_db.SubmitChanges();
                             AspNetUsers_Hangout_db.SubmitChanges();
-                        }  
+                            ActivityLog_db.SubmitChanges();
+                        }
                     }
-                }
-                else
-                {
-                    //if (AspNetUsers_Hangout_db.AspNetUsers_Hangouts.Any())
-                    //{
-                    var UserAccount = (from a in AspNetUsers_db.AspNetUsers
-                                       where a.Id == userId
-                                       select a).SingleOrDefault();
-                        var UserHangout = (from a in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                           where a.HangoutId == hangoutId && a.AspNetUsers == userId
-                                           select a).SingleOrDefault();
-
-                        if (UserHangout == null)
-                        {
-                            UserHangout = new AspNetUsers_Hangout
-                            {
-                                AspNetUsers = userId,
-                                HangoutId = hangoutId,
-                                IsRSVPd = true,
-                                IsWaitlist = false
-                            };
-
-                            AspNetUsers_Hangout_db.AspNetUsers_Hangouts.InsertOnSubmit(UserHangout);
-                        }
-                        else
-                        {
-                            UserHangout.IsRSVPd = true;
-                        }
-                    //}
-
-                    try
+                    else
                     {
-                        if (UserAccount.Gender == 0)
-                        {
-                            Hangout.MaleAttendingCount++;
-                        }
-                        else
-                        {
-                            Hangout.FemaleAttendingCount++;
-                        }
-                        Hangout.AttendeeCount++;
-                        Hangout_db.SubmitChanges();
-                        AspNetUsers_Hangout_db.SubmitChanges();
-                        
-
+                        // Hangout has too many boys/girls. Cant join.
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        // Make some adjustments. 
-                        // ... 
-                        // Try again.
-                        AspNetUsers_Hangout_db.SubmitChanges();
-                    }  
                 }
                 
-                               
+            }
+            else
+            {
+                // Hangout too full. Cant join.
             }
 
                                    
