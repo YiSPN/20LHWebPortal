@@ -331,12 +331,15 @@ namespace _20LHWebPortal.Models
             var Hangout = (from a in Hangout_db.Hangouts
                            where a.Id == hangoutId
                            select a).SingleOrDefault();
-            if (Hangout.AttendeeCount < Hangout.PartySize)
+            var UserAccount = (from a in AspNetUsers_db.AspNetUsers
+                               where a.Id == userId
+                               select a).SingleOrDefault();
+            if ((Hangout.AttendeeCount < Hangout.PartySize && Hangout.GenderRatio == false) || 
+                (Hangout.AttendeeCount < Hangout.PartySize && Hangout.GenderRatio == true &&
+                (UserAccount.Gender == 0 && Hangout.MaleAttendingCount < Hangout.PartySize / 2) || (UserAccount.Gender == 1 && Hangout.FemaleAttendingCount < Hangout.PartySize / 2)))
             {
-
-                var UserAccount = (from a in AspNetUsers_db.AspNetUsers
-                                   where a.Id == userId
-                                   select a).SingleOrDefault();
+                // need to apply and if for hangout.genderratio
+                
                 //if (AspNetUsers_Hangout_db.AspNetUsers_Hangouts.Any())
                 //    {
                 var UserHangout = (from a in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
@@ -354,6 +357,7 @@ namespace _20LHWebPortal.Models
                     };
 
                     AspNetUsers_Hangout_db.AspNetUsers_Hangouts.InsertOnSubmit(UserHangout);
+                    // does not ever submit need to submit changes.
                 }
                 else
                 {
@@ -361,62 +365,49 @@ namespace _20LHWebPortal.Models
                 }
                 //}
 
-                
-
-                if (Hangout.GenderRatio)
+                try
                 {
-                    if ((UserAccount.Gender == 0 && Hangout.MaleAttendingCount < Hangout.PartySize / 2) || ((UserAccount.Gender == 1 && Hangout.FemaleAttendingCount < Hangout.PartySize / 2)))
+                    if (UserAccount.Gender == 0)
                     {
-                        try
-                        {
-                            if (UserAccount.Gender == 0)
-                            {
-                                Hangout.MaleAttendingCount++;
-                            }
-                            else
-                            {
-                                Hangout.FemaleAttendingCount++;
-                            }
-                            Hangout.AttendeeCount++;
-
-                            ActivityLog actLog = new ActivityLog
-                            {
-                                AspNetUserId = UserAccount.Id,
-                                HangoutId = Hangout.Id,
-                                TimeStamp = DateTime.Now,
-                                ActivityType = (int)ActivityType.Join
-                            };
-
-                            ActivityLog_db.ActivityLogs.InsertOnSubmit(actLog);
-
-                            Hangout_db.SubmitChanges();
-                            AspNetUsers_Hangout_db.SubmitChanges();
-                            ActivityLog_db.SubmitChanges();
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            // Make some adjustments. 
-                            // ... 
-                            // Try again.
-                            Hangout_db.SubmitChanges();
-                            AspNetUsers_Hangout_db.SubmitChanges();
-                            ActivityLog_db.SubmitChanges();
-                        }
+                        Hangout.MaleAttendingCount++;
                     }
                     else
                     {
-                        // Hangout has too many boys/girls. Cant join.
+                        Hangout.FemaleAttendingCount++;
                     }
+                    Hangout.AttendeeCount++;
+
+                    ActivityLog actLog = new ActivityLog
+                    {
+                        AspNetUserId = UserAccount.Id,
+                        HangoutId = Hangout.Id,
+                        TimeStamp = DateTime.Now,
+                        ActivityType = (int)ActivityType.Join
+                    };
+
+                    ActivityLog_db.ActivityLogs.InsertOnSubmit(actLog);
+
+                    Hangout_db.SubmitChanges();
+                    AspNetUsers_Hangout_db.SubmitChanges();
+                    ActivityLog_db.SubmitChanges();
                 }
-                
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    // Make some adjustments. 
+                    // ... 
+                    // Try again.
+                    Hangout_db.SubmitChanges();
+                    AspNetUsers_Hangout_db.SubmitChanges();
+                    ActivityLog_db.SubmitChanges();
+                }
             }
-            else
+            else 
             {
-                // Hangout too full. Cant join.
+                // Hangout too full/Hangout has too many boys/girls. Cant join.
             }
 
-                                   
+
         }
 
         public void WaitlistHangout(string userId, int hangoutId)
