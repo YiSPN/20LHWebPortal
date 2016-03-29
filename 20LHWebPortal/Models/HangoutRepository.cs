@@ -338,8 +338,6 @@ namespace _20LHWebPortal.Models
                 (Hangout.AttendeeCount < Hangout.PartySize && Hangout.GenderRatio == true &&
                 (UserAccount.Gender == 0 && Hangout.MaleAttendingCount < Hangout.PartySize / 2) || (UserAccount.Gender == 1 && Hangout.FemaleAttendingCount < Hangout.PartySize / 2)))
             {
-                // need to apply and if for hangout.genderratio
-                
                 //if (AspNetUsers_Hangout_db.AspNetUsers_Hangouts.Any())
                 //    {
                 var UserHangout = (from a in AspNetUsers_Hangout_db.AspNetUsers_Hangouts

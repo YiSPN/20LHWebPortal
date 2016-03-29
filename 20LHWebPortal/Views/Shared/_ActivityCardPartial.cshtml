@@ -3,6 +3,19 @@
 @{
     Layout = null;
 }
+<head>
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/jquery.timeago.js"></script>
+
+
+    <script>
+        var $j = jQuery.noConflict();
+$j(document).ready(function() {
+  $j("time.timeago").timeago();
+});
+    </script>
+</head>
+
 
 <div class="event">
     <div class="title">
@@ -19,7 +32,8 @@
             }
             <p>
                 @Model.username @activity 
-                @Model.hangoutName at @Model.timeStamp
+                @Model.hangoutName at <time class="timeago" datetime=@Model.timeStamp></time>
+                
             </p>
         }
         
