@@ -379,7 +379,7 @@ namespace _20LHWebPortal.Models
                     {
                         AspNetUserId = UserAccount.Id,
                         HangoutId = Hangout.Id,
-                        TimeStamp = DateTime.Now,
+                        TimeStamp = DateTimeOffset.Now.DateTime,
                         ActivityType = (int)ActivityType.Join
                     };
 
@@ -632,7 +632,7 @@ namespace _20LHWebPortal.Models
             {
                 AspNetUserId = model.UserId,
                 HangoutId = hang.Id,
-                TimeStamp = DateTime.Now,
+                TimeStamp = DateTimeOffset.Now.DateTime,
                 ActivityType = (int) ActivityType.Create
             };
 

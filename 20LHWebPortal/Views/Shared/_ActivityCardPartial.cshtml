@@ -32,7 +32,7 @@ $j(document).ready(function() {
             }
             <p>
                 @Model.username @activity 
-                @Model.hangoutName at <time class="timeago" datetime=@Model.timeStamp></time>
+                @Model.hangoutName <time class="timeago" datetime=@Model.timeStamp.ToString("o")></time>
                 
             </p>
         }
