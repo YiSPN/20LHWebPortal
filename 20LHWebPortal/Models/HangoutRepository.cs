@@ -154,7 +154,7 @@ namespace _20LHWebPortal.Models
                 {
                     activityType = a.ActivityType,
                     hangoutName = GetHangoutById(a.HangoutId).Name,
-                    timeStamp = a.TimeStamp,
+                    timeStamp = a.TimeStamp.ToLocalTime(),
                     username = GetUserName(a.AspNetUserId)
                 };
                 returnList.Add(activity);
@@ -379,7 +379,7 @@ namespace _20LHWebPortal.Models
                     {
                         AspNetUserId = UserAccount.Id,
                         HangoutId = Hangout.Id,
-                        TimeStamp = DateTime.Now,
+                        TimeStamp = DateTime.UtcNow,
                         ActivityType = (int)ActivityType.Join
                     };
 
@@ -632,7 +632,7 @@ namespace _20LHWebPortal.Models
             {
                 AspNetUserId = model.UserId,
                 HangoutId = hang.Id,
-                TimeStamp = DateTime.Now,
+                TimeStamp = DateTime.UtcNow,
                 ActivityType = (int) ActivityType.Create
             };
 
