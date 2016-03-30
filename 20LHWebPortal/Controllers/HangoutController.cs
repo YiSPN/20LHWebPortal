@@ -94,11 +94,13 @@ namespace _20LHWebPortal.Controllers
 
         public ActionResult Activity()
         {
+            var userInfo = User.Identity.GetUserId();
             var activityListViewModel = new ActivityListViewModel
             {
                 ListOfActivities = _hangoutRepository.ListActivityLog()
             };
 
+            ViewBag.Strikes = _hangoutRepository.GetStrikeCount(userInfo);
             return View(activityListViewModel.ListOfActivities.AsQueryable());
         }
 
