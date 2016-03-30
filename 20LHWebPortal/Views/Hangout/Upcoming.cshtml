@@ -1,9 +1,9 @@
 ﻿@using Microsoft.AspNet.Identity
 @model _20LHWebPortal.Models.HangoutsListViewModel
 
-
-
-<h2>Upcoming Hangouts</h2>
+@{
+    ViewBag.Title = "Upcoming Hangouts";
+}
 <h3> Lets go!</h3>
 <div>
     @Html.ActionLink("+ Create a Hangout", "Create", "Hangout")
