@@ -21,6 +21,25 @@
 html, body {
 	background-color: $light;
 }
+
+#mainContainer {
+    width: 900px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding-bottom: 20px;
+}
+#siteTitle{
+    background-color: $default-color;
+}
+#siteTitle h1{
+    color: $text-color-light;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+}
+
 /*::selection{
 	background-color: $site-text-highlight-color;
 }*/
@@ -56,6 +75,7 @@ header{
 	display: inline-block;
 	background-color: #fff;
 	width: 100%;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 	z-index: 1030;
 }
 header #logo{

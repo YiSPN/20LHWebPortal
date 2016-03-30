@@ -108,3 +108,65 @@
     color: $default-color;
     font-weight: 600;
 }
+
+/*  Event Activity
+*/
+.event-activity {
+        display: inline-block;
+        width: 100%;
+        background-color: #fff;
+        padding: 10px;
+    }
+.event-activity:not(:last-child){
+    border-bottom: 1px dotted #eee;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.event-activity .header{
+    display: inline-block;
+    width: 100%;
+}
+.event-activity .header .user-image{
+    display: inline-block;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-right: 10px;
+        overflow: hidden;
+        float:left;
+}
+.event-activity .header .user-image img{
+    display: inline-block;
+        width: 100%;
+}
+
+.event-activity .header .userName{
+    display: inline-block;
+    float: left;
+}
+.event-activity .header .userName p{
+    display: inline-block;
+    width: 100%;
+    float: left;
+    text-align: left;
+    padding: 0 10px;
+    font-weight: 700;
+    margin: 0;
+    margin-right: 5px;
+}
+.event-activity .header .userName time{
+     display: inline-block;
+     width: 100%;
+    padding: 0 10px;
+    text-align: left;
+    font-size: 12px;
+    color: $default-color;
+    float: left;
+}
+
+.event-activity .header .userName .description{
+    display: inline-block;
+    width: 100%;
+    padding: 0 10px;
+    text-align: left;
+}

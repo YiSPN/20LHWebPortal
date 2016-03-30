@@ -1,19 +1,66 @@
 ﻿@model IQueryable<_20LHWebPortal.Models.ActivityViewModel>
+@{
+    ViewBag.Title = "Activity";
+}
+
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/jquery.timeago.js"></script>
 
 
-<h2>Activity</h2>
-<div>
-    @Html.ActionLink("+ Create a Hangout", "Create", "Hangout")
+<script>
+        var $j = jQuery.noConflict();
+$j(document).ready(function() {
+  $j("time.timeago").timeago();
+});
+</script>
+
+<div id="action-buttons">
+    <a href="@Url.Action("Create", "Hangout")" id="add-activity">
+        <i class="glyphicon glyphicon-plus"></i>
+    </a>
 </div>
-You have @ViewBag.Strikes strikes.
+
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <blockquote>
+            You have @ViewBag.Strikes strikes.
+        </blockquote>
+    </div>
+</div>
 
 @Html.AntiForgeryToken()
 @foreach (var item in Model)
 {
-    <div class="row" style="text-align: center">
-        <div class="col-lg-12">
-            @Html.Partial("_ActivityCardPartial", item)
-        </div>
-    </div>
-
+    @Html.Partial("_ActivityCardPartial", item)
 }
+
+
+
+
+<style>
+    #action-buttons {
+        display: inline-block;
+        position: absolute;
+        bottom: 100px;
+        right: 50px;
+    }
+     #add-activity {
+         display: inline-block;
+         width: 50px;
+         height: 50px;
+         line-height: 50px;
+         text-align: center;
+         border-radius: 50%;
+         background-color: #85cd3f;
+     }
+     #add-activity:hover,
+     #add-activity:focus {
+         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+         background-color: #a7db75;
+     }
+    #add-activity i.glyphicon {
+        color: #fff;
+        margin: 0;
+    }
+</style>

@@ -3,47 +3,33 @@
 @{
     Layout = null;
 }
-<head>
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/jquery.timeago.js"></script>
 
 
-    <script>
-        var $j = jQuery.noConflict();
-$j(document).ready(function() {
-  $j("time.timeago").timeago();
-});
-    </script>
-</head>
+<div class="event-activity">
+    <div class="header">
+        <div class="user-image">
+            <img src="/Content/Images/user.png" alt="user photo"/>
+        </div>
+        <div class="userName">
+            <p>@Model.username</p>
+            <time class="timeago" datetime=@Model.timeStamp.ToString("o")></time>
+            <div class="description">
+                @{
+                    var activity = " ";
+                    if (Model.activityType == 0)
+                    {
+                        activity = "created";
+                    }
+                    else if (Model.activityType == 1)
+                    {
+                        activity = "joined";
+                    }
+                    @activity
+                    @Model.hangoutName
+                }
 
-
-<div class="event">
-    <div class="title">
-        <img src="/Content/Images/user.png" alt="user photo" />
-        @{
-            var activity = " ";
-            if (Model.activityType == 0)
-            {
-                activity = "created";
-            }
-            else if (Model.activityType == 1)
-            {
-                activity = "joined";
-            }
-            <p>
-                @Model.username @activity 
-                @Model.hangoutName <time class="timeago" datetime=@Model.timeStamp.ToString("o")></time>
-                
-            </p>
-        }
-        
+            </div>
+        </div>
     </div>
-    
-    <div class="description">
-        
-        
-        
-    </div>
+   
 </div>
-
-
