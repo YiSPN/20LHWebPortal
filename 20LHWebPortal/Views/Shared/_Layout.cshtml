@@ -25,7 +25,9 @@
 <div id="contentWrap">
     <header class="hidden-xs hidden-md">
         <div id="logo">
-            <img src="~/Content/Images/Custom/20lh_logo.png" alt="20 Lets Hang Logo" />
+            <a href="/">
+                <img src="~/Content/Images/Custom/20lh_logo.png" alt="20 Lets Hang Logo" />
+            </a>
         </div>
         <div id="desktopNav">
             @Html.Partial("menu")
@@ -48,7 +50,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" id="mainContainer">
         @{
             if (ViewBag.HideTitle == null)
             {
@@ -57,7 +59,7 @@
         }
         @if (!ViewBag.HideTitle)
         {
-            <div class="row">
+            <div class="row" id="siteTitle">
                 <div class="col-lg-12">
                     <h1>@ViewBag.Title</h1>
                 </div>

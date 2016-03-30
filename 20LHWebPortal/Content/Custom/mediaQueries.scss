@@ -2,6 +2,12 @@
 
 /*Custom CSS For Extra Small creens*/
 @media (max-width: 767px) {
+    #mainContainer{
+        width: 100%;
+    }
+    #siteTitle{
+        margin-top: 51px;
+    }
     .button, .button-default, [class^=button-], a.button-default, button.button-default, input[type=checkbox]+label[data-role=standaloneCheckbox] {
         width: 100%;
         margin-top: 5px;

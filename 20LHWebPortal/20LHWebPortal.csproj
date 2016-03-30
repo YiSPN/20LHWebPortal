@@ -510,6 +510,7 @@
     <Content Include="Views\Shared\_HangoutCardPartial.cshtml" />
     <Content Include="Views\Hangout\Activity.cshtml" />
     <Content Include="Views\Shared\_ActivityCardPartial.cshtml" />
+    <Content Include="Views\Shared\_UserProfilePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AspNetUsers_Hangout.dbml.layout">
