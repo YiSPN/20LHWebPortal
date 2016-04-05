@@ -4,11 +4,7 @@
     ViewBag.Title = "My Hangouts";
 }
 
-<div>
-    @Html.ActionLink("+ Create a Hangout", "Create", "Hangout")
-</div>
-
-You have @ViewBag.Strikes strikes.
+@*You have @ViewBag.Strikes strikes.*@
 @Html.AntiForgeryToken()
 <style>
     table {
@@ -43,7 +39,7 @@ You have @ViewBag.Strikes strikes.
 {
     <div class="row" style="text-align: center">
         <div class="col-lg-12">
-            @Html.Partial("_HangoutCardPartial", item)
+            @Html.Partial("_UpcomingHangoutPartial", item)
         </div>
     </div>
 

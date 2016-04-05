@@ -38,7 +38,7 @@
 </style>
 
 
-<table style="width:100%">
+@*<table style="width:100%">
     <tr>
         <th>
             Host Name
@@ -144,7 +144,7 @@
             
     </tr>
     }
-</table>
+</table>*@
 
 
 
@@ -152,7 +152,7 @@
     <div class="col-lg-12">
         @foreach (var item in @Model.ListOfHangouts)
         {
-            @Html.Partial("_UpcomingHangoutPartial", item)
+            @Html.Partial("_UpcomingHangoutPartial", item, new ViewDataDictionary(new { gender = Model.UserGender }))
         }
     </div>
 </div>

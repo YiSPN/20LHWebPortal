@@ -13,12 +13,42 @@
             </div>
         </div>
         <div class="interactions">
-            <a href="#">
-                I'm In
-                &nbsp;
-                <i class="fa fa-check"></i>
-            </a>
-        </div>
+                @if (Model.IsHost)
+                {
+                        @Html.ActionLink(
+                    "Edit",
+                    "Edit",
+                    new { id = Model.Id })
+                        @Html.ActionLink(
+                    "Delete",
+                    "Delete",
+                    new { id = Model.Id },
+                    new { onclick = "return confirm('Are you sure you wish to delete this event?');" })
+                }
+                else if (@Model.IsRsvp)
+                {
+                
+                    @Html.ActionLink(
+                    "UnRSVP",
+                    "UnRSVP",
+                    new { id = @Model.Id })
+
+                }
+                else if(@Model.OpenSpots > 0)
+                {
+                <a href="@Url.Action("Join", "Hangout", new { id = Model.Id })">
+                    I'm In
+                    &nbsp;
+                    <i class="fa fa-check"></i>
+                </a>
+                }
+                @*//need to not show Join button when not enough gender spots for the attendee. Is being handled in back end, but not front.
+                //else if ((@Model.GenderRatio && @Model.MaleOpenSpots > 0 && @ViewData["gender"].ToString().Equals("male")) ||
+                //(@Model.GenderRatio && @Model.FemaleOpenSpots > 0 && @ViewData["gender"].ToString().Equals("female")) ||
+                //(!@Model.GenderRatio && @Model.OpenSpots > 0))*@
+                
+                
+</div>
     </div>
     <section class="when">
         <i class="fa fa-clock-o pull-left"></i>
@@ -28,7 +58,14 @@
         <i class="fa fa-map-marker pull-left"></i>
         <span class="pull-left">
             &nbsp;
-            @Model.Location
+            @if(@Model.Location.IsEmpty())
+            {
+                <span>No location specified.</span>
+            }
+            else
+            {
+                @Model.Location
+            }
         </span>
     </section>
     <section class="who">
