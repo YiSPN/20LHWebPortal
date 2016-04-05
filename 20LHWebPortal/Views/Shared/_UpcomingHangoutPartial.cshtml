@@ -29,7 +29,7 @@
                 {
                 
                     @Html.ActionLink(
-                    "UnRSVP",
+                    "I'm Out!",
                     "UnRSVP",
                     new { id = @Model.Id })
 
@@ -37,7 +37,7 @@
                 else if(@Model.OpenSpots > 0)
                 {
                 <a href="@Url.Action("Join", "Hangout", new { id = Model.Id })">
-                    I'm In
+                    I'm In!
                     &nbsp;
                     <i class="fa fa-check"></i>
                 </a>

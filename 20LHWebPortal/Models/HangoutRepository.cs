@@ -165,68 +165,56 @@ namespace _20LHWebPortal.Models
 
         public List<HangoutViewModel> ListUpcomingHangouts(string userId)
         {
-            
-            var HangoutsAttending = from m in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                    where m.AspNetUsers == userId && m.IsRSVPd == true || m.IsWaitlist == true
-                                    select m;
-            var myHangouts = from m in Hangout_db.Hangouts
-                             where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) > DateTime.Now
-                             select m;
             var allHangouts = from m in Hangout_db.Hangouts
                              where new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) > DateTime.Now
-                             select m;
-            var hangoutsGoing = new List<int>();
-            foreach (var h in HangoutsAttending)
-            {
-                hangoutsGoing.Add(h.HangoutId);
-            }
-            foreach (var h in myHangouts)
-            {
-                hangoutsGoing.Add(h.Id);
-            }
+                              orderby new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) ascending
+                              select m;
 
             var returnList = new List<HangoutViewModel>();
-            foreach(var h in allHangouts)
+            foreach(var tempHangout in allHangouts)
             {
-                if(!(hangoutsGoing.Contains(h.Id)))
+                if (tempHangout != null)
                 {
-                    var tempHangout = (from a in Hangout_db.Hangouts
-                                       where a.Id == h.Id
-                                       select a).SingleOrDefault();
-                    if (tempHangout != null)
+                    var allAtendees = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
+                                        where u.HangoutId == tempHangout.Id && u.IsRSVPd == true
+                                        select u);
+                    var hostAverageRating = (from u in OrganizerRatings_db.OrganizerRatings
+                                                where u.OrganizerId == tempHangout.UserCreator
+                                                select u);
+                    double sum = 0;
+
+                    foreach(var r in hostAverageRating)
                     {
-                        var allAtendees = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                           where u.HangoutId == tempHangout.Id && u.IsRSVPd == true
-                                           select u);
-                        var hostAverageRating = (from u in OrganizerRatings_db.OrganizerRatings
-                                                 where u.OrganizerId == tempHangout.UserCreator
-                                                 select u);
-                        double sum = 0;
+                        sum += (double) r.Rating;
+                    }
 
-                        foreach(var r in hostAverageRating)
-                        {
-                            sum += (double) r.Rating;
-                        }
+                    var hostAvg = sum / hostAverageRating.Count();
+                    bool isRsvp = false;
+                    var isRsvpUserHangout = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
+                                             where u.AspNetUsers == userId && u.HangoutId == tempHangout.Id && u.IsRSVPd == true
+                                             select u).SingleOrDefault();
+                    if (isRsvpUserHangout != null)
+                    {
+                        isRsvp = isRsvpUserHangout.IsRSVPd;
+                    }
 
-                        // Use aggregate in future...it wasnt working before.
-                        // test commit
-
-                        var average = sum / hostAverageRating.Count();
-
-                        var hangout = new HangoutViewModel
-                        {
-                            Date = tempHangout.Date,
-                            Description = tempHangout.Description,
-                            Id = tempHangout.Id,
-                            Name = tempHangout.Name,
-                            OpenSpots = tempHangout.PartySize - allAtendees.Count(),
-                            HostName = GetUserName(tempHangout.UserCreator),
-                            MaleOpenSpots = (tempHangout.PartySize/2) - tempHangout.MaleAttendingCount,
-                            FemaleOpenSpots = (tempHangout.PartySize / 2) - tempHangout.FemaleAttendingCount,
-                            GenderRatio = tempHangout.GenderRatio,
-                            HostAverageRating = Math.Round(average, 2),
-                            StartTime = tempHangout.StartTime,
-                            EndTime = tempHangout.EndTime
+                    var hangout = new HangoutViewModel
+                    {
+                        Date = tempHangout.Date,
+                        Description = tempHangout.Description,
+                        Id = tempHangout.Id,
+                        Name = tempHangout.Name,
+                        OpenSpots = tempHangout.PartySize - allAtendees.Count(),
+                        HostName = GetUserName(tempHangout.UserCreator),
+                        MaleOpenSpots = (tempHangout.PartySize / 2) - tempHangout.MaleAttendingCount,
+                        FemaleOpenSpots = (tempHangout.PartySize / 2) - tempHangout.FemaleAttendingCount,
+                        GenderRatio = tempHangout.GenderRatio,
+                        HostAverageRating = Math.Round(hostAvg, 2),
+                        StartTime = tempHangout.StartTime,
+                        EndTime = tempHangout.EndTime,
+                        IsHost = tempHangout.UserCreator.Equals(userId) ? true : false,
+                        IsRsvp = isRsvp,
+                        Location = tempHangout.Location
                         };
 
                         foreach(var a in allAtendees)
@@ -241,7 +229,6 @@ namespace _20LHWebPortal.Models
 
                         returnList.Add(hangout);
                     }
-                }
             }
             
 
@@ -257,9 +244,6 @@ namespace _20LHWebPortal.Models
 
         public List<HangoutViewModel> ListPastHangouts(string userId)
         {
-            var allHangouts = from m in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                    where m.AspNetUsers == userId 
-                                    select m;
             var allPastHangouts = from m in Hangout_db.Hangouts
                              where m.Date < DateTime.Now
                              select m;
