@@ -1,0 +1,56 @@
+﻿@model _20LHWebPortal.Models.HangoutViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="event upcoming">
+    <div class="header">
+        <div class="title">@Model.Name</div>
+        <div class="banner">
+            <div>
+                <img src="http://gtspirit.com/wp-content/uploads/2016/02/McLaren-Preview-Event3.jpg" alt="banner" />
+            </div>
+        </div>
+        <div class="interactions">
+            <a href="#">
+                I'm In
+                &nbsp;
+                <i class="fa fa-check"></i>
+            </a>
+        </div>
+    </div>
+    <section class="when">
+        <i class="fa fa-clock-o pull-left"></i>
+        <span class="pull-left">&nbsp;@string.Format("{0:MMM dd}, {0:ddd}, {1:hh:mm tt} to {2:hh:mm tt}", Model.Date, Model.StartTime, Model.EndTime)</span>
+    </section>
+    <section class="where">
+        <i class="fa fa-map-marker pull-left"></i>
+        <span class="pull-left">
+            &nbsp;
+            @Model.Location
+        </span>
+    </section>
+    <section class="who">
+        <div class="organizer" data-averagerating="@Model.HostAverageRating">
+            <div class="organizer-image">
+                <div>
+                    <img src="https://c1.staticflickr.com/1/149/426074142_5337cf5a70_z.jpg?zz=1" alt="@Model.HostName" />
+                </div>
+            </div>
+        </div>
+        <div class="attendees">
+            @if (Model.AttendingList.Any())
+            {
+                foreach (var attendee in Model.AttendingList)
+                {
+                    <div class="attendee">
+                        <div>
+                            <img src="https://pbs.twimg.com/media/CHufAXdUEAAyIMH.jpg" alt="@attendee.username" />
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+</div>

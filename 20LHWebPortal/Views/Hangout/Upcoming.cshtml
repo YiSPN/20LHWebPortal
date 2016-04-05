@@ -4,16 +4,13 @@
 @{
     ViewBag.Title = "Upcoming Hangouts";
 }
-<h3> Lets go!</h3>
-<div>
-    @Html.ActionLink("+ Create a Hangout", "Create", "Hangout")
-</div>
-You have @ViewBag.Strikes strikes.
+
 
 @Html.AntiForgeryToken()
 <style>
     table {
         width: 100%;
+        margin-bottom: 50px;
     }
 
     table, th, td {
@@ -151,3 +148,11 @@ You have @ViewBag.Strikes strikes.
 
 
 
+<div class="row">
+    <div class="col-lg-12">
+        @foreach (var item in @Model.ListOfHangouts)
+        {
+            @Html.Partial("_UpcomingHangoutPartial", item)
+        }
+    </div>
+</div>

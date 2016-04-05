@@ -17,6 +17,10 @@
     margin-bottom: -140px; } }
 
 /*Custom CSS For Small Screens*/
+@media (min-width: 768px) and (max-width: 991px) {
+  #mainContainer {
+    width: 100%; } }
+
 /*Custom CSS for medium screens*/
 @media (min-width: 992px) and (max-width: 1199px) {
   .button, .button-default, [class^=button-], a.button-default, button.button-default, input[type=checkbox] + label[data-role=standaloneCheckbox] {
