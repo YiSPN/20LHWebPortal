@@ -107,14 +107,11 @@
 .event-activity {
   display: inline-block;
   width: 100%;
-  /*background-color: #eee;*/
   padding: 10px;
-  /*border: 1px solid rgba(0,0,0,0.1);*/
   border-radius: 8px;
   background-color: #eee; }
 
 .event-activity:not(:last-child) {
-  /*border-bottom: 1px dotted #eee;*/
   padding-bottom: 0px;
   margin-bottom: 5px; }
 
@@ -183,9 +180,9 @@
   display: inline-block;
   content: "\f073";
   font: normal normal normal 14px/1 FontAwesome;
-  color: #85cd3f;
-  font-size: 12px;
-  float: left;
+  color: #aaa;
+  font-size: 16px;
+  line-height: 16px;
   margin-right: 5px; }
 
 .event-activity .header .userName .description {
