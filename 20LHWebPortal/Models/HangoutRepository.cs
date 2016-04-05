@@ -339,7 +339,6 @@ namespace _20LHWebPortal.Models
                     };
 
                     AspNetUsers_Hangout_db.AspNetUsers_Hangouts.InsertOnSubmit(UserHangout);
-                    // does not ever submit need to submit changes.
                 }
                 else
                 {
@@ -589,8 +588,8 @@ namespace _20LHWebPortal.Models
                 ContactInfo = model.ContactInfo,
                 GenderRatio = model.GenderRatio,
                 StartTime = DateTime.Parse(model.StartTime),
-                EndTime = DateTime.Parse(model.EndTime)
-                
+                EndTime = DateTime.Parse(model.EndTime),
+                AttendeeCount = 1
             };
 
             //Need to grab user in controller

@@ -19,8 +19,16 @@ namespace _20LHWebPortal.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            return View();
+        }
 
+        public ActionResult ThingsToDo()
+        {
+            return View();
+        }
+
+        public ActionResult FAQ()
+        {
             return View();
         }
 
