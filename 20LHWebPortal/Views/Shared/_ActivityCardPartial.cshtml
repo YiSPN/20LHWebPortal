@@ -10,26 +10,22 @@
         <div class="user-image">
             <img src="/Content/Images/user.png" alt="user photo"/>
         </div>
-        <div class="userName">
-            <p>@Model.username</p>
-            <time class="timeago" datetime=@Model.timeStamp.ToString("o")></time>
-            <div class="description">
-                @{
-                    var activity = " ";
-                    if (Model.activityType == 0)
-                    {
-                        activity = "created ";
-                    }
-                    else if (Model.activityType == 1)
-                    {
-                        activity = "joined ";
-                    }
-                    @activity
-                    @Model.hangoutName
+        <div class="activity-content">
+            @{
+                var activity = " ";
+                if (Model.activityType == 0)
+                {
+                    activity = "created ";
                 }
-
-            </div>
+                else if (Model.activityType == 1)
+                {
+                    activity = "joined ";
+                }
+                <span>@Model.username&nbsp;</span>
+                <span>@activity&nbsp;</span>
+                <span>@Model.hangoutName</span>
+            }
+            <time class="timeago" datetime=@Model.timeStamp.ToString("o")></time>
         </div>
     </div>
-   
 </div>

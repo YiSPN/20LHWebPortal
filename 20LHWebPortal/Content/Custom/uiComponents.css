@@ -107,12 +107,13 @@
 .event-activity {
   display: inline-block;
   width: 100%;
-  background-color: #fff;
-  padding: 10px; }
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #eee; }
 
 .event-activity:not(:last-child) {
-  border-bottom: 1px dotted #eee;
-  padding-bottom: 10px; }
+  padding-bottom: 0px;
+  margin-bottom: 5px; }
 
 .event-activity .header {
   display: inline-block;
@@ -120,8 +121,8 @@
 
 .event-activity .header .user-image {
   display: inline-block;
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   margin-right: 10px;
   overflow: hidden;
@@ -146,23 +147,42 @@
   margin: 0;
   margin-right: 5px; }
 
-.event-activity .header .userName time {
-  display: inline-block;
-  width: 100%;
-  padding: 0 10px;
-  text-align: left;
-  font-size: 12px;
+.event-activity .header .activity-content,
+.event-activity .header .activity-content span {
+  display: inline-block; }
+
+.event-activity .header .activity-content {
+  float: left; }
+
+.event-activity .header .activity-content span:nth-child(1) {
   color: #85cd3f;
-  float: left;
+  font-weight: 700;
   text-transform: capitalize; }
 
-.event-activity .header .userName time:before {
+.event-activity .header .activity-content span:nth-child(2) {
+  display: inline-block; }
+
+.event-activity .header .activity-content span:nth-child(3) {
+  color: #85cd3f;
+  font-weight: 700;
+  text-transform: capitalize; }
+
+.event-activity .header .activity-content time {
   display: inline-block;
-  content: "\e023";
-  font-family: 'Glyphicons Halflings';
-  color: #eee;
+  width: 100%;
+  text-align: left;
   font-size: 12px;
-  float: left;
+  color: #555;
+  float: right;
+  text-transform: capitalize; }
+
+.event-activity .header .activity-content time:before {
+  display: inline-block;
+  content: "\f073";
+  font: normal normal normal 14px/1 FontAwesome;
+  color: #aaa;
+  font-size: 16px;
+  line-height: 16px;
   margin-right: 5px; }
 
 .event-activity .header .userName .description {
@@ -171,4 +191,33 @@
   padding: 0 10px;
   text-align: left;
   text-transform: capitalize; }
+
+/* action buttons
+*/
+#action-buttons {
+  display: inline-block;
+  position: fixed;
+  bottom: 100px;
+  right: 50px; }
+
+#action-buttons a {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  border: 1px solid #F2F5F7; }
+
+#action-buttons a:hover,
+#action-buttons a:focus {
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  background-color: #85cd3f; }
+
+#action-buttons a i.fa {
+  color: #fff;
+  margin: 0;
+  font-size: 20px;
+  line-height: 50px; }
 

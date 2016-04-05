@@ -26,7 +26,8 @@ html, body {
   padding-bottom: 20px; }
 
 #siteTitle {
-  background-color: #85cd3f; }
+  background-color: #85cd3f;
+  display: none; }
 
 #siteTitle h1 {
   color: #eee;
@@ -65,7 +66,8 @@ h4 {
   font-size: 18px; }
 
 #contentWrap > .container-fluid {
-  margin-top: 0px; }
+  margin-top: 0px;
+  padding-top: 20px; }
 
 header {
   display: inline-block;
