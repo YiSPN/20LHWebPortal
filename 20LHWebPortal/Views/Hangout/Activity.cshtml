@@ -20,15 +20,6 @@ $j(document).ready(function() {
     </a>
 </div>
 
-<br />
-<div class="row">
-    <div class="col-lg-12">
-        <blockquote>
-            You have @ViewBag.Strikes strikes.
-        </blockquote>
-    </div>
-</div>
-
 @Html.AntiForgeryToken()
 @foreach (var item in Model)
 {
