@@ -17,23 +17,23 @@
                 @if (Model.IsHost)
                 {
                         @Html.ActionLink(
-                    "Edit",
-                    "Edit",
-                    new { id = Model.Id })
+                         "Edit",
+                         "Edit",
+                         new { id = Model.Id })
                         @Html.ActionLink(
-                    "Delete",
-                    "Delete",
-                    new { id = Model.Id },
-                    new { onclick = "return confirm('Are you sure you wish to delete this event?');" })
+                         "Cancel",
+                         "Cancel",
+                         new { id = Model.Id },
+                         new { onclick = "return confirm('Are you sure? Canceling your hangout within 24 hours will automatically warrant a 0 organizer rating.');" })
                 }
                 else if (@Model.IsRsvp)
                 {
-                
-                    @Html.ActionLink(
-                    "I'm Out!",
-                    "UnRSVP",
-                    new { id = @Model.Id })
 
+                    @Html.ActionLink(
+                             "I'm Out!",
+                             "UnRSVP",
+                             new { id = @Model.Id },
+                        new { onclick = "return confirm('Are you sure? Canceling your RSVP within 24 hours will automatically warrant a No Show.');" })
                 }
                 else if(@Model.OpenSpots > 0)
                 {

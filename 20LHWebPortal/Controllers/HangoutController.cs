@@ -322,6 +322,16 @@ namespace _20LHWebPortal.Controllers
             var count = testList.Count;
         }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> Cancel(int id)
+        {
+            _hangoutRepository.Cancel(id);
+            return RedirectToAction("MyHangouts");
+
+            var testList = new List<int>();
+            var count = testList.Count;
+        }
+
         public async Task<ActionResult> Join(int id)
         {
             var userInfo = User.Identity.GetUserId();

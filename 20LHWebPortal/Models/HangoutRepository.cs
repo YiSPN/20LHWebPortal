@@ -31,6 +31,7 @@ namespace _20LHWebPortal.Models
                                     select m;
             var myHangouts = from m in Hangout_db.Hangouts
                              where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second)  > DateTime.Now
+                                    && m.IsCancelled == false   
                              select m;
 
             var returnList = new List<HangoutViewModel>();
@@ -91,6 +92,7 @@ namespace _20LHWebPortal.Models
                 {
                     var tempHangout = (from a in Hangout_db.Hangouts
                                        where a.Id == h.HangoutId && new DateTime(a.Date.Value.Year, a.Date.Value.Month, a.Date.Value.Day, a.StartTime.Value.Hour, a.StartTime.Value.Minute, a.StartTime.Value.Second) > DateTime.Now
+                                       && a.IsCancelled == false
                                    select a).SingleOrDefault();
                     if(tempHangout != null)
                     {
@@ -167,6 +169,7 @@ namespace _20LHWebPortal.Models
         {
             var allHangouts = from m in Hangout_db.Hangouts
                              where new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) > DateTime.Now
+                             && m.IsCancelled == false
                               orderby new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) ascending
                               select m;
 
@@ -635,6 +638,22 @@ namespace _20LHWebPortal.Models
                 ActivityLog_db.SubmitChanges();
             }
 
+        }
+
+        public void Cancel(int id)
+        {
+            var hangout = GetHangoutById(id);
+            hangout.IsCancelled = true;
+
+            try
+            {
+                Hangout_db.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // Provide for exceptions.
+            }
         }
 
         public void Delete(int id)

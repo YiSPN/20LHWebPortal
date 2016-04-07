@@ -29,6 +29,8 @@ namespace _20LHWebPortal.Models
 
         void Delete(int id);
 
+        void Cancel(int id);
+
         Hangout GetHangoutById(int id);
 
         void Update(CreateHangoutViewModel model);

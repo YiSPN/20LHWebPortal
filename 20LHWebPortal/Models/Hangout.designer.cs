@@ -114,6 +114,8 @@ namespace _20LHWebPortal.Models
 		
 		private System.Nullable<System.DateTime> _EventDate;
 		
+		private System.Nullable<bool> _IsCancelled;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -152,6 +154,8 @@ namespace _20LHWebPortal.Models
     partial void OnEndTimeChanged();
     partial void OnEventDateChanging(System.Nullable<System.DateTime> value);
     partial void OnEventDateChanged();
+    partial void OnIsCancelledChanging(System.Nullable<bool> value);
+    partial void OnIsCancelledChanged();
     #endregion
 		
 		public Hangout()
@@ -495,6 +499,26 @@ namespace _20LHWebPortal.Models
 					this._EventDate = value;
 					this.SendPropertyChanged("EventDate");
 					this.OnEventDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCancelled", DbType="Bit")]
+		public System.Nullable<bool> IsCancelled
+		{
+			get
+			{
+				return this._IsCancelled;
+			}
+			set
+			{
+				if ((this._IsCancelled != value))
+				{
+					this.OnIsCancelledChanging(value);
+					this.SendPropertyChanging();
+					this._IsCancelled = value;
+					this.SendPropertyChanged("IsCancelled");
+					this.OnIsCancelledChanged();
 				}
 			}
 		}
