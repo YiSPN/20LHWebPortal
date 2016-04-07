@@ -141,6 +141,8 @@ namespace _20LHWebPortal.Models
                 }
              }
 
+
+            // TODO: need to merge start time and date and then sort by here
             return returnList;
         }
 
@@ -592,8 +594,18 @@ namespace _20LHWebPortal.Models
                 GenderRatio = model.GenderRatio,
                 StartTime = DateTime.Parse(model.StartTime),
                 EndTime = DateTime.Parse(model.EndTime),
-                AttendeeCount = 1
+                AttendeeCount = 1,
+                IsCancelled = false
             };
+            string gend = GetUserGender(model.UserId);
+            if(gend.Equals("male"))
+            {
+                hang.MaleAttendingCount++;
+            }
+            else if(gend.Equals("female"))
+            {
+                hang.FemaleAttendingCount++;
+            }
 
             //Need to grab user in controller
             Hangout_db.Hangouts.InsertOnSubmit(hang);
