@@ -245,13 +245,14 @@
 */
 .event.upcoming{
     display: inline-block;
-    width: 100%;
-    margin-bottom: 50px;
+    width: 48%;
+    margin: 0 20px 50px 0;
     float: left;
     box-shadow: none;
     background-color: #cbd6db;
-    border-radius: 0;
-    box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0px 10px 50px rgba(0,0,0,0.2);
 }
 .event.upcoming .header{
   display: inline-block;
@@ -263,8 +264,10 @@
   width: 100%;
   padding: 20px 10px;
   font-size: 16px;
-  color: #fff;
-  background-color: $default-color;
+  color: $text-color-default;
+  font-weight: 700;
+  font-family: "Droid Sans";
+  background-color: #fff;
   float: left;
   text-transform: capitalize;
   font-weight: 500;
@@ -277,6 +280,7 @@
     margin: 0;
     padding: 0;
     position: relative;
+    background-color: #CCD1D9;
     text-align: center;
     text-decoration: none;
     width: 100%;
@@ -288,8 +292,8 @@
 }    
     
 .event.upcoming .header .banner div{
-  width: 100%;
-  position: absolute;
+    width: 100%;
+    position: absolute;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -313,6 +317,12 @@
   font-weight: 700;
   float: right;
 }
+.event.upcoming .header .interactions > a:last-child {
+    /*border-radius: 0px 0 0 10px;*/
+}
+.event.upcoming .header .interactions a:not(:last-child) {
+    border-left: 1px solid rgba(0,0,0,0.2);
+}
 .event.upcoming .header .interactions a:hover,
 .event.upcoming .header .interactions a:focus{
     background-color: #00aa00;
@@ -321,12 +331,15 @@
 .event.upcoming .header .interactions a .fa{
   display: inline-block;
   color: #fff;
+  background-color: rgba(0,0,0,0.3);
+  padding: 3px;
+  border-radius: 50%;
   float: right;
 }
 
 .event.upcoming section.where,
 .event.upcoming section.when{
-    padding: 10px 20px;
+    padding: 15px 20px;
     border-bottom: 1px solid lighten($default-color, 40);
 }
 .event.upcoming section.where .fa,
@@ -426,4 +439,23 @@
   display: inline-block;
     width: 100%;
     height: 100%;
+}
+
+
+
+
+#notfications{
+    display: inline-block;
+    position: fixed;
+    width: 300px;
+    bottom: 0;
+    left: 10px;
+}
+#notfications .notification{
+    display: inline-block;
+    width: 100%;
+    padding: 20px 10px;
+    background-color: #fff;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    margin: 10px 0 10px 0;
 }

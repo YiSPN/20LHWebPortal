@@ -10,46 +10,106 @@
         <div class="banner">
             <div>
                 @*<img src="http://gtspirit.com/wp-content/uploads/2016/02/McLaren-Preview-Event3.jpg" alt="banner" />*@
-                <img src="http://photos2.meetupstatic.com/photos/event/5/e/d/e/highres_436824286.jpeg" alt="banner" />
+                @*<img src="http://photos2.meetupstatic.com/photos/event/5/e/d/e/highres_436824286.jpeg" alt="banner" />*@
+                <img src="https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg" alt="remove this later" />
             </div>
         </div>
         <div class="interactions">
-                @if (Model.IsHost)
-                {
-                        @Html.ActionLink(
+            @if (Model.IsHost)
+            {
+                @*@Html.ActionLink(
                          "Edit",
                          "Edit",
-                         new { id = Model.Id })
-                        @Html.ActionLink(
-                         "Cancel",
-                         "Cancel",
-                         new { id = Model.Id },
-                         new { onclick = "return confirm('Are you sure? Canceling your hangout within 24 hours will automatically warrant a 0 organizer rating.');" })
-                }
-                else if (@Model.IsRsvp)
-                {
+                         new { id = Model.Id })*@
 
-                    @Html.ActionLink(
-                             "I'm Out!",
-                             "UnRSVP",
-                             new { id = @Model.Id },
-                        new { onclick = "return confirm('Are you sure? Canceling your RSVP within 24 hours will automatically warrant a No Show.');" })
-                }
-                else if(@Model.OpenSpots > 0)
-                {
+                <a href="#" data-button-type="edit-event" data-event-id="@Model.Id" data-toggle="modal" data-target="#edit-event-modal">Edit</a>
+
+
+                <a href="#" class="red" data-toggle="modal" data-target="#_@Model.Id">Cancel</a>
+
+                <div id="_@Model.Id" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="gridSystemModalLabel">Confirm Event Cancellation</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>Are you sure?</p>
+                                        <p>Canceling your hangout within 24 hours will automatically warrant a 0 organizer rating.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <a href="@Url.Action("Cancel", new {id = @Model.Id})" class="red">
+                                            "I'm Out!"
+                                            &nbsp;
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (@Model.IsRsvp)
+            {
+                <a href="#" data-toggle="modal" data-target="#_@Model.Id">UnRSVP</a>
+
+                <div id="_@Model.Id" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="gridSystemModalLabel">Confirm UnRSVP</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>Are you sure?</p>
+                                        <p>Canceling your hangout within 24 hours will automatically warrant a 0 organizer rating.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <a href="@Url.Action("UnRSVP", new {id = @Model.Id})">
+                                            "I'm Out!"
+                                            &nbsp;
+                                            <i class="fa fa-remove"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (@Model.OpenSpots > 0)
+            {
                 <a href="@Url.Action("Join", "Hangout", new { id = Model.Id })">
                     I'm In!
                     &nbsp;
                     <i class="fa fa-check"></i>
                 </a>
-                }
-                @*//need to not show Join button when not enough gender spots for the attendee. Is being handled in back end, but not front.
+            }
+            @*//need to not show Join button when not enough gender spots for the attendee. Is being handled in back end, but not front.
                 //else if ((@Model.GenderRatio && @Model.MaleOpenSpots > 0 && @ViewData["gender"].ToString().Equals("male")) ||
                 //(@Model.GenderRatio && @Model.FemaleOpenSpots > 0 && @ViewData["gender"].ToString().Equals("female")) ||
                 //(!@Model.GenderRatio && @Model.OpenSpots > 0))*@
-                
-                
-</div>
+
+
+        </div>
     </div>
     <section class="when">
         <i class="fa fa-clock-o pull-left"></i>
@@ -59,7 +119,7 @@
         <i class="fa fa-map-marker pull-left"></i>
         <span class="pull-left">
             &nbsp;
-            @if(@Model.Location.IsEmpty())
+            @if (@Model.Location.IsEmpty())
             {
                 <span>No location specified.</span>
             }

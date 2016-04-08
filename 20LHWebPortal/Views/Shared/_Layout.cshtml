@@ -6,6 +6,7 @@
     <title>Fluttr - 20LH</title>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Custom/animate.css" rel="stylesheet" />
@@ -16,8 +17,11 @@
     <link href="~/Content/Custom/formComponents.min.css" rel="stylesheet"/>
     <link href="~/Content/Custom/uiComponents.min.css" rel="stylesheet"/>
     <link href="~/Content/Custom/mediaQueries.min.css" rel="stylesheet" />
+   
 
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/Custom/Shared.js"></script>
 </head>
 <body>
 <!--Site Content-->
@@ -87,13 +91,23 @@
     </div>
 </div>
 
+<div id="notfications">
+    
+</div>
+
 <!--Footer-->
 <footer>
     @Html.ActionLink("About", "About", "Home") | @Html.ActionLink("Things To Do", "ThingsToDo", "Home") | @Html.ActionLink("FAQ", "FAQ", "Home")
     <span>20LH Web Portal &copy; @DateTime.Now.Year</span>
 </footer>
 
-@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jquery-2.1.4.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.timepicker.min.js"></script>
+
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
 </body>

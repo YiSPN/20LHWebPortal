@@ -6,7 +6,7 @@
   box-sizing: border-box;
   outline: none;
   box-shadow: none;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Droid Sans", sans-serif;
   color: #555;
   font-size: 14px;
   -webkit-transition: all .2s ease-in-out;
@@ -20,7 +20,7 @@ html, body {
   background-color: #F2F5F7; }
 
 #mainContainer {
-  width: 900px;
+  width: 1200px;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   padding-bottom: 20px; }

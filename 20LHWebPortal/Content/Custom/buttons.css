@@ -18,8 +18,10 @@
 
 .button:hover {
   border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+  color: #eee;
   text-decoration: none; }
 
 .button:focus {
+  color: #eee;
   box-shadow: 0 0 0px 3px rgba(133, 205, 63, 0.3); }
 

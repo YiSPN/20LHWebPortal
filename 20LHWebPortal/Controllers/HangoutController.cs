@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace _20LHWebPortal.Controllers
 {
     [Authorize]
-    public class HangoutController : Controller
+    public class HangoutController : BaseController
     {
         private IHangoutRepository _hangoutRepository;
 
@@ -136,6 +136,8 @@ namespace _20LHWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CreateHangoutViewModel model)
         {
+            JsonResult result = null;
+
             bool startTimeIsValid, endTimeIsValid;
             startTimeIsValid = IsValidTime(model.StartTime);
             endTimeIsValid = IsValidTime(model.EndTime);
@@ -147,7 +149,7 @@ namespace _20LHWebPortal.Controllers
             {
                 ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
             }
-            if(DateTime.Parse(model.Date) < DateTime.Today)
+            if(model.Date !=  null && DateTime.Parse(model.Date) < DateTime.Today)
             {
                 ModelState.AddModelError(string.Empty, "Date cannot be paste due.");
             }
@@ -155,7 +157,7 @@ namespace _20LHWebPortal.Controllers
             {
                 ModelState.AddModelError(string.Empty, "End Time must be later than Start Time");
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && false)
             {
                 _hangoutRepository.Update(model);
 
@@ -178,8 +180,45 @@ namespace _20LHWebPortal.Controllers
                 //AddErrors(result);
             }
 
+
+            var errorList = ModelState.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList());
+
+            if (errorList.Any())
+            {
+                //lets do some erro handling
+                var errors = new List<string>();
+                foreach(var error in errorList)
+                {
+                    for (var i = 0; i < error.Value.Count; i++)
+                    {
+                        var message = string.Format("{0}: {1}", error.Key, error.Value[i]);
+                        errors.Add(message);
+                    }
+                }
+                result = new JsonResult
+                {
+                    Data = new
+                    {
+                        Errors = errors
+                    }
+                };
+                return result;
+            }
+            result = new JsonResult
+            {
+                Data = new
+                {
+                    View = ViewToString("Edit", model)
+                }
+            };
+            return result;
+
+
+
             // If we got this far, something failed, redisplay form
-            return View(model);
+            //return View(model);
         }
 
         public bool IsValidTime(string time)
