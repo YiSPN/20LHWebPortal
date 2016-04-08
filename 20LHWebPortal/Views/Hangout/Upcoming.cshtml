@@ -180,7 +180,7 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="#" class="button green" data-button-type="edit-event-save" data-dismiss="modal">
+                        <a href="#" class="button green" data-button-type="edit-event-save">
                             Save
                             <i class="fa fa-chevron-right text-color-light"></i>
                         </a>
@@ -201,6 +201,12 @@
 
     $(document).on("click", "[data-button-type='edit-event-save']", function () {
         window.SaveEvent();
+    });
+
+    $(document).on("click", ".notification", function () {
+        $(this).fadeOut(function() {
+            $(this).remove();
+        });
     });
 
 
