@@ -17,7 +17,7 @@ namespace _20LHWebPortal.Models
 
     public class ActivityViewModel
     {
-        public string username { get; set; }
+        public string name { get; set; }
 
         public string hangoutName { get; set; }
 

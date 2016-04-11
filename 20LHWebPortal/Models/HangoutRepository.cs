@@ -165,7 +165,7 @@ namespace _20LHWebPortal.Models
                     activityType = a.ActivityType,
                     hangoutName = GetHangoutById(a.HangoutId).Name,
                     timeStamp = a.TimeStamp.ToLocalTime(),
-                    username = GetUserName(a.AspNetUserId)
+                    name = GetName(a.AspNetUserId)
                 };
                 returnList.Add(activity);
             }
@@ -251,6 +251,13 @@ namespace _20LHWebPortal.Models
             return (from a in AspNetUsers_db.AspNetUsers
                     where a.Id == userId
                     select a).SingleOrDefault().UserName;
+        }
+
+        public string GetName(string userId)
+        {
+            return (from a in AspNetUsers_db.AspNetUsers
+                    where a.Id == userId
+                    select a).SingleOrDefault().Name;
         }
 
         public List<HangoutViewModel> ListPastHangouts(string userId)
@@ -733,6 +740,24 @@ namespace _20LHWebPortal.Models
                 // Provide for exceptions.
             }
 
+        }
+
+        public void UpdateName(string userId, string name)
+        {
+            var user = (from a in AspNetUsers_db.AspNetUsers
+                           where a.Id == userId
+                           select a).Single();
+            user.Name = name;
+
+            try
+            {
+                AspNetUsers_db.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // Provide for exceptions.
+            }
         }
 
         public int GetStrikeCount(string userId)

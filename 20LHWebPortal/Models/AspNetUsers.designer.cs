@@ -106,6 +106,10 @@ namespace _20LHWebPortal.Models
 		
 		private int _Gender;
 		
+		private string _Image;
+		
+		private string _Name;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -136,6 +140,10 @@ namespace _20LHWebPortal.Models
     partial void OnUserNameChanged();
     partial void OnGenderChanging(int value);
     partial void OnGenderChanged();
+    partial void OnImageChanging(string value);
+    partial void OnImageChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
     #endregion
 		
 		public AspNetUser()
@@ -399,6 +407,46 @@ namespace _20LHWebPortal.Models
 					this._Gender = value;
 					this.SendPropertyChanged("Gender");
 					this.OnGenderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="NVarChar(MAX)")]
+		public string Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
 				}
 			}
 		}
