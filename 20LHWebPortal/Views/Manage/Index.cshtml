@@ -6,14 +6,21 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h3>Change your account settings</h3>
-    <h3>User Rating: @Model.UserRating</h3>
-
+    @*<h3>User Rating: @Model.UserRating</h3>*@
+      <h2>
+          Hi @Model.Name! [@Html.ActionLink("Change your name", "ChangeName")]
+    </h2>  
+    <h4>
+        Hangouts hosted
+    </h4>
+    <h4>
+        Hangouts attended
+    </h4>
     <hr />
     <dl class="dl-horizontal">
 
         
-        <dt>Image:</dt>
+        @*<dt>Image:</dt>
         <dd>
             <form action="" method="post" enctype="multipart/form-data">
                 <fieldset>
@@ -23,16 +30,17 @@
                     <br />
                     <input type="submit" value="Upload" />
                 </fieldset>
-            </form>
-            <h1>Uploaded Image</h1>
+            </form>*@
+            @*<h1>Uploaded Image</h1>*@
             @*@if (Model != "")*@
             @* { *@
-                <div class="result">
+                @*<div class="result">
                     <img src=" @Model.ProfilePicture" alt="image" />
 
-                </div>
+                </div>*@
             @*  }*@
-        </dd>
+        @*</dd>*@
+        
         <dt>Password:</dt>
         <dd>
             [
@@ -46,11 +54,11 @@
             }
             ]
         </dd>
-        <dt>External Logins:</dt>
+        @*<dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
             @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
+        </dd>*@
         <dd>
             <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
         </dd>
