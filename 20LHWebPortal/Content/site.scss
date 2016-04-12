@@ -111,7 +111,7 @@ header #desktopNav ul{
 header #desktopNav ul li{
     float: left;
 }
-header #desktopNav ul li a{
+/*header #desktopNav ul li a{
     display: inline-block;
     
     padding: 10px 20px;
@@ -130,7 +130,33 @@ header #desktopNav ul li a:hover,
 header #desktopNav ul li a:focus{
     background-color: $green-hover;
     color: #fff;
+}*/
+
+header{
+    /*height: 100px;*/
 }
+header #desktopNav ul li a{
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #aaa;
+    /*border-top: 1px solid transparent;*/
+    border-bottom: 1px solid transparent;
+}
+header #desktopNav ul li:not(:last-child) a{
+    /*border-right: 1px solid rgba(0,0,0,.1);*/
+}
+header #desktopNav ul li a:hover,
+header #desktopNav ul li a:focus{
+    /*background-color: $default-color;*/
+    color: $text-color-default;
+    /*border-top: 1px solid $default-color;*/
+    border-bottom: 1px solid $default-color;
+}
+
 
 /* Sticky footer
 **************************************/
