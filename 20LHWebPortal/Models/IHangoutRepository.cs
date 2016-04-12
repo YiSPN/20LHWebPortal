@@ -36,6 +36,8 @@ namespace _20LHWebPortal.Models
 
         void Update(CreateHangoutViewModel model);
 
+        string GetName(string userId);
+
         void WaitlistHangout(string userId, int hangoutId);
 
         double GetUserRating(string userId);
@@ -47,6 +49,8 @@ namespace _20LHWebPortal.Models
         ShowNoShowHangoutViewModel GetShowNoShow(int hangoutId);
 
         List<ActivityViewModel> ListActivityLog();
+
+        void UpdateName(string userId, string name);
 
     }
 }

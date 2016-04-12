@@ -14,6 +14,7 @@ namespace _20LHWebPortal.Models
         public bool BrowserRemembered { get; set; }
         public string ProfilePicture { get;  set;}
         public double UserRating { get; set; }
+        public string Name { get; set; }
     }
 
     public class ManageLoginsViewModel
@@ -39,6 +40,13 @@ namespace _20LHWebPortal.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class ChangeNameViewModel
+    {
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
     }
 
     public class ChangePasswordViewModel

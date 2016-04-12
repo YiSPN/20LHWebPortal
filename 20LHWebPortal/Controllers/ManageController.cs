@@ -77,8 +77,9 @@ namespace _20LHWebPortal.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 ProfilePicture = File(_hangoutRepository.GetUserProfilePicture(userId), "image/jpeg").FileDownloadName,
-                UserRating = _hangoutRepository.GetStrikeCount(userId)
-        };
+                UserRating = _hangoutRepository.GetStrikeCount(userId),
+                Name = _hangoutRepository.GetName(userId)
+            };
             return View(model);
         }
 
@@ -216,6 +217,33 @@ namespace _20LHWebPortal.Controllers
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+        }
+
+        //
+        // GET: /Manage/ChangePassword
+        public ActionResult ChangeName()
+        {
+            var id = User.Identity.GetUserId();
+            var name = _hangoutRepository.GetName(id);
+            return View(new ChangeNameViewModel
+            {
+                Name = name
+            });
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeName(ChangeNameViewModel model)
+        {
+            var id = User.Identity.GetUserId();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            _hangoutRepository.UpdateName(id, model.Name);
+            return RedirectToAction("Index", "Manage");
         }
 
         //

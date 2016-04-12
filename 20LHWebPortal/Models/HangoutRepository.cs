@@ -116,6 +116,8 @@ namespace _20LHWebPortal.Models
                         var hangout = new HangoutViewModel
                         {
                             Date = tempHangout.Date,
+                            StartTime = tempHangout.StartTime,
+                            EndTime = tempHangout.EndTime,
                             Description = tempHangout.Description,
                             Id = tempHangout.Id,
                             Name = tempHangout.Name,
@@ -123,6 +125,7 @@ namespace _20LHWebPortal.Models
                             HostName = GetUserName(tempHangout.UserCreator),
                             HostAverageRating = Math.Round(average, 2),
                             IsRsvp = true,
+                            IsHost = false,
                             Location = tempHangout.Location
                         };
 
@@ -141,9 +144,12 @@ namespace _20LHWebPortal.Models
                 }
              }
 
+            // Sorts the list ascending
+            var returnHangouts = from m in returnList
+                              orderby new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) ascending
+                              select m;
+            return returnHangouts.ToList();
 
-            // TODO: need to merge start time and date and then sort by here
-            return returnList;
         }
 
         public List<ActivityViewModel> ListActivityLog()
@@ -159,7 +165,7 @@ namespace _20LHWebPortal.Models
                     activityType = a.ActivityType,
                     hangoutName = GetHangoutById(a.HangoutId).Name,
                     timeStamp = a.TimeStamp.ToLocalTime(),
-                    username = GetUserName(a.AspNetUserId)
+                    name = GetName(a.AspNetUserId)
                 };
                 returnList.Add(activity);
             }
@@ -264,6 +270,13 @@ namespace _20LHWebPortal.Models
             return (from a in AspNetUsers_db.AspNetUsers
                     where a.Id == userId
                     select a).SingleOrDefault().UserName;
+        }
+
+        public string GetName(string userId)
+        {
+            return (from a in AspNetUsers_db.AspNetUsers
+                    where a.Id == userId
+                    select a).SingleOrDefault().Name;
         }
 
         public List<HangoutViewModel> ListPastHangouts(string userId)
@@ -746,6 +759,24 @@ namespace _20LHWebPortal.Models
                 // Provide for exceptions.
             }
 
+        }
+
+        public void UpdateName(string userId, string name)
+        {
+            var user = (from a in AspNetUsers_db.AspNetUsers
+                           where a.Id == userId
+                           select a).Single();
+            user.Name = name;
+
+            try
+            {
+                AspNetUsers_db.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // Provide for exceptions.
+            }
         }
 
         public int GetStrikeCount(string userId)
