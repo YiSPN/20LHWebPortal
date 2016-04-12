@@ -252,9 +252,12 @@
     float: left;
     box-shadow: none;
     background-color: #cbd6db;
-    border-radius: 3px;
+    border-radius: 0px;
     overflow: hidden;
-    box-shadow: 0px 10px 50px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 50px rgba(0,0,0,0.2);
+
+
+    width: 100%;
 }
 .event.upcoming .header{
   display: inline-block;

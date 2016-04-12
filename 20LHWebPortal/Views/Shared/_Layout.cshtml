@@ -27,19 +27,19 @@
 <!--Site Content-->
 <div id="contentWrap">
     <!--Desktop Nav + Header-->
-    <header class="hidden-xs hidden-md">
+    <header class="hidden-xs">
         <div id="logo">
             <a href="/">
                 <img src="~/Content/Images/Custom/20lh_logo.png" alt="20 Lets Hang Logo"/>
             </a>
         </div>
-        <div id="desktopNav">
+        <div id="desktopNav" class="hidden-xs">
             @Html.Partial("menu")
         </div>
     </header>
 
     <!--Mobile Navigation-->
-    <div class="visible-xs visible-md navbar navbar-inverse navbar-fixed-top">
+    <div class="visible-xs navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -97,8 +97,12 @@
 
 <!--Footer-->
 <footer>
-    @Html.ActionLink("About", "About", "Home") | @Html.ActionLink("Things To Do", "ThingsToDo", "Home") | @Html.ActionLink("FAQ", "FAQ", "Home")
-    <span>20LH Web Portal &copy; @DateTime.Now.Year</span>
+    <div id="footer-content">
+        <span>20LH Web Portal &copy; @DateTime.Now.Year</span>
+        <p>
+            @Html.ActionLink("About", "About", "Home") | @Html.ActionLink("Things To Do", "ThingsToDo", "Home") | @Html.ActionLink("FAQ", "FAQ", "Home")
+        </p>
+    </div>
 </footer>
 
 <script src="~/Scripts/jquery-2.1.4.js"></script>
