@@ -414,7 +414,8 @@
   position: fixed;
   width: 300px;
   bottom: 0;
-  left: 10px; }
+  left: 10px;
+  z-index: 100000; }
 
 #notfications .notification {
   display: inline-block;
@@ -423,8 +424,26 @@
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   margin: 10px 0 10px 0;
-  cursor: pointer; }
+  cursor: pointer;
+  border-radius: 3px; }
 
 #notfications .notification:hover {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); }
+
+#notfications .notification i.fa {
+  display: inline-block;
+  margin: 0 0 5px 5px;
+  background-color: #E1593D;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 20px;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 0;
+  float: right;
+  border-radius: 50%; }
+
+#notfications .notification:hover i.fa {
+  color: rgba(255, 255, 255, 0.8); }
 

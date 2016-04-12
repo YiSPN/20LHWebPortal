@@ -115,7 +115,7 @@ namespace _20LHWebPortal.Controllers
             var model = new CreateHangoutViewModel
             {
                 Id = item.Id,
-                Date = (item.Date != null ? item.Date.Value.ToShortDateString() : ""),
+                Date = item.Date,
                 Description = item.Description,
                 Name = item.Name,
                 UserId = item.UserCreator,
@@ -124,10 +124,10 @@ namespace _20LHWebPortal.Controllers
                 ContactInfo = item.ContactInfo,
                 PartySize = item.PartySize,
                 GenderRatio = item.GenderRatio,
-                StartTime = (item.StartTime != null ? item.StartTime.Value.ToString("h:mmtt") : ""),
-                EndTime = (item.EndTime != null ? item.EndTime.Value.ToString("h:mmtt") : "")
+                StartTime = item.StartTime,
+                EndTime = item.EndTime
 
-        };
+            };
             return View(model);
         }
 
@@ -137,59 +137,40 @@ namespace _20LHWebPortal.Controllers
         public ActionResult Edit(CreateHangoutViewModel model)
         {
             JsonResult result = null;
+            var errors = new List<string>();
 
-            bool startTimeIsValid, endTimeIsValid;
+/*            bool startTimeIsValid, endTimeIsValid;
             startTimeIsValid = IsValidTime(model.StartTime);
-            endTimeIsValid = IsValidTime(model.EndTime);
-            if (!startTimeIsValid)
+            endTimeIsValid = IsValidTime(model.EndTime);*/
+            if (!model.StartTime.HasValue)
             {
                 ModelState.AddModelError(string.Empty, model.StartTime + " is an invalid time. E.g. 10:00am");
+                errors.Add(model.StartTime + " is an invalid time. E.g. 10:00am");
             }
-            if (!endTimeIsValid)
+            if (!model.EndTime.HasValue)
             {
                 ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
+                errors.Add(model.EndTime + " is an invalid time. E.g. 3:00pm");
             }
-            if(model.Date !=  null && DateTime.Parse(model.Date) < DateTime.Today)
+            if(!model.Date.HasValue || (model.Date.Value.Date < DateTime.Today))
             {
                 ModelState.AddModelError(string.Empty, "Date cannot be paste due.");
+                errors.Add("Date cannot be paste due.");
             }
-            if ((startTimeIsValid && endTimeIsValid) && (DateTime.Parse(model.StartTime) >= DateTime.Parse(model.EndTime)))
+
+            if (!ModelState.IsValid && (model.StartTime.GetValueOrDefault() < model.EndTime.GetValueOrDefault()))
             {
                 ModelState.AddModelError(string.Empty, "End Time must be later than Start Time");
+                errors.Add("End Time must be later than Start Time");
             }
-            if (ModelState.IsValid && false)
-            {
-                _hangoutRepository.Update(model);
-
-                return RedirectToAction("MyHangouts");
-
-                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                //    // Send an email with this link
-                //    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                //    return RedirectToAction("Index", "Home");
-                //}
-                //AddErrors(result);
-            }
-
 
             var errorList = ModelState.ToDictionary(
                 kvp => kvp.Key,
                 kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList());
 
-            if (errorList.Any())
+            if (!ModelState.IsValid || errors.Any())
             {
-                //lets do some erro handling
-                var errors = new List<string>();
-                foreach(var error in errorList)
+                foreach (var error in errorList)
                 {
                     for (var i = 0; i < error.Value.Count; i++)
                     {
@@ -206,16 +187,46 @@ namespace _20LHWebPortal.Controllers
                 };
                 return result;
             }
-            result = new JsonResult
+            else
             {
-                Data = new
+                _hangoutRepository.Update(model);
+
+                var userId = User.Identity.GetUserId();
+                var hangoutViewModel = _hangoutRepository.GetHangoutViewModelById(userId, model.Id);
+
+                result = new JsonResult
                 {
-                    View = ViewToString("Edit", model)
-                }
-            };
-            return result;
+                    Data = new
+                    {
+                        Errors = hangoutViewModel == null ? new List<string> {"Unable to find the hangout"} : new List<string>(),
+                        View = hangoutViewModel != null ? ViewToString("_UpcomingHangoutPartial", hangoutViewModel) : ""
+                    }
+                };
+                return result;
+            }
 
 
+            //if (ModelState.IsValid && !errorList.Any())
+            //{
+            //    _hangoutRepository.Update(model);
+            //    return RedirectToAction("MyHangouts");
+
+                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //var result = await UserManager.CreateAsync(user, model.Password);
+                //if (result.Succeeded)
+                //{
+                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                //    // Send an email with this link
+                //    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                //    return RedirectToAction("Index", "Home");
+                //}
+                //AddErrors(result);
+            //}
 
             // If we got this far, something failed, redisplay form
             //return View(model);
@@ -233,7 +244,7 @@ namespace _20LHWebPortal.Controllers
             var model = new RateOrganizerHangoutViewModel
             {
                 Id = item.Id,
-                Date = (item.Date != null ? item.Date.Value.ToShortDateString() : ""),
+                Date = item.Date,
                 Description = item.Description,
                 Name = item.Name,
                 UserId = item.UserCreator,
@@ -300,22 +311,29 @@ namespace _20LHWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateHangoutViewModel model)
         {
-            bool startTimeIsValid, endTimeIsValid;
+            /*bool startTimeIsValid, endTimeIsValid;
             startTimeIsValid = IsValidTime(model.StartTime);
-            endTimeIsValid = IsValidTime(model.EndTime);
-            if (!startTimeIsValid)
+            endTimeIsValid = IsValidTime(model.EndTime);*/
+
+
+            if (!model.StartTime.HasValue)
             {
                 ModelState.AddModelError(string.Empty, model.StartTime + " is an invalid time. E.g. 10:00am");
             }
-            if (!endTimeIsValid)
+            if (!model.EndTime.HasValue)
             {
                 ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
             }
-            if (DateTime.Parse(model.Date) < DateTime.Today)
+
+            if (!model.Date.HasValue)
             {
-                ModelState.AddModelError(string.Empty, "Date cannot be paste due.");
+                ModelState.AddModelError("Date", "Date cannot be empty.");
             }
-            if ((startTimeIsValid && endTimeIsValid) && (DateTime.Parse(model.StartTime) >= DateTime.Parse(model.EndTime)))
+            if (model.Date < DateTime.Today)
+            {
+                ModelState.AddModelError("Date", "Date cannot be paste due.");
+            }
+            if (model.StartTime > model.EndTime)
             {
                 ModelState.AddModelError(string.Empty, "End Time must be later than Start Time");
             }

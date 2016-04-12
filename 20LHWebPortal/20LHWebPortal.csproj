@@ -437,6 +437,7 @@
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Custom\Events.js" />
     <Content Include="Scripts\Custom\Shared.js" />
     <Content Include="Scripts\jquery-1.12.2.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
