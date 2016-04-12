@@ -38,15 +38,7 @@
         }).done(function (data) {
             if (data.Errors && data.Errors.length > 0) {
                 for (var i = 0; i < data.Errors.length; i++) {
-                    var notification = $("<div>");
-                    notification.html("<i class='fa fa-close'></i> <span>" + data.Errors[i] + "</span>");
-                    notification.addClass("notification animated bounce");
-
-                    window.setTimeout(function () {
-                        notification.remove();
-                    });
-
-                    $("#notfications").append(notification);
+                    window.ShowNotification(data.Errors[i], "error");
                 }
             }
             else {

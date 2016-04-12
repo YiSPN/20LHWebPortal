@@ -487,3 +487,30 @@
 #notfications .notification:hover i.fa{
     color: rgba(255,255,255,0.8);
 }
+
+
+#notfications .notification[notification-type="error"]{
+    background-color: lighten($red, 50);
+}
+#notfications .notification[notification-type="info"]{
+    background-color: lighten($blue, 50);
+}
+#notfications .notification[notification-type="warning"]{
+    background-color: lighten($orange, 50);
+}
+#notfications .notification[notification-type="success"]{
+    background-color: lighten($green, 50);
+}
+
+#notfications .notification[notification-type="error"] i.fa{
+    background-color: $red;
+}
+#notfications .notification[notification-type="info"] i.fa{
+    background-color: $blue;
+}
+#notfications .notification[notification-type="warning"] i.fa{
+    background-color: $orange;
+}
+#notfications .notification[notification-type="success"] i.fa{
+    background-color: $green;
+}

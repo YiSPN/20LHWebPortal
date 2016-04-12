@@ -450,3 +450,27 @@
 #notfications .notification:hover i.fa {
   color: rgba(255, 255, 255, 0.8); }
 
+#notfications .notification[notification-type="error"] {
+  background-color: white; }
+
+#notfications .notification[notification-type="info"] {
+  background-color: #e6f9fb; }
+
+#notfications .notification[notification-type="warning"] {
+  background-color: white; }
+
+#notfications .notification[notification-type="success"] {
+  background-color: white; }
+
+#notfications .notification[notification-type="error"] i.fa {
+  background-color: #E1593D; }
+
+#notfications .notification[notification-type="info"] i.fa {
+  background-color: #1DB4C5; }
+
+#notfications .notification[notification-type="warning"] i.fa {
+  background-color: #F47838; }
+
+#notfications .notification[notification-type="success"] i.fa {
+  background-color: #85cd3f; }
+

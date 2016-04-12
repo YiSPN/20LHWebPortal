@@ -139,45 +139,51 @@ namespace _20LHWebPortal.Controllers
             JsonResult result = null;
             var errors = new List<string>();
 
-/*            bool startTimeIsValid, endTimeIsValid;
-            startTimeIsValid = IsValidTime(model.StartTime);
-            endTimeIsValid = IsValidTime(model.EndTime);*/
-            if (!model.StartTime.HasValue)
+            //Try to grab any model state errors
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, model.StartTime + " is an invalid time. E.g. 10:00am");
-                errors.Add(model.StartTime + " is an invalid time. E.g. 10:00am");
-            }
-            if (!model.EndTime.HasValue)
-            {
-                ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
-                errors.Add(model.EndTime + " is an invalid time. E.g. 3:00pm");
-            }
-            if(!model.Date.HasValue || (model.Date.Value.Date < DateTime.Today))
-            {
-                ModelState.AddModelError(string.Empty, "Date cannot be paste due.");
-                errors.Add("Date cannot be paste due.");
-            }
+                var errorList = ModelState.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList());
 
-            if (!ModelState.IsValid && (model.StartTime.GetValueOrDefault() < model.EndTime.GetValueOrDefault()))
-            {
-                ModelState.AddModelError(string.Empty, "End Time must be later than Start Time");
-                errors.Add("End Time must be later than Start Time");
-            }
-
-            var errorList = ModelState.ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToList());
-
-            if (!ModelState.IsValid || errors.Any())
-            {
                 foreach (var error in errorList)
                 {
-                    for (var i = 0; i < error.Value.Count; i++)
+                    foreach (string modelStateError in error.Value)
                     {
-                        var message = string.Format("{0}: {1}", error.Key, error.Value[i]);
+                        var message = string.Format("{0}: {1}", error.Key, modelStateError);
                         errors.Add(message);
                     }
                 }
+            }
+            else
+            {
+                //Custom validation if we dont see any model state errors
+                if (!model.StartTime.HasValue)
+                {
+                    ModelState.AddModelError(string.Empty, model.StartTime + " is an invalid time. E.g. 10:00am");
+                    errors.Add(model.StartTime + " is an invalid time. E.g. 10:00am");
+                }
+                if (!model.EndTime.HasValue)
+                {
+                    ModelState.AddModelError(string.Empty, model.EndTime + " is an invalid time. E.g. 3:00pm");
+                    errors.Add(model.EndTime + " is an invalid time. E.g. 3:00pm");
+                }
+                if (!model.Date.HasValue || (model.Date.Value.Date < DateTime.Today))
+                {
+                    ModelState.AddModelError(string.Empty, "Date cannot be paste due.");
+                    errors.Add("Date cannot be paste due.");
+                }
+
+                if (!ModelState.IsValid && (model.StartTime.GetValueOrDefault() < model.EndTime.GetValueOrDefault()))
+                {
+                    ModelState.AddModelError(string.Empty, "End Time must be later than Start Time");
+                    errors.Add("End Time must be later than Start Time");
+                }
+            }
+
+            //Return errors if we have any
+            if (errors.Any())
+            {
                 result = new JsonResult
                 {
                     Data = new
@@ -187,49 +193,23 @@ namespace _20LHWebPortal.Controllers
                 };
                 return result;
             }
-            else
+
+            //Save if we dont have errors
+            _hangoutRepository.Update(model);
+
+            var userId = User.Identity.GetUserId();
+            var hangoutViewModel = _hangoutRepository.GetHangoutViewModelById(userId, model.Id);
+
+            //Return updated event card if everything is good
+            result = new JsonResult
             {
-                _hangoutRepository.Update(model);
-
-                var userId = User.Identity.GetUserId();
-                var hangoutViewModel = _hangoutRepository.GetHangoutViewModelById(userId, model.Id);
-
-                result = new JsonResult
+                Data = new
                 {
-                    Data = new
-                    {
-                        Errors = hangoutViewModel == null ? new List<string> {"Unable to find the hangout"} : new List<string>(),
-                        View = hangoutViewModel != null ? ViewToString("_UpcomingHangoutPartial", hangoutViewModel) : ""
-                    }
-                };
-                return result;
-            }
-
-
-            //if (ModelState.IsValid && !errorList.Any())
-            //{
-            //    _hangoutRepository.Update(model);
-            //    return RedirectToAction("MyHangouts");
-
-                //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                //    // Send an email with this link
-                //    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                //    return RedirectToAction("Index", "Home");
-                //}
-                //AddErrors(result);
-            //}
-
-            // If we got this far, something failed, redisplay form
-            //return View(model);
+                    Errors = hangoutViewModel == null ? new List<string> {"Unable to find the hangout"} : new List<string>(),
+                    View = hangoutViewModel != null ? ViewToString("_UpcomingHangoutPartial", hangoutViewModel) : ""
+                }
+            };
+            return result;
         }
 
         public bool IsValidTime(string time)
