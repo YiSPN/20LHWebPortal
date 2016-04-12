@@ -108,12 +108,14 @@
   display: inline-block;
   width: 100%;
   padding: 10px;
-  border-radius: 8px;
-  background-color: #eee; }
+  border-radius: 0px;
+  background-color: #fff;
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1); }
 
 .event-activity:not(:last-child) {
   padding-bottom: 0px;
-  margin-bottom: 5px; }
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+  margin-bottom: 0px; }
 
 .event-activity .header {
   display: inline-block;
