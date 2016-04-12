@@ -36,7 +36,7 @@ namespace _20LHWebPortal.Models
         [DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
-        public string Date { get; set; }
+        public DateTime? Date { get; set; }
 
         [Required]
         [Display(Name = "Gender Ratio")]
@@ -56,12 +56,12 @@ namespace _20LHWebPortal.Models
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
-        public string StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "End Time")]
-        public string EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
     }
 }

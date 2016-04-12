@@ -186,64 +186,83 @@ namespace _20LHWebPortal.Models
             {
                 if (tempHangout != null)
                 {
-                    var allAtendees = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                        where u.HangoutId == tempHangout.Id && u.IsRSVPd == true
-                                        select u);
-                    var hostAverageRating = (from u in OrganizerRatings_db.OrganizerRatings
-                                                where u.OrganizerId == tempHangout.UserCreator
-                                                select u);
-                    double sum = 0;
+                    var hangout = HangoutToHangoutViewModel(userId, tempHangout);
 
-                    foreach(var r in hostAverageRating)
-                    {
-                        sum += (double) r.Rating;
-                    }
-
-                    var hostAvg = sum / hostAverageRating.Count();
-                    bool isRsvp = false;
-                    var isRsvpUserHangout = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                             where u.AspNetUsers == userId && u.HangoutId == tempHangout.Id && u.IsRSVPd == true
-                                             select u).SingleOrDefault();
-                    if (isRsvpUserHangout != null)
-                    {
-                        isRsvp = isRsvpUserHangout.IsRSVPd;
-                    }
-
-                    var hangout = new HangoutViewModel
-                    {
-                        Date = tempHangout.Date,
-                        Description = tempHangout.Description,
-                        Id = tempHangout.Id,
-                        Name = tempHangout.Name,
-                        OpenSpots = tempHangout.PartySize - allAtendees.Count(),
-                        HostName = GetUserName(tempHangout.UserCreator),
-                        MaleOpenSpots = (tempHangout.PartySize / 2) - tempHangout.MaleAttendingCount,
-                        FemaleOpenSpots = (tempHangout.PartySize / 2) - tempHangout.FemaleAttendingCount,
-                        GenderRatio = tempHangout.GenderRatio,
-                        HostAverageRating = Math.Round(hostAvg, 2),
-                        StartTime = tempHangout.StartTime,
-                        EndTime = tempHangout.EndTime,
-                        IsHost = tempHangout.UserCreator.Equals(userId) ? true : false,
-                        IsRsvp = isRsvp,
-                        Location = tempHangout.Location
-                        };
-
-                        foreach(var a in allAtendees)
-                        {
-                            var user = (from y in AspNetUsers_db.AspNetUsers
-                                                where y.Id == a.AspNetUsers
-                                                select y).SingleOrDefault();
-                            hangout.AttendingList.Add(new UserViewModel{
-                                username = user.UserName
-                            });
-                        }
-
-                        returnList.Add(hangout);
-                    }
+                    returnList.Add(hangout);
+                }
             }
             
 
             return returnList;
+        }
+
+        public HangoutViewModel GetHangoutViewModelById(string userId, int id)
+        {
+            var hangout = GetHangoutById(id);
+            if (hangout != null)
+            {
+                var hangoutViewModel = HangoutToHangoutViewModel(userId, hangout);
+                return hangoutViewModel;
+            }
+            return new HangoutViewModel();
+        }
+
+        private HangoutViewModel HangoutToHangoutViewModel(string userId, Hangout hangout)
+        {
+            var allAtendees = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
+                where u.HangoutId == hangout.Id && u.IsRSVPd == true
+                select u);
+
+            var hostAverageRating = (from u in OrganizerRatings_db.OrganizerRatings
+                where u.OrganizerId == hangout.UserCreator
+                select u);
+            double sum = 0;
+
+            foreach (var r in hostAverageRating)
+            {
+                sum += (double) r.Rating;
+            }
+
+            var hostAvg = sum/hostAverageRating.Count();
+            bool isRsvp = false;
+            var isRsvpUserHangout = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
+                where u.AspNetUsers == userId && u.HangoutId == hangout.Id && u.IsRSVPd == true
+                select u).SingleOrDefault();
+            if (isRsvpUserHangout != null)
+            {
+                isRsvp = isRsvpUserHangout.IsRSVPd;
+            }
+
+            var hangoutViewModel = new HangoutViewModel
+            {
+                Date = hangout.Date,
+                Description = hangout.Description,
+                Id = hangout.Id,
+                Name = hangout.Name,
+                OpenSpots = hangout.PartySize - allAtendees.Count(),
+                HostName = GetUserName(hangout.UserCreator),
+                MaleOpenSpots = (hangout.PartySize/2) - hangout.MaleAttendingCount,
+                FemaleOpenSpots = (hangout.PartySize/2) - hangout.FemaleAttendingCount,
+                GenderRatio = hangout.GenderRatio,
+                HostAverageRating = Math.Round(hostAvg, 2),
+                StartTime = hangout.StartTime,
+                EndTime = hangout.EndTime,
+                IsHost = hangout.UserCreator.Equals(userId) ? true : false,
+                IsRsvp = isRsvp,
+                Location = hangout.Location
+            };
+
+            foreach (var a in allAtendees)
+            {
+                var user = (from y in AspNetUsers_db.AspNetUsers
+                    where y.Id == a.AspNetUsers
+                    select y).SingleOrDefault();
+                hangoutViewModel.AttendingList.Add(new UserViewModel
+                {
+                    username = user.UserName
+                });
+            }
+            return hangoutViewModel;
         }
 
         public string GetUserName(string userId)
@@ -596,7 +615,7 @@ namespace _20LHWebPortal.Models
         {
             Hangout hang = new Hangout
             {
-                Date = DateTime.Parse(model.Date),
+                Date = model.Date,
                 Description = model.Description,
                 Name = model.Name,
                 UserCreator = model.UserId,
@@ -605,8 +624,8 @@ namespace _20LHWebPortal.Models
                 PartySize = model.PartySize,
                 ContactInfo = model.ContactInfo,
                 GenderRatio = model.GenderRatio,
-                StartTime = DateTime.Parse(model.StartTime),
-                EndTime = DateTime.Parse(model.EndTime),
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
                 AttendeeCount = 1,
                 IsCancelled = false
             };
@@ -712,7 +731,7 @@ namespace _20LHWebPortal.Models
             var hangout = (from a in Hangout_db.Hangouts
                            where a.Id == model.Id
                            select a).Single();
-            hangout.Date = DateTime.Parse(model.Date);
+            hangout.Date = model.Date;
             hangout.Description = model.Description;
             hangout.Name = model.Name;
             hangout.Address = model.Address;
@@ -721,13 +740,13 @@ namespace _20LHWebPortal.Models
             hangout.PartySize = model.PartySize;
             hangout.GenderRatio = model.GenderRatio;
             DateTime startTimeOut, endTimeOut;
-            if (DateTime.TryParse(model.StartTime, out startTimeOut))
+            if (model.StartTime.HasValue)
             {
-                hangout.StartTime = startTimeOut;
+                hangout.StartTime = model.StartTime;
             }
-            if (DateTime.TryParse(model.EndTime, out endTimeOut))
+            if (model.EndTime.HasValue)
             {
-                hangout.EndTime = endTimeOut;
+                hangout.EndTime = model.EndTime;
             }
 
             try

@@ -1,38 +1,16 @@
 ﻿@model _20LHWebPortal.Models.CreateHangoutViewModel
 @{
     ViewBag.Title = "Edit";
+    Layout = null;
 }
 
-<head>
-    <meta charset="utf-8">
-    <script src="~/Scripts/jquery-2.1.4.js"></script>
-    <script src="~/Scripts/jquery-ui.js"></script>
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
-    <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery.timepicker.min.js"></script>
-    <script>
-
-    jQuery(document).ready(function ($) {
-        var dateToday = new Date();
-        $("#datepicker").datepicker({
-            minDate: dateToday
-        });
-        $("#timepicker").timepicker();
-        $("#timepicker2").timepicker();
-
-    });
-    </script>
-</head>
-
-<h2>Edit</h2>
-
-@using (Html.BeginForm("Edit", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Edit", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form", id="edit-hangout-form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Update a new hangout.</h4>
-    <hr />
+    @Html.HiddenFor(x=>x.Id)
+
     @Html.ValidationSummary("", new { @class = "text-danger" })
+
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -48,19 +26,19 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Date, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Date, new { @class = "form-control", @id = "datepicker" })
+            @Html.TextBoxFor(m => m.Date, "{0:MM/dd/yyyy}", new { @class = "form-control", @id = "datepicker" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.StartTime, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.StartTime, new { @class = "form-control", @id = "timepicker" })
+            @Html.TextBoxFor(m => m.StartTime, "{0:hh:mm tt}", new { @class = "form-control", @id = "timepicker" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.EndTime, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.EndTime, new { @class = "form-control", @id = "timepicker2" })
+            @Html.TextBoxFor(m => m.EndTime, "{0:hh:mm tt}", new { @class = "form-control", @id = "timepicker2" })
         </div>
     </div>
     <div class="form-group">
@@ -96,7 +74,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Update" />
+            <input type="submit" class="btn btn-default hidden" value="Update" />
         </div>
     </div>
 }
@@ -105,3 +83,19 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
+
+
+
+
+<script>
+
+    jQuery(document).ready(function ($) {
+        var dateToday = new Date();
+        $("#datepicker").datepicker({
+            minDate: dateToday
+        });
+        $("#timepicker").timepicker();
+        $("#timepicker2").timepicker();
+
+    });
+</script>

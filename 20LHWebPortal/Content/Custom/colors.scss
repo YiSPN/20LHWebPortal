@@ -2,30 +2,30 @@
 
 /*	Text colors
 ***********************************/
-.text-color-dark{color: $text-color-dark;}
-.text-color-light{color: $text-color-light;}
+.text-color-dark{color: $text-color-dark !important;}
+.text-color-light{color: $text-color-light !important;}
 
 /*	Color Classes [with hover effects]
 ***********************************/
-.blue{ background-color: $blue; }
-.green{background-color: $green;}
-.yellow{background-color: $yellow;}
-.orange{background-color: $orange;}
-.red{background-color: $red;}
-.default-color{background-color: $default-color;}
+.blue{ background-color: $blue !important;}
+.green{background-color: $green !important;}
+.yellow{background-color: $yellow !important;}
+.orange{background-color: $orange !important;}
+.red{background-color: $red !important;}
+.default-color{background-color: $default-color !important;}
 
-.blue:hover{ background-color: $blue-hover; }
-.green:hover{background-color: $green-hover;}
-.yellow:hover{background-color: $yellow-hover;}
-.orange:hover{background-color: $orange-hover;}
-.red:hover{background-color: $red-hover;}
-.default-color:hover{background-color: $default-color-hover;}
+.blue:hover{ background-color: $blue-hover !important;}
+.green:hover{background-color: $green-hover !important;}
+.yellow:hover{background-color: $yellow-hover !important;}
+.orange:hover{background-color: $orange-hover !important;}
+.red:hover{background-color: $red-hover !important;}
+.default-color:hover{background-color: $default-color-hover !important;}
 
 /*	Color Classes [without hover effects]
 ***********************************/
-.blue-no-hover{ background-color: $blue; }
-.green-no-hover{background-color: $green;}
-.yellow-no-hover{background-color: $yellow;}
-.orange-no-hover{background-color: $orange;}
-.red-no-hover{background-color: $red;}
-.default-color-no-hover{background-color: $default-color;}
+.blue-no-hover{ background-color: $blue !important;}
+.green-no-hover{background-color: $green !important;}
+.yellow-no-hover{background-color: $yellow !important;}
+.orange-no-hover{background-color: $orange !important;}
+.red-no-hover{background-color: $red !important;}
+.default-color-no-hover{background-color: $default-color !important;}

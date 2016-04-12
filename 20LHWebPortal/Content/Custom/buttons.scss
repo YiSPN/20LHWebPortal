@@ -20,8 +20,10 @@
 }
 .button:hover{
 	border-bottom: 2px solid rgba(0,0,0,0.3);
+    color: $text-color-light;
     text-decoration: none;
 }
 .button:focus{
+    color: $text-color-light;
 	box-shadow: 0 0 0px 3px transparentize($default-color, 0.7);
 }

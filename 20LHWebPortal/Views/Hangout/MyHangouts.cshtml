@@ -4,40 +4,9 @@
     ViewBag.Title = "My Hangouts";
 }
 
-@*You have @ViewBag.Strikes strikes.*@
-@Html.AntiForgeryToken()
-<style>
-    table {
-        width: 100%;
-    }
-
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 5px;
-        text-align: left;
-    }
-
-    table#t01 tr:nth-child(even) {
-        background-color: #eee;
-    }
-
-    table#t01 tr:nth-child(odd) {
-        background-color: #fff;
-    }
-
-    table#t01 th {
-        background-color: black;
-        color: white;
-    }
-</style>
-
 @foreach (var item in Model)
 {
-    <div class="row" style="text-align: center">
+    <div class="row">
         <div class="col-lg-12">
             @Html.Partial("_UpcomingHangoutPartial", item)
         </div>
@@ -45,98 +14,35 @@
 
 }
 
-@*<table style="width:100%">
-    <tr>
-        <th>
-            Host Name
-        </th>
-        <th>
-            Name of event
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Guest List
-        </th>
+<!--Edit Event Modal-->
+<div id="edit-event-modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" data-url="@Url.Action("Edit", "Hangout")" data-redirect-url="@Url.Action("MyHangouts", "Hangout")">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Edit Event</h4>
+            </div>
 
-    </tr>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12" id="edit-event-modal-content">
 
-    
+                    </div>
+                </div>
+            </div>
 
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div href="#" class="button green" data-button-type="edit-event-save">
+                            Save
+                            <i class="fa fa-chevron-right text-color-light"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.HostName Average Rating of 
-                @if (@item.HostAverageRating.Equals(double.NaN))
-                {
-                    <b>
-                        0
-                    </b>
-                }
-                else
-                {
-                    <b>
-                        @item.HostAverageRating
-                    </b>
-                }
-            </td>
-            <td>@item.Name</td>
-            <td>@item.Description</td>
-            <td><p></p>
-            @if (@item.Date.HasValue) { @String.Format("{0:dddd, MMMM d, yyyy}", item.Date)}
-            @if (@item.StartTime.HasValue) { @item.StartTime.Value.ToString("h:mm tt")} @if (@item.EndTime.HasValue) { <p>to @item.EndTime.Value.ToString("h:mm tt")</p> }
-            <td>
-                @if (item.AttendingList.Count() > 0)
-                {
-
-                    <ol>
-                        @foreach (var u in item.AttendingList)
-                        {
-                            <li>
-                                @u.username
-                            </li>
-                        }
-                    </ol>
-
-                }
-            </td>          
-            @if (item.IsHost)
-            {
-                <td>
-                    @Html.ActionLink(
-                "Edit",
-                "Edit",
-                new { id = item.Id })
-                </td>
-                <td>
-                    @Html.ActionLink(
-                "Delete",
-                "Delete",
-                new { id = item.Id },
-                new { onclick = "return confirm('Are you sure you wish to delete this event?');" })
-            </td>
-            }
-            else if(item.IsRsvp)
-            {
-                <td>
-                    @Html.ActionLink(
-                "UnRSVP",
-                "UnRSVP",
-                new { id = item.Id })
-                </td>
-            }
-            
-
-
-            
-        </tr>
-    }
-</table>*@
-
-
-
+<script src="~/Scripts/Custom/Events.js"></script>
