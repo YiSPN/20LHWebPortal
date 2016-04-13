@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace _20LHWebPortal.Models
 {
@@ -67,6 +68,7 @@ namespace _20LHWebPortal.Models
                     Name = h.Name,
                     OpenSpots = h.PartySize - allAtendees.Count(),
                     HostName = GetUserName(h.UserCreator),
+                    HostUser = GetUser(h.UserCreator),
                     IsHost = true,
                     IsRsvp = false,
                     HostAverageRating = Math.Round(average, 2),
@@ -123,6 +125,7 @@ namespace _20LHWebPortal.Models
                             Name = tempHangout.Name,
                             OpenSpots = tempHangout.PartySize - allAtendees.Count(),
                             HostName = GetUserName(tempHangout.UserCreator),
+                            HostUser = GetUser(tempHangout.UserCreator),
                             HostAverageRating = Math.Round(average, 2),
                             IsRsvp = true,
                             IsHost = false,
@@ -188,7 +191,6 @@ namespace _20LHWebPortal.Models
                 if (tempHangout != null)
                 {
                     var hangout = HangoutToHangoutViewModel(userId, tempHangout);
-
                     returnList.Add(hangout);
                 }
             }
@@ -249,6 +251,7 @@ namespace _20LHWebPortal.Models
                 StartTime = hangout.StartTime,
                 EndTime = hangout.EndTime,
                 IsHost = hangout.UserCreator.Equals(userId) ? true : false,
+                HostUser = GetUser(hangout.UserCreator),
                 IsRsvp = isRsvp,
                 Location = hangout.Location
             };
@@ -830,15 +833,38 @@ namespace _20LHWebPortal.Models
             var user = (from a in AspNetUsers_db.AspNetUsers
                         where a.Id == userId
                         select a).SingleOrDefault();
-
             return new UserViewModel
             {
                 Gender = GetUserGender(userId),
                 Name = user.Name,
                 UserRating = GetUserRating(userId),
-                NoShows = GetStrikeCount(userId)
+                NoShows = GetStrikeCount(userId),
+                ImageContent = user.ImageContent == null ? new byte[8] : user.ImageContent.ToArray(),
+                ImageMimeType = user.ImageMimeType == null ? "none" : user.ImageMimeType
             };
             // Put hangouts attended and hangouts hosted.
+        }
+
+        public void UploadPhoto(HttpPostedFileBase image, string userId)
+        {
+            var user = (from a in AspNetUsers_db.AspNetUsers
+                        where a.Id == userId
+                        select a).SingleOrDefault();
+            using (var binaryReader = new BinaryReader(image.InputStream))
+            {
+                user.ImageContent = binaryReader.ReadBytes(image.ContentLength);
+            }
+            user.ImageMimeType = image.ContentType;
+
+            try
+            {
+                AspNetUsers_db.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                // Provide for exceptions.
+            }
         }
     }
 }

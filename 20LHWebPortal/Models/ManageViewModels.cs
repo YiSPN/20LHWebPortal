@@ -16,6 +16,7 @@ namespace _20LHWebPortal.Models
         public string ProfilePicture { get;  set;}
         public double UserRating { get; set; }
         public string Name { get; set; }
+        public byte[] ImageContent { get; set; }
         public string ImageMimeType { get; set; }
     }
 

@@ -6,15 +6,49 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
+            
+
     @*<h3>User Rating: @Model.UserRating</h3>*@
       <h2>
           Hi @Model.Name! [@Html.ActionLink("Change your name", "ChangeName")]
-    </h2>  
+    </h2>
+    @if (User.Identity.Name != null)
+    {
+        //var imgUrl = Url.Content("~/Content/Images/profile" + User.Identity.Name + ".png") + "?time=" + DateTime.Now.ToString();
+        <div class="upimage">
+            <div class="accimg">
+                @{
+                    var base64 = Convert.ToBase64String(Model.ImageContent);
+                    var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                }
+                <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
+            </div>
+            <div class="mngimg">
+                @using (Html.BeginForm("UploadPhoto", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="btn btn-default browseimg">
+                        <input type="file" name="file" id="files" onchange="this.form.submit()" />
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    @for (var i = 0; i < Model.UserRating; i++)
+    {
+        <span style="font-size: 30px" class="glyphicon glyphicon-star"></span>
+    }
+    @{
+        var empty = 5 - Model.UserRating;
+        for (var i = 0; i < empty; i++)
+        {
+            <span style="font-size: 30px" class="glyphicon glyphicon-star-empty"></span>
+        }
+    }
     <h4>
-        Hangouts hosted
+       # Hangouts hosted
     </h4>
     <h4>
-        Hangouts attended
+       # Hangouts attended
     </h4>
     <h6>
         [

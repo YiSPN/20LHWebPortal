@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace _20LHWebPortal.Models
 {
@@ -19,5 +20,13 @@ namespace _20LHWebPortal.Models
 
         public int HangoutsAttended { get; set; }
 
+        public byte[] ImageContent { get; set; }
+
+        public string ImageMimeType { get; set; }
+
+        public UserViewModel()
+        {
+            ImageContent = new byte[8];
+        }
     }
 }

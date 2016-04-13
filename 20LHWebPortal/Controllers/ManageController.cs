@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using _20LHWebPortal.Models;
+using System.IO;
+using System.Web.Hosting;
 
 namespace _20LHWebPortal.Controllers
 {
@@ -66,9 +68,12 @@ namespace _20LHWebPortal.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.PhotoUploadSuccess ? "Your photo has been uploaded."
+                : message == ManageMessageId.FileExtensionError ? "Only jpg, png and gif file formats are allowed."
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = _hangoutRepository.GetUser(userId);
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -77,8 +82,10 @@ namespace _20LHWebPortal.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 ProfilePicture = File(_hangoutRepository.GetUserProfilePicture(userId), "image/jpeg").FileDownloadName,
-                UserRating = _hangoutRepository.GetStrikeCount(userId),
-                Name = _hangoutRepository.GetName(userId)
+                UserRating = user.UserRating,
+                Name = user.Name,
+                ImageContent = user.ImageContent, 
+                ImageMimeType = user.ImageMimeType
             };
             return View(model);
         }
@@ -246,6 +253,48 @@ namespace _20LHWebPortal.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
+        [HttpPost]
+        public async Task<ActionResult> UploadPhoto(HttpPostedFileBase file)
+        {
+            var id = User.Identity.GetUserId();
+            var fileExt = Path.GetExtension(file.FileName);
+            if (fileExt.ToLower().EndsWith(".png") || fileExt.ToLower().EndsWith(".jpg") || fileExt.ToLower().EndsWith(".gif"))
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    _hangoutRepository.UploadPhoto(file, id);
+                    return RedirectToAction("Index", new { Message = ManageMessageId.PhotoUploadSuccess });
+                }
+                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+            }
+            return RedirectToAction("Index", new { Message = ManageMessageId.FileExtensionError });
+
+
+            //if (file != null && file.ContentLength > 0)
+            //{
+            //    var user = await GetCurrentUserAsync();
+            //    var username = user.UserName;
+            //    var fileExt = Path.GetExtension(file.FileName);
+            //    var fnm = username + ".png";
+            //    if( fileExt.ToLower().EndsWith(".png") || fileExt.ToLower().EndsWith(".jpg") || fileExt.ToLower().EndsWith(".gif"))
+            //    {
+            //        var filePath = HostingEnvironment.MapPath("~/Content/Images/profile");
+            //        var directory = new DirectoryInfo(HostingEnvironment.MapPath("~/Content/Images/profile"));
+            //        if(directory.Exists == false)
+            //        {
+            //            directory.Create();
+            //        }
+            //        ViewBag.FilePath = filePath.ToString();
+            //        file.SaveAs(filePath);
+            //        return RedirectToAction("Index", new { Message = ManageMessageId.PhotoUploadSuccess });
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Index", new { Message = ManageMessageId.FileExtensionError });
+            //    }
+            //}
+        }
+
         //
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
@@ -407,6 +456,11 @@ namespace _20LHWebPortal.Controllers
             return false;
         }
 
+        private async Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return await UserManager.FindByIdAsync(User.Identity.GetUserId());
+        }
+
         public enum ManageMessageId
         {
             AddPhoneSuccess,
@@ -415,7 +469,9 @@ namespace _20LHWebPortal.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            PhotoUploadSuccess,
+            FileExtensionError
         }
 
 #endregion
