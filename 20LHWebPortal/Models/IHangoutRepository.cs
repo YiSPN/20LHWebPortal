@@ -52,5 +52,6 @@ namespace _20LHWebPortal.Models
 
         void UpdateName(string userId, string name);
 
+        UserViewModel GetUser(string userId);
     }
 }

@@ -30,10 +30,10 @@ namespace _20LHWebPortal.Controllers
         {
             var userId = User.Identity.GetUserId();
             var userInfo = new UserViewModel();
-            userInfo.userRating = _hangoutRepository.GetUserRating(userId);
-            userInfo.gender = _hangoutRepository.GetUserGender(userId);
-            userInfo.username = _hangoutRepository.GetUserName(userId);
-            userInfo.strikes = _hangoutRepository.GetStrikeCount(userId);
+            userInfo.UserRating = _hangoutRepository.GetUserRating(userId);
+            userInfo.Gender = _hangoutRepository.GetUserGender(userId);
+            userInfo.Name = _hangoutRepository.GetUserName(userId);
+            userInfo.NoShows = _hangoutRepository.GetStrikeCount(userId);
             return View(userInfo);
         }
 

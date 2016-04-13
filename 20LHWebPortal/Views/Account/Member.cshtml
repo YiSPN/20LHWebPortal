@@ -1,0 +1,24 @@
+﻿@model _20LHWebPortal.Models.UserViewModel
+
+<h4>Member</h4>
+
+
+<h3>@Model.Name</h3>
+@for (var i = 0; i < Model.UserRating; i++)
+{
+    <span style="font-size: 30px" class="glyphicon glyphicon-star"></span>
+}
+@{
+    var empty = 5 - Model.UserRating;
+    for (var i = 0; i < empty; i++)
+    {
+        <span style="font-size: 30px" class="glyphicon glyphicon-star-empty"></span>
+    }
+}
+
+<h4># Hangouts hosted</h4>
+
+<h4># Hangouts attended</h4>
+
+<h4>@Model.NoShows no shows</h4>
+

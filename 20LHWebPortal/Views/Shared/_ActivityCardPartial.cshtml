@@ -21,7 +21,12 @@
                 {
                     activity = "joined ";
                 }
-                <span>@Model.name&nbsp;</span>
+                <span>@Html.ActionLink(
+                         @Model.name,
+                         "Member", "Account",
+                         new { userId = Model.userId }, new { } )&nbsp;</span>
+                
+                @*<span>@Model.name&nbsp;</span>*@
                 <span>@activity&nbsp;</span>
                 <span>@Model.hangoutName</span>
             }

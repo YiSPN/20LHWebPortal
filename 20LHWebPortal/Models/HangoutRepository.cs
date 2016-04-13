@@ -80,7 +80,7 @@ namespace _20LHWebPortal.Models
                                 select y).SingleOrDefault();
                     hangout.AttendingList.Add(new UserViewModel
                     {
-                        username = user.UserName
+                        Name = user.UserName
                     });
                 }
                 returnList.Add(hangout);
@@ -136,7 +136,7 @@ namespace _20LHWebPortal.Models
                                         select y).SingleOrDefault();
                             hangout.AttendingList.Add(new UserViewModel
                             {
-                                username = user.UserName
+                                Name = user.UserName
                             });
                         }
                         returnList.Add(hangout);
@@ -165,7 +165,8 @@ namespace _20LHWebPortal.Models
                     activityType = a.ActivityType,
                     hangoutName = GetHangoutById(a.HangoutId).Name,
                     timeStamp = a.TimeStamp.ToLocalTime(),
-                    name = GetName(a.AspNetUserId)
+                    name = GetName(a.AspNetUserId),
+                    userId = a.AspNetUserId
                 };
                 returnList.Add(activity);
             }
@@ -259,7 +260,7 @@ namespace _20LHWebPortal.Models
                     select y).SingleOrDefault();
                 hangoutViewModel.AttendingList.Add(new UserViewModel
                 {
-                    username = user.UserName
+                    Name = user.UserName
                 });
             }
             return hangoutViewModel;
@@ -334,7 +335,7 @@ namespace _20LHWebPortal.Models
                                 select y).SingleOrDefault();
                     hangout.AttendingList.Add(new UserViewModel
                     {
-                        username = user.UserName
+                        Name = user.UserName
                     });
                 }
 
@@ -806,16 +807,38 @@ namespace _20LHWebPortal.Models
             }
 
             // Use aggregate in future...it wasnt working before.
+            if(sum > 0)
+            {
+                var average = sum / hostAverageRating.Count();
+                return Math.Round(average, 2);
+            }
+            else
+            {
+                return 0;
+            }
 
-            var average = sum / hostAverageRating.Count();
-
-            return Math.Round(average, 2);
         }
 
         public string GetUserProfilePicture(string userId)
         {
             var dir = HttpContext.Current.Server.MapPath("~/Images");
             return Path.Combine(dir, "am_eskimo3" + ".jpg");
+        }
+
+        public UserViewModel GetUser(string userId)
+        {
+            var user = (from a in AspNetUsers_db.AspNetUsers
+                        where a.Id == userId
+                        select a).SingleOrDefault();
+
+            return new UserViewModel
+            {
+                Gender = GetUserGender(userId),
+                Name = user.Name,
+                UserRating = GetUserRating(userId),
+                NoShows = GetStrikeCount(userId)
+            };
+            // Put hangouts attended and hangouts hosted.
         }
     }
 }

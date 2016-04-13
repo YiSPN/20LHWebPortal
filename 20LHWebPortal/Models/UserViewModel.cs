@@ -7,12 +7,17 @@ namespace _20LHWebPortal.Models
 {
     public class UserViewModel
     {
-        public string username { get; set; }
+        public string Name { get; set; }
 
-        public double userRating { get; set; }
+        public double UserRating { get; set; }
 
-        public string gender { get; set; }
+        public string Gender { get; set; }
 
-        public int strikes { get; set; }
+        public int NoShows { get; set; }
+
+        public int HangoutsHosted { get; set; }
+
+        public int HangoutsAttended { get; set; }
+
     }
 }

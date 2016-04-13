@@ -13,23 +13,27 @@ using _20LHWebPortal.Models;
 namespace _20LHWebPortal.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private IHangoutRepository _hangoutRepository;
 
 
-        public AccountController()
+        public AccountController() : this(new HangoutRepository())
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IHangoutRepository hangoutRepository)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
-            _hangoutRepository = hangoutRepository;
+            _hangoutRepository = new HangoutRepository();
+        }
 
+        public AccountController(HangoutRepository hangoutRepository)
+        {
+            this._hangoutRepository = hangoutRepository;
         }
 
         public ApplicationSignInManager SignInManager
@@ -189,6 +193,12 @@ namespace _20LHWebPortal.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
+        public ActionResult Member(string userId)
+        {
+            var model = _hangoutRepository.GetUser(userId);
+            return View(model);
+        }
+
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
@@ -274,6 +284,8 @@ namespace _20LHWebPortal.Controllers
         {
             return View();
         }
+
+
 
         //
         // POST: /Account/ExternalLogin
@@ -430,6 +442,7 @@ namespace _20LHWebPortal.Controllers
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
+        private HangoutRepository hangoutRepository;
 
         private IAuthenticationManager AuthenticationManager
         {

@@ -11,7 +11,7 @@ using _20LHWebPortal.Models;
 namespace _20LHWebPortal.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

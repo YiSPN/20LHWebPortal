@@ -8,7 +8,7 @@ using _20LHWebPortal.Models.Events;
 namespace _20LHWebPortal.Controllers
 {
     [RequireHttps]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
