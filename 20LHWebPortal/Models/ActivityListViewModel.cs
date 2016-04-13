@@ -26,6 +26,8 @@ namespace _20LHWebPortal.Models
         public int activityType { get; set; }
 
         public string userId { get; set; }
+
+        public UserViewModel User { get; set; }
     }
         
 }

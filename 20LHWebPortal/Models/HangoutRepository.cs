@@ -169,7 +169,8 @@ namespace _20LHWebPortal.Models
                     hangoutName = GetHangoutById(a.HangoutId).Name,
                     timeStamp = a.TimeStamp.ToLocalTime(),
                     name = GetName(a.AspNetUserId),
-                    userId = a.AspNetUserId
+                    userId = a.AspNetUserId,
+                    User = GetUser(a.AspNetUserId)
                 };
                 returnList.Add(activity);
             }
