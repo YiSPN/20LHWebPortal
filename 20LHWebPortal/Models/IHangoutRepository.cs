@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace _20LHWebPortal.Models
 {
@@ -53,5 +54,7 @@ namespace _20LHWebPortal.Models
         void UpdateName(string userId, string name);
 
         UserViewModel GetUser(string userId);
+
+        void UploadPhoto(HttpPostedFileBase image, string userId);
     }
 }

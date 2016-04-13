@@ -39,6 +39,8 @@ namespace _20LHWebPortal.Models
         public bool IsHost { get; set; }
 
         public string HostName { get; set; }
+        public UserViewModel HostUser { get; set; }
+        
         public string Location { get; set; }
 
 

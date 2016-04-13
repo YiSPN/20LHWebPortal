@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System.Web.Mvc;
 
 namespace _20LHWebPortal.Models
 {
@@ -15,6 +16,7 @@ namespace _20LHWebPortal.Models
         public string ProfilePicture { get;  set;}
         public double UserRating { get; set; }
         public string Name { get; set; }
+        public string ImageMimeType { get; set; }
     }
 
     public class ManageLoginsViewModel
@@ -38,7 +40,7 @@ namespace _20LHWebPortal.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -64,7 +66,7 @@ namespace _20LHWebPortal.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 

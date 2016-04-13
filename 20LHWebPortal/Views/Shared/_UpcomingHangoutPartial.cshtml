@@ -140,9 +140,18 @@
     <section class="who">
         <div class="organizer" data-averagerating="@Model.HostAverageRating">
             <div class="organizer-image">
-                <div>
+                @*<div>
                     <img src="https://c1.staticflickr.com/1/149/426074142_5337cf5a70_z.jpg?zz=1" alt="@Model.HostName" />
-                </div>
+                </div>*@
+                @*<div class="upimage">
+                    <div class="accimg">*@
+                        @{
+                            var base64 = Convert.ToBase64String(Model.HostUser.ImageContent);
+                            var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                        }
+                        <img src='@imgSrc' style="max-width:100px; max-height:100px;" alt="@Model.HostUser.Name" />
+                    @*</div>
+                </div>*@
             </div>
         </div>
         <div class="attendees">

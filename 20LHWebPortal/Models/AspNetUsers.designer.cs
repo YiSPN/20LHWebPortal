@@ -106,9 +106,11 @@ namespace _20LHWebPortal.Models
 		
 		private int _Gender;
 		
-		private string _Image;
-		
 		private string _Name;
+		
+		private System.Data.Linq.Binary _ImageContent;
+		
+		private string _ImageMimeType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -140,10 +142,12 @@ namespace _20LHWebPortal.Models
     partial void OnUserNameChanged();
     partial void OnGenderChanging(int value);
     partial void OnGenderChanged();
-    partial void OnImageChanging(string value);
-    partial void OnImageChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
+    partial void OnImageContentChanging(System.Data.Linq.Binary value);
+    partial void OnImageContentChanged();
+    partial void OnImageMimeTypeChanging(string value);
+    partial void OnImageMimeTypeChanged();
     #endregion
 		
 		public AspNetUser()
@@ -411,26 +415,6 @@ namespace _20LHWebPortal.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="NVarChar(MAX)")]
-		public string Image
-		{
-			get
-			{
-				return this._Image;
-			}
-			set
-			{
-				if ((this._Image != value))
-				{
-					this.OnImageChanging(value);
-					this.SendPropertyChanging();
-					this._Image = value;
-					this.SendPropertyChanged("Image");
-					this.OnImageChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
 		public string Name
 		{
@@ -447,6 +431,46 @@ namespace _20LHWebPortal.Models
 					this._Name = value;
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageContent", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary ImageContent
+		{
+			get
+			{
+				return this._ImageContent;
+			}
+			set
+			{
+				if ((this._ImageContent != value))
+				{
+					this.OnImageContentChanging(value);
+					this.SendPropertyChanging();
+					this._ImageContent = value;
+					this.SendPropertyChanged("ImageContent");
+					this.OnImageContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageMimeType", DbType="VarChar(50)")]
+		public string ImageMimeType
+		{
+			get
+			{
+				return this._ImageMimeType;
+			}
+			set
+			{
+				if ((this._ImageMimeType != value))
+				{
+					this.OnImageMimeTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ImageMimeType = value;
+					this.SendPropertyChanged("ImageMimeType");
+					this.OnImageMimeTypeChanged();
 				}
 			}
 		}
