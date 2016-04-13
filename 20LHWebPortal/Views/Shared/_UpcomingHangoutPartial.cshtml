@@ -25,7 +25,11 @@
                 <a href="#" data-button-type="edit-event" data-event-id="@Model.Id" data-toggle="modal" data-target="#edit-event-modal"><span class="glyphicon glyphicon-pencil"></span></a>
 
 
-                <a href="#" class="red" data-toggle="modal" data-target="#_@Model.Id">Cancel</a>
+                <a href="#" class="red" data-toggle="modal" data-target="#_@Model.Id">
+                Cancel
+                &nbsp;
+                <i class="fa fa-remove"></i>
+                </a>
 
                 <div id="_@Model.Id" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                     <div class="modal-dialog modal-md">
@@ -61,7 +65,11 @@
             }
             else if (@Model.IsRsvp)
             {
-                <a href="#" data-toggle="modal" data-target="#_@Model.Id">UnRSVP</a>
+                <a href="#" data-toggle="modal" data-target="#_@Model.Id">
+                I'm Out!
+                    &nbsp;
+                    <i class="fa fa-remove"></i>
+                </a>
 
                 <div id="_@Model.Id" class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                     <div class="modal-dialog modal-md">
