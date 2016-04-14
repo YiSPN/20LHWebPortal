@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace _20LHWebPortal.Models
 {
@@ -45,14 +46,6 @@ namespace _20LHWebPortal.Models
 
         public string UserId { get; set; }
 
-        //[Required]
-        //[Display(Name = "Start Time")]
-        //public DateTime? StartTime { get; set; }
-
-        //[Required]
-        //[Display(Name = "End Time")]
-        //public DateTime? EndTime { get; set; }
-
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
@@ -63,5 +56,11 @@ namespace _20LHWebPortal.Models
         [Display(Name = "End Time")]
         public DateTime? EndTime { get; set; }
 
+        [Display(Name = "Event Photo")]
+        public HttpPostedFileBase ImageUpload { get; set; }
+
+        public byte[] ImageContent { get; set; }
+
+        public string ImageMimeType { get; set; }
     }
 }

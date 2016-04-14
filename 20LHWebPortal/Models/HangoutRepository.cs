@@ -72,7 +72,9 @@ namespace _20LHWebPortal.Models
                     IsHost = true,
                     IsRsvp = false,
                     HostAverageRating = Math.Round(average, 2),
-                    Location = h.Location
+                    Location = h.Location,
+                    ImageContent = h.ImageContent == null ? new byte[8] : h.ImageContent.ToArray(),
+                    ImageMimeType = h.ImageMimeType == null ? "none" : h.ImageMimeType
                 };
 
                 foreach (var a in allAtendees)
@@ -129,7 +131,9 @@ namespace _20LHWebPortal.Models
                             HostAverageRating = Math.Round(average, 2),
                             IsRsvp = true,
                             IsHost = false,
-                            Location = tempHangout.Location
+                            Location = tempHangout.Location,
+                            ImageContent = tempHangout.ImageContent == null ? new byte[8] : tempHangout.ImageContent.ToArray(),
+                            ImageMimeType = tempHangout.ImageMimeType == null ? "none" : tempHangout.ImageMimeType
                         };
 
                         foreach (var a in allAtendees)
@@ -152,7 +156,6 @@ namespace _20LHWebPortal.Models
                               orderby new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) ascending
                               select m;
             return returnHangouts.ToList();
-
         }
 
         public List<ActivityViewModel> ListActivityLog()
@@ -254,7 +257,9 @@ namespace _20LHWebPortal.Models
                 IsHost = hangout.UserCreator.Equals(userId) ? true : false,
                 HostUser = GetUser(hangout.UserCreator),
                 IsRsvp = isRsvp,
-                Location = hangout.Location
+                Location = hangout.Location,
+                ImageContent = hangout.ImageContent == null ? new byte[8] : hangout.ImageContent.ToArray(),
+                ImageMimeType = hangout.ImageMimeType == null ? "none" : hangout.ImageMimeType
             };
 
             foreach (var a in allAtendees)
@@ -618,6 +623,7 @@ namespace _20LHWebPortal.Models
 
         public void Create(CreateHangoutViewModel model)
         {
+            
             Hangout hang = new Hangout
             {
                 Date = model.Date,
@@ -632,8 +638,20 @@ namespace _20LHWebPortal.Models
                 StartTime = model.StartTime,
                 EndTime = model.EndTime,
                 AttendeeCount = 1,
-                IsCancelled = false
+                IsCancelled = false,
+                ImageContent = new byte[8],
+                ImageMimeType = "0"
             };
+            if (model.ImageUpload != null && model.ImageUpload.ContentLength > 0)
+            {
+                using (var binaryReader = new BinaryReader(model.ImageUpload.InputStream))
+                {
+                    hang.ImageContent = binaryReader.ReadBytes(model.ImageUpload.ContentLength);
+                }
+                hang.ImageMimeType = model.ImageUpload.ContentType;
+            }
+            
+
             string gend = GetUserGender(model.UserId);
             if(gend.Equals("male"))
             {
@@ -744,6 +762,16 @@ namespace _20LHWebPortal.Models
             hangout.Location = model.Location;
             hangout.PartySize = model.PartySize;
             hangout.GenderRatio = model.GenderRatio;
+            
+            if (model.ImageUpload != null && model.ImageUpload.ContentLength > 0)
+            {
+                using (var binaryReader = new BinaryReader(model.ImageUpload.InputStream))
+                {
+                    hangout.ImageContent = binaryReader.ReadBytes(model.ImageUpload.ContentLength);
+                }
+                hangout.ImageMimeType = model.ImageUpload.ContentType;
+            }
+            
             DateTime startTimeOut, endTimeOut;
             if (model.StartTime.HasValue)
             {

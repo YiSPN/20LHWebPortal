@@ -4,13 +4,25 @@
     Layout = null;
 }
 
-@using (Html.BeginForm("Edit", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form", id="edit-hangout-form" }))
+@using (Html.BeginForm("Edit", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form", id="edit-hangout-form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(x=>x.Id)
 
     @Html.ValidationSummary("", new { @class = "text-danger" })
-
+    @*<div class="accimg">
+        @{
+            var base64 = Convert.ToBase64String(Model.ImageContent);
+            var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+        }
+        <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/user.png'" />
+    </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.ImageUpload, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.ImageUpload, new { type = "file", @class = "form-control" })
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">

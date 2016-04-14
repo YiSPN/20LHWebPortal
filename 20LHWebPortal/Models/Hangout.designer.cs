@@ -114,7 +114,11 @@ namespace _20LHWebPortal.Models
 		
 		private System.Nullable<System.DateTime> _EventDate;
 		
-		private System.Nullable<bool> _IsCancelled;
+		private bool _IsCancelled;
+		
+		private System.Data.Linq.Binary _ImageContent;
+		
+		private string _ImageMimeType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -154,8 +158,12 @@ namespace _20LHWebPortal.Models
     partial void OnEndTimeChanged();
     partial void OnEventDateChanging(System.Nullable<System.DateTime> value);
     partial void OnEventDateChanged();
-    partial void OnIsCancelledChanging(System.Nullable<bool> value);
+    partial void OnIsCancelledChanging(bool value);
     partial void OnIsCancelledChanged();
+    partial void OnImageContentChanging(System.Data.Linq.Binary value);
+    partial void OnImageContentChanged();
+    partial void OnImageMimeTypeChanging(string value);
+    partial void OnImageMimeTypeChanged();
     #endregion
 		
 		public Hangout()
@@ -503,8 +511,8 @@ namespace _20LHWebPortal.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCancelled", DbType="Bit")]
-		public System.Nullable<bool> IsCancelled
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCancelled", DbType="Bit NOT NULL")]
+		public bool IsCancelled
 		{
 			get
 			{
@@ -519,6 +527,46 @@ namespace _20LHWebPortal.Models
 					this._IsCancelled = value;
 					this.SendPropertyChanged("IsCancelled");
 					this.OnIsCancelledChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageContent", DbType="VarBinary(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary ImageContent
+		{
+			get
+			{
+				return this._ImageContent;
+			}
+			set
+			{
+				if ((this._ImageContent != value))
+				{
+					this.OnImageContentChanging(value);
+					this.SendPropertyChanging();
+					this._ImageContent = value;
+					this.SendPropertyChanged("ImageContent");
+					this.OnImageContentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageMimeType", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string ImageMimeType
+		{
+			get
+			{
+				return this._ImageMimeType;
+			}
+			set
+			{
+				if ((this._ImageMimeType != value))
+				{
+					this.OnImageMimeTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ImageMimeType = value;
+					this.SendPropertyChanged("ImageMimeType");
+					this.OnImageMimeTypeChanged();
 				}
 			}
 		}

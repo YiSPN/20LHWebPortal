@@ -435,7 +435,7 @@ namespace _20LHWebPortal.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageContent", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageContent", DbType="VarBinary(MAX) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary ImageContent
 		{
 			get
@@ -455,7 +455,7 @@ namespace _20LHWebPortal.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageMimeType", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageMimeType", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string ImageMimeType
 		{
 			get

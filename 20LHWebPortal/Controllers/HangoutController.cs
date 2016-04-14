@@ -125,7 +125,9 @@ namespace _20LHWebPortal.Controllers
                 PartySize = item.PartySize,
                 GenderRatio = item.GenderRatio,
                 StartTime = item.StartTime,
-                EndTime = item.EndTime
+                EndTime = item.EndTime,
+                ImageContent = item.ImageContent == null ? new byte[8] : item.ImageContent.ToArray(),
+                ImageMimeType = item.ImageMimeType == null ? "none" : item.ImageMimeType
 
             };
             return View(model);

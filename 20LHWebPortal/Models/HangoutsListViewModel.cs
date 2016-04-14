@@ -55,9 +55,14 @@ namespace _20LHWebPortal.Models
 
         public double? HangoutAverageRating { get; set; }
 
+        public byte[] ImageContent { get; set; }
+
+        public string ImageMimeType { get; set; }
+
         public HangoutViewModel ()
         {
             AttendingList = new List<UserViewModel>();
+            ImageContent = new byte[8];
         }
 
     }

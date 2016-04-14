@@ -10,8 +10,12 @@
         <div class="banner">
             <div>
                 @*<img src="http://gtspirit.com/wp-content/uploads/2016/02/McLaren-Preview-Event3.jpg" alt="banner" />*@
-                @*<img src="http://photos2.meetupstatic.com/photos/event/5/e/d/e/highres_436824286.jpeg" alt="banner" />*@
-                <img src="https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg" alt="remove this later" />
+                @*<img src="https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg" alt="remove this later" />*@
+                @{
+                    var base6464 = Convert.ToBase64String(Model.ImageContent);
+                    var srcImg = String.Format("data:image/png;base64,{0}", base6464);
+                }
+                <img src='@srcImg' onerror="this.src = 'https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg'" />            
             </div>
         </div>
         <div class="interactions">
