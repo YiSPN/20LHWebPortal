@@ -855,6 +855,7 @@ namespace _20LHWebPortal.Models
                         select a).SingleOrDefault();
             return new UserViewModel
             {
+                UserId = user.Id,
                 Gender = GetUserGender(userId),
                 Name = user.Name,
                 UserRating = GetUserRating(userId),

@@ -151,7 +151,10 @@
                     var base64 = Convert.ToBase64String(Model.HostUser.ImageContent);
                     var imgSrc = String.Format("data:image/png;base64,{0}", base64);
                 }
-                <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/user.png'" />
+                <a href="@Url.Action("Member", "Account", new { userId = Model.HostUser.UserId })">
+                    <img src = '@imgSrc' style = "max-width:100px; max-height:100px;" onerror = "this.src ='/Content/Images/user.png'" />
+                </a>
+                
             </div>
         </div>
         <div class="attendees">
@@ -164,7 +167,10 @@
                             var base64Attendee = Convert.ToBase64String(attendee.ImageContent);
                             var imgSrcAttendee = String.Format("data:image/png;base64,{0}", base64Attendee);
                         }
-                        <img src='@imgSrcAttendee' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/user.png'" />
+                        
+                        <a href="@Url.Action("Member", "Account", new { userId = attendee.UserId })">
+                            <img src='@imgSrcAttendee' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/user.png'" />
+                        </a>
                         @*<div>
                             <img src="https://pbs.twimg.com/media/CHufAXdUEAAyIMH.jpg" alt="@attendee.Name" />
                         </div>*@

@@ -24,6 +24,8 @@ namespace _20LHWebPortal.Models
 
         public string ImageMimeType { get; set; }
 
+        public string UserId { get; set; }
+
         public UserViewModel()
         {
             ImageContent = new byte[8];
