@@ -31,7 +31,7 @@ namespace _20LHWebPortal.Models
                                     where m.AspNetUsers == userId && m.IsRSVPd == true || m.IsWaitlist == true
                                     select m;
             var myHangouts = from m in Hangout_db.Hangouts
-                             where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second)  > DateTime.Now
+                             where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second)  > DateTime.Now.ToLocalTime()
                                     && m.IsCancelled == false   
                              select m;
 
@@ -82,10 +82,7 @@ namespace _20LHWebPortal.Models
                     var user = (from y in AspNetUsers_db.AspNetUsers
                                 where y.Id == a.AspNetUsers
                                 select y).SingleOrDefault();
-                    hangout.AttendingList.Add(new UserViewModel
-                    {
-                        Name = user.UserName
-                    });
+                    hangout.AttendingList.Add(GetUser(user.Id));
                 }
                 returnList.Add(hangout);
             }
@@ -95,7 +92,7 @@ namespace _20LHWebPortal.Models
                 foreach(var h in hangoutsAttending)
                 {
                     var tempHangout = (from a in Hangout_db.Hangouts
-                                       where a.Id == h.HangoutId && new DateTime(a.Date.Value.Year, a.Date.Value.Month, a.Date.Value.Day, a.StartTime.Value.Hour, a.StartTime.Value.Minute, a.StartTime.Value.Second) > DateTime.Now
+                                       where a.Id == h.HangoutId && new DateTime(a.Date.Value.Year, a.Date.Value.Month, a.Date.Value.Day, a.StartTime.Value.Hour, a.StartTime.Value.Minute, a.StartTime.Value.Second) > DateTime.Now.ToLocalTime()
                                        && a.IsCancelled == false
                                    select a).SingleOrDefault();
                     if(tempHangout != null)
@@ -141,10 +138,7 @@ namespace _20LHWebPortal.Models
                             var user = (from y in AspNetUsers_db.AspNetUsers
                                         where y.Id == a.AspNetUsers
                                         select y).SingleOrDefault();
-                            hangout.AttendingList.Add(new UserViewModel
-                            {
-                                Name = user.UserName
-                            });
+                            hangout.AttendingList.Add(GetUser(user.Id));
                         }
                         returnList.Add(hangout);
                     }
@@ -184,7 +178,7 @@ namespace _20LHWebPortal.Models
         public List<HangoutViewModel> ListUpcomingHangouts(string userId)
         {
             var allHangouts = from m in Hangout_db.Hangouts
-                             where new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) > DateTime.Now
+                             where new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) > DateTime.Now.ToLocalTime()
                              && m.IsCancelled == false
                               orderby new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) ascending
                               select m;
@@ -267,10 +261,7 @@ namespace _20LHWebPortal.Models
                 var user = (from y in AspNetUsers_db.AspNetUsers
                     where y.Id == a.AspNetUsers
                     select y).SingleOrDefault();
-                hangoutViewModel.AttendingList.Add(new UserViewModel
-                {
-                    Name = user.UserName
-                });
+                hangoutViewModel.AttendingList.Add(GetUser(user.Id));
             }
             return hangoutViewModel;
         }

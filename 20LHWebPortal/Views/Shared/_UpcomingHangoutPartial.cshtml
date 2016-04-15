@@ -160,9 +160,14 @@
                 foreach (var attendee in Model.AttendingList)
                 {
                     <div class="attendee">
-                        <div>
+                        @{
+                            var base64Attendee = Convert.ToBase64String(attendee.ImageContent);
+                            var imgSrcAttendee = String.Format("data:image/png;base64,{0}", base64Attendee);
+                        }
+                        <img src='@imgSrcAttendee' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/user.png'" />
+                        @*<div>
                             <img src="https://pbs.twimg.com/media/CHufAXdUEAAyIMH.jpg" alt="@attendee.Name" />
-                        </div>
+                        </div>*@
                     </div>
                 }
             }
