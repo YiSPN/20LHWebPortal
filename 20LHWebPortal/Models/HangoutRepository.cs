@@ -31,7 +31,7 @@ namespace _20LHWebPortal.Models
                                     where m.AspNetUsers == userId && m.IsRSVPd == true || m.IsWaitlist == true
                                     select m;
             var myHangouts = from m in Hangout_db.Hangouts
-                             where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second)  > DateTime.UtcNow.ToLocalTime()
+                             where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second)  > DateTime.UtcNow.AddHours(-7)
                                     && m.IsCancelled == false   
                              select m;
 
@@ -92,7 +92,7 @@ namespace _20LHWebPortal.Models
                 foreach(var h in hangoutsAttending)
                 {
                     var tempHangout = (from a in Hangout_db.Hangouts
-                                       where a.Id == h.HangoutId && new DateTime(a.Date.Value.Year, a.Date.Value.Month, a.Date.Value.Day, a.StartTime.Value.Hour, a.StartTime.Value.Minute, a.StartTime.Value.Second) > DateTime.UtcNow.ToLocalTime()
+                                       where a.Id == h.HangoutId && new DateTime(a.Date.Value.Year, a.Date.Value.Month, a.Date.Value.Day, a.StartTime.Value.Hour, a.StartTime.Value.Minute, a.StartTime.Value.Second) > DateTime.UtcNow.AddHours(-7)
                                        && a.IsCancelled == false
                                    select a).SingleOrDefault();
                     if(tempHangout != null)
@@ -178,7 +178,7 @@ namespace _20LHWebPortal.Models
         public List<HangoutViewModel> ListUpcomingHangouts(string userId)
         {
             var allHangouts = from m in Hangout_db.Hangouts
-                             where new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) > DateTime.UtcNow
+                             where new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) > DateTime.UtcNow.AddHours(-7)
                              && m.IsCancelled == false
                               orderby new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) ascending
                               select m;
