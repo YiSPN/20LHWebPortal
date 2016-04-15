@@ -227,7 +227,7 @@ namespace _20LHWebPortal.Controllers
         }
 
         //
-        // GET: /Manage/ChangePassword
+        // GET: /Manage/ChangeName
         public ActionResult ChangeName()
         {
             var id = User.Identity.GetUserId();
@@ -239,7 +239,7 @@ namespace _20LHWebPortal.Controllers
         }
 
         //
-        // POST: /Manage/ChangePassword
+        // POST: /Manage/ChangeName
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangeName(ChangeNameViewModel model)

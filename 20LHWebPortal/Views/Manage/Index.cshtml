@@ -10,7 +10,10 @@
 
     @*<h3>User Rating: @Model.UserRating</h3>*@
       <h2>
-          Hi @Model.Name! [@Html.ActionLink("Change your name", "ChangeName")]
+          Hi @Model.Name!
+          <a href="@Url.Action("ChangeName", "Manage")">
+              <span class="glyphicon glyphicon-pencil"> </span>
+          </a>
     </h2>
     @if (User.Identity.Name != null)
     {
@@ -22,7 +25,8 @@
                     var imgSrc = String.Format("data:image/png;base64,{0}", base64);
                 }
                 <img src='@imgSrc' style="max-width:200px; max-height:200px;" onerror="this.src ='/Content/Images/user.png'"/>
-            </div>
+                
+</div>
             <div class="mngimg">
                 @using (Html.BeginForm("UploadPhoto", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
