@@ -225,3 +225,5 @@ $RECYCLE.BIN/
 
 # Visual Studio 2014 CTP
 **/*.sln.ide
+20LHWebPortal.Tests/obj/Debug/20LHWebPortal.Tests.dll
+20LHWebPortal.Tests/obj/Debug/20LHWebPortal.Tests.dll
