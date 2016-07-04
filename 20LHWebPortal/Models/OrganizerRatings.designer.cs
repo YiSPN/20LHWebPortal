@@ -88,6 +88,8 @@ namespace _20LHWebPortal.Models
 		
 		private System.Nullable<int> _Rating;
 		
+		private int _HangoutId;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -100,6 +102,8 @@ namespace _20LHWebPortal.Models
     partial void OnAttendeeIdChanged();
     partial void OnRatingChanging(System.Nullable<int> value);
     partial void OnRatingChanged();
+    partial void OnHangoutIdChanging(int value);
+    partial void OnHangoutIdChanged();
     #endregion
 		
 		public OrganizerRating()
@@ -183,6 +187,26 @@ namespace _20LHWebPortal.Models
 					this._Rating = value;
 					this.SendPropertyChanged("Rating");
 					this.OnRatingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HangoutId", DbType="Int NOT NULL")]
+		public int HangoutId
+		{
+			get
+			{
+				return this._HangoutId;
+			}
+			set
+			{
+				if ((this._HangoutId != value))
+				{
+					this.OnHangoutIdChanging(value);
+					this.SendPropertyChanging();
+					this._HangoutId = value;
+					this.SendPropertyChanged("HangoutId");
+					this.OnHangoutIdChanged();
 				}
 			}
 		}

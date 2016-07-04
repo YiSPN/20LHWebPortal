@@ -91,56 +91,70 @@ namespace _20LHWebPortal.Models
             {
                 foreach(var h in hangoutsAttending)
                 {
+                    //var tempHangout = (from a in Hangout_db.Hangouts
+                    //                   where a.Id == h.HangoutId && new DateTime(a.Date.Value.Year, a.Date.Value.Month, a.Date.Value.Day, a.StartTime.Value.Hour, a.StartTime.Value.Minute, a.StartTime.Value.Second) > DateTime.UtcNow.AddHours(-7)
+                    //                   && a.IsCancelled == false
+                    //               select a).SingleOrDefault();
                     var tempHangout = (from a in Hangout_db.Hangouts
-                                       where a.Id == h.HangoutId && new DateTime(a.Date.Value.Year, a.Date.Value.Month, a.Date.Value.Day, a.StartTime.Value.Hour, a.StartTime.Value.Minute, a.StartTime.Value.Second) > DateTime.UtcNow.AddHours(-7)
+                                       where a.Id == h.HangoutId
                                        && a.IsCancelled == false
-                                   select a).SingleOrDefault();
-                    if(tempHangout != null)
+                                       select a).SingleOrDefault();
+
+
+                    
+                    
+                    if (tempHangout != null)
                     {
-                        var allAtendees = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
-                                           where u.HangoutId == tempHangout.Id && u.IsRSVPd == true
-                                           select u);
-
-                        var hostAverageRating = (from u in OrganizerRatings_db.OrganizerRatings
-                                                 where u.OrganizerId == tempHangout.UserCreator
-                                                 select u);
-                        double sum = 0;
-
-                        foreach (var r in hostAverageRating)
+                        var rated = (from a in OrganizerRatings_db.OrganizerRatings
+                                     where a.HangoutId == h.HangoutId && a.OrganizerId == tempHangout.UserCreator && a.AttendeeId == userId
+                                    select a).SingleOrDefault();
+                        if(rated == null)
                         {
-                            sum += (double)r.Rating;
-                        }
+                            var allAtendees = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
+                                               where u.HangoutId == tempHangout.Id && u.IsRSVPd == true
+                                               select u);
 
-                        // Use aggregate in future...it wasnt working before.
+                            var hostAverageRating = (from u in OrganizerRatings_db.OrganizerRatings
+                                                     where u.OrganizerId == tempHangout.UserCreator
+                                                     select u);
+                            double sum = 0;
 
-                        var average = sum / hostAverageRating.Count();
-                        var hangout = new HangoutViewModel
-                        {
-                            Date = tempHangout.Date,
-                            StartTime = tempHangout.StartTime,
-                            EndTime = tempHangout.EndTime,
-                            Description = tempHangout.Description,
-                            Id = tempHangout.Id,
-                            Name = tempHangout.Name,
-                            OpenSpots = tempHangout.PartySize - allAtendees.Count(),
-                            HostName = GetUserName(tempHangout.UserCreator),
-                            HostUser = GetUser(tempHangout.UserCreator),
-                            HostAverageRating = Math.Round(average, 2),
-                            IsRsvp = true,
-                            IsHost = false,
-                            Location = tempHangout.Location,
-                            ImageContent = tempHangout.ImageContent == null ? new byte[8] : tempHangout.ImageContent.ToArray(),
-                            ImageMimeType = tempHangout.ImageMimeType == null ? "none" : tempHangout.ImageMimeType
-                        };
+                            foreach (var r in hostAverageRating)
+                            {
+                                sum += (double)r.Rating;
+                            }
 
-                        foreach (var a in allAtendees)
-                        {
-                            var user = (from y in AspNetUsers_db.AspNetUsers
-                                        where y.Id == a.AspNetUsers
-                                        select y).SingleOrDefault();
-                            hangout.AttendingList.Add(GetUser(user.Id));
-                        }
-                        returnList.Add(hangout);
+                            // Use aggregate in future...it wasnt working before.
+
+                            var average = sum / hostAverageRating.Count();
+                            var hangout = new HangoutViewModel
+                            {
+                                Date = tempHangout.Date,
+                                StartTime = tempHangout.StartTime,
+                                EndTime = tempHangout.EndTime,
+                                Description = tempHangout.Description,
+                                Id = tempHangout.Id,
+                                Name = tempHangout.Name,
+                                OpenSpots = tempHangout.PartySize - allAtendees.Count(),
+                                HostName = GetUserName(tempHangout.UserCreator),
+                                HostUser = GetUser(tempHangout.UserCreator),
+                                HostAverageRating = Math.Round(average, 2),
+                                IsRsvp = true,
+                                IsHost = false,
+                                Location = tempHangout.Location,
+                                ImageContent = tempHangout.ImageContent == null ? new byte[8] : tempHangout.ImageContent.ToArray(),
+                                ImageMimeType = tempHangout.ImageMimeType == null ? "none" : tempHangout.ImageMimeType
+                            };
+
+                            foreach (var a in allAtendees)
+                            {
+                                var user = (from y in AspNetUsers_db.AspNetUsers
+                                            where y.Id == a.AspNetUsers
+                                            select y).SingleOrDefault();
+                                hangout.AttendingList.Add(GetUser(user.Id));
+                            }
+                            returnList.Add(hangout);
+                        }                      
                     }
                 }
              }
@@ -580,24 +594,25 @@ namespace _20LHWebPortal.Models
             {
                 OrganizerId = model.UserId,
                 AttendeeId = model.AttendeeId,
-                Rating = model.OrganizerRating
+                Rating = model.OrganizerRating,
+                HangoutId = model.Id
             };
 
-            HangoutRating hangoutRating = new HangoutRating
-            {
-                AttendeeId = model.AttendeeId,
-                HangoutId = model.Id,
-                Rating = model.HangoutRating
-            };
+            //HangoutRating hangoutRating = new HangoutRating
+            //{
+            //    AttendeeId = model.AttendeeId,
+            //    HangoutId = model.Id,
+            //    Rating = model.HangoutRating
+            //};
 
             OrganizerRatings_db.OrganizerRatings.InsertOnSubmit(orgRating);
-            HangoutRatings_db.HangoutRatings.InsertOnSubmit(hangoutRating);
+            //HangoutRatings_db.HangoutRatings.InsertOnSubmit(hangoutRating);
 
 
             try
             {
                 OrganizerRatings_db.SubmitChanges();
-                HangoutRatings_db.SubmitChanges();
+                //HangoutRatings_db.SubmitChanges();
 
             }
             catch (Exception e)
@@ -607,7 +622,7 @@ namespace _20LHWebPortal.Models
                 // ... 
                 // Try again.
                 OrganizerRatings_db.SubmitChanges();
-                HangoutRatings_db.SubmitChanges();
+                //HangoutRatings_db.SubmitChanges();
 
             }
         }
@@ -738,6 +753,40 @@ namespace _20LHWebPortal.Models
                          where a.Id == id
                          select a).Single();
             return hangout;
+        }
+
+        public HangoutViewModel GetRateHangoutById(int Id)
+        {
+            var h = GetHangoutById(Id);
+            var allAtendees = (from u in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
+                               where u.HangoutId == h.Id && u.IsRSVPd == true
+                               select u);
+            var returnThis =  new HangoutViewModel
+            {
+                Date = h.Date,
+                StartTime = h.StartTime,
+                EndTime = h.EndTime,
+                Description = h.Description,
+                Id = h.Id,
+                Name = h.Name,
+                OpenSpots = h.PartySize - allAtendees.Count(),
+                HostName = GetUserName(h.UserCreator),
+                HostUser = GetUser(h.UserCreator),
+                IsHost = true,
+                IsRsvp = false,
+                Location = h.Location,
+                ImageContent = h.ImageContent == null ? new byte[8] : h.ImageContent.ToArray(),
+                ImageMimeType = h.ImageMimeType == null ? "none" : h.ImageMimeType
+            };
+
+            foreach (var a in allAtendees)
+            {
+                var user = (from y in AspNetUsers_db.AspNetUsers
+                            where y.Id == a.AspNetUsers
+                            select y).SingleOrDefault();
+                returnThis.AttendingList.Add(GetUser(user.Id));
+            }
+            return returnThis;
         }
 
         public void Update(CreateHangoutViewModel model)

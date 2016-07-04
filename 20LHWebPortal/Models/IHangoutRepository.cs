@@ -11,6 +11,7 @@ namespace _20LHWebPortal.Models
     public interface IHangoutRepository
     {
         List<HangoutViewModel> ListMyHangouts(string userId);
+        HangoutViewModel GetRateHangoutById(int Id);
 
         List<HangoutViewModel> ListUpcomingHangouts(string userId);
 

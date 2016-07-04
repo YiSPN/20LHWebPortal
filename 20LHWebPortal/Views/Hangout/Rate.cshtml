@@ -3,74 +3,100 @@
     ViewBag.Title = "Rate";
 }
 
-<h2>Rate Organizer and Hangout</h2>
+<h2>Rate Organizer</h2>
 
 
 
-
-@using (Html.BeginForm("Rate", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Rate", "Hangout", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Rate Organizer and Hangout.</h4>
     <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
     @Html.HiddenFor(m => m.UserId)
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.Name, new { @class = "form-control" })
-            @Html.HiddenFor(m => m.Name)
+    @Html.HiddenFor(m => m.HostUser)
+    <div class="event upcoming" data-event-id="@Model.Id">
+        <div class="header">
+            <div class="title">@Model.Name</div>
+            <div class="banner">
+                <div>
+                    @*<img src="http://gtspirit.com/wp-content/uploads/2016/02/McLaren-Preview-Event3.jpg" alt="banner" />*@
+                    @*<img src="https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg" alt="remove this later" />*@
+                    @{
+                        var base6464 = Convert.ToBase64String(Model.ImageContent);
+                        var srcImg = String.Format("data:image/png;base64,{0}", base6464);
+                    }
+                    <img src='@srcImg' onerror="this.src = 'https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg'" />
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.Description, new { @class = "form-control" })
-            @Html.HiddenFor(m => m.Description)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Date, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.Date, new { @class = "form-control" })
-            @Html.HiddenFor(m => m.Date)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Location, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.Location, new { @class = "form-control" })
-            @Html.HiddenFor(m => m.Location)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.Address, new { @class = "form-control" })
-            @Html.HiddenFor(m => m.Address)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.PartySize, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.PartySize, new { @class = "form-control" })
-            @Html.HiddenFor(m => m.PartySize)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ContactInfo, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.ContactInfo, new { @class = "form-control" })
-            @Html.HiddenFor(m => m.ContactInfo)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.GenderRatio, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DisplayFor(m => m.GenderRatio, new { @class = "form-control" })
-            @Html.HiddenFor(m => m.GenderRatio)
+        <section class="when">
+            <i class="fa fa-clock-o pull-left"></i>
+            <span class="pull-left">&nbsp;@string.Format("{0:MMM dd}, {0:ddd}, {1:hh:mm tt} to {2:hh:mm tt}", Model.Date, Model.StartTime, Model.EndTime)</span>
+        </section>
+        <section class="where">
+            <i class="fa fa-map-marker pull-left"></i>
+            <span class="pull-left">
+                &nbsp;
+                @if (@Model.Location.IsEmpty())
+                {
+                    <span>No location specified.</span>
+                }
+                else
+                {
+                    @Model.Location
+                }
+            </span>
+        </section>
+        <section class="who">
+            <div class="organizer">
+                <div class="organizer-image">
+                    @*<div>
+                            <img src="https://c1.staticflickr.com/1/149/426074142_5337cf5a70_z.jpg?zz=1" alt="@Model.HostName" />
+                        </div>*@
+                    @*@{
+                        var base64 = Convert.ToBase64String(Model.HostUser.ImageContent);
+                        var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                    }*@
+                    @*<a href="@Url.Action("Member", "Account", new { userId = Model.HostUser.UserId })">
+                        @if (Model.HostUser.Gender.Equals("male"))
+                        {
+                            <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/male.png'" />
+                        }
+                        else
+                        {
+                            <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/female.png'" />
+                        }
+                    </a>*@
+                </div>
+            </div>
+            <div class="attendees">
+                @if (Model.AttendingList.Any())
+                {
+                    foreach (var attendee in Model.AttendingList)
+                    {
+                        <div class="attendee">
+                            @{
+                                var base64Attendee = Convert.ToBase64String(attendee.ImageContent);
+                                var imgSrcAttendee = String.Format("data:image/png;base64,{0}", base64Attendee);
+                            }
 
-        </div>
+                            <a href="@Url.Action("Member", "Account", new { userId = attendee.UserId })">
+                                @if (Model.HostUser.Gender.Equals("male"))
+                                {
+                                    <img src='@imgSrcAttendee' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/male.png'" />
+                                }
+                                else
+                                {
+                                    <img src='@imgSrcAttendee' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/female.png'" />
+                                }
+                            </a>
+                            @*<div>
+                                    <img src="https://pbs.twimg.com/media/CHufAXdUEAAyIMH.jpg" alt="@attendee.Name" />
+                                </div>*@
+                        </div>
+                                    }
+                                }
+            </div>
+        </section>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.OrganizerRating, new { @class = "col-md-2 control-label" })
@@ -94,7 +120,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(m => m.HangoutRating, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.DropDownListFor(
@@ -114,7 +140,7 @@
                 )
 
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

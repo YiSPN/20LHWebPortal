@@ -222,20 +222,23 @@ namespace _20LHWebPortal.Controllers
 
         public ActionResult Rate(int id)
         {
-            var item = _hangoutRepository.GetHangoutById(id);
+            var item = _hangoutRepository.GetRateHangoutById(id);
             var model = new RateOrganizerHangoutViewModel
             {
                 Id = item.Id,
                 Date = item.Date,
                 Description = item.Description,
                 Name = item.Name,
-                UserId = item.UserCreator,
+                HostUser = item.HostUser,
+                UserId  = item.HostUser.UserId,
                 Location = item.Location,
-                Address = item.Address,
-                ContactInfo = item.ContactInfo,
-                PartySize = item.PartySize,
-                GenderRatio = item.GenderRatio
-
+                OpenSpots = item.OpenSpots,
+                GenderRatio = item.GenderRatio,
+                AttendingList = item.AttendingList,
+                StartTime = item.StartTime,
+                EndTime = item.EndTime,
+                ImageContent = item.ImageContent,
+                ImageMimeType = item.ImageMimeType
             };
             return View(model);
         }
@@ -245,8 +248,7 @@ namespace _20LHWebPortal.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Rate(RateOrganizerHangoutViewModel model)
         {
-            if (ModelState.IsValid)
-            {
+            
                 // Grab Host Id and HangoutId from model
                 // Put rating values in new model "RateHangoutViewModel"
                 // _hangoutRepository.Rate(model);
@@ -257,10 +259,8 @@ namespace _20LHWebPortal.Controllers
                 _hangoutRepository.RateOrganizerAndHangout(model);
 
                 return RedirectToAction("MyHangouts");
-            }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
         }
 
         public ActionResult ShowNoShow(int id)

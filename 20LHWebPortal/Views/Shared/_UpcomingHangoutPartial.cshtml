@@ -152,10 +152,17 @@
                     var imgSrc = String.Format("data:image/png;base64,{0}", base64);
                 }
                 <a href="@Url.Action("Member", "Account", new { userId = Model.HostUser.UserId })">
-                    <img src = '@imgSrc' style = "max-width:100px; max-height:100px;" onerror = "this.src ='/Content/Images/user.png'" />
+                    @if (Model.HostUser.Gender.Equals("male"))
+                    {
+                        <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/male.png'" />
+                    }
+                    else
+                    {
+                        <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/female.png'" />
+                    }
                 </a>
-                
             </div>
+            <a href="@Url.Action("Rate", "Hangout", new { id = Model.Id })">Rate</a>
         </div>
         <div class="attendees">
             @if (Model.AttendingList.Any())
@@ -169,7 +176,14 @@
                         }
                         
                         <a href="@Url.Action("Member", "Account", new { userId = attendee.UserId })">
-                            <img src='@imgSrcAttendee' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/user.png'" />
+                            @if (Model.HostUser.Gender.Equals("male"))
+                            {
+                                <img src='@imgSrcAttendee' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/male.png'" />
+                            }
+                            else
+                            {
+                                <img src='@imgSrcAttendee' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/female.png'" />
+                            }
                         </a>
                         @*<div>
                             <img src="https://pbs.twimg.com/media/CHufAXdUEAAyIMH.jpg" alt="@attendee.Name" />
