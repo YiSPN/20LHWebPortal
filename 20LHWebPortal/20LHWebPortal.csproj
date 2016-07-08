@@ -348,9 +348,11 @@
       <DependentUpon>uiComponents.css</DependentUpon>
     </Content>
     <Content Include="Content\Images\Custom\20lh_logo.png" />
+    <Content Include="Content\Images\thesocialcoffeeshop.jpg" />
     <Content Include="Content\Images\event-banner.jpg" />
     <Content Include="Content\Images\female.png" />
     <Content Include="Content\Images\male.png" />
+    <Content Include="Content\Images\TSCS.png" />
     <Content Include="Content\Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\Images\ui-bg_flat_10_000000_40x100.png" />
@@ -521,6 +523,7 @@
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Manage\ChangeName.cshtml" />
     <Content Include="Views\Account\Member.cshtml" />
+    <Content Include="Views\Shared\_MyHangoutPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\AspNetUsers_Hangout.dbml.layout">

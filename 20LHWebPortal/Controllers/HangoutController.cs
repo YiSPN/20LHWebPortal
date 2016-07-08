@@ -280,7 +280,7 @@ namespace _20LHWebPortal.Controllers
                 //model.AttendeeId = userInfo;
                 _hangoutRepository.ShoworNoShowSubmit(model);
 
-                return RedirectToAction("Past");
+                return RedirectToAction("MyHangouts");
             }
 
             // If we got this far, something failed, redisplay form

@@ -30,9 +30,14 @@ namespace _20LHWebPortal.Models
             var hangoutsAttending = from m in AspNetUsers_Hangout_db.AspNetUsers_Hangouts
                                     where m.AspNetUsers == userId && m.IsRSVPd == true || m.IsWaitlist == true
                                     select m;
+            //var myHangouts = from m in Hangout_db.Hangouts
+            //                 where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second)  > DateTime.UtcNow.AddHours(-7)
+            //                        && m.IsCancelled == false   
+            //                 select m;
+
             var myHangouts = from m in Hangout_db.Hangouts
-                             where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second)  > DateTime.UtcNow.AddHours(-7)
-                                    && m.IsCancelled == false   
+                             where m.UserCreator == userId && new DateTime(m.Date.Value.Year, m.Date.Value.Month, m.Date.Value.Day, m.StartTime.Value.Hour, m.StartTime.Value.Minute, m.StartTime.Value.Second) > DateTime.UtcNow.AddHours(-7).AddDays(-7)
+                                    && m.IsCancelled == false
                              select m;
 
             var returnList = new List<HangoutViewModel>();
@@ -387,7 +392,8 @@ namespace _20LHWebPortal.Models
                         AspNetUsers = userId,
                         HangoutId = hangoutId,
                         IsRSVPd = true,
-                        IsWaitlist = false
+                        IsWaitlist = false,
+                        Showed = true
                     };
 
                     AspNetUsers_Hangout_db.AspNetUsers_Hangouts.InsertOnSubmit(UserHangout);

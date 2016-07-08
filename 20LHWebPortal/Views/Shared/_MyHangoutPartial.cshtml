@@ -15,7 +15,7 @@
                     var base6464 = Convert.ToBase64String(Model.ImageContent);
                     var srcImg = String.Format("data:image/png;base64,{0}", base6464);
                 }
-                @*<img src='@srcImg' onerror="this.src = 'https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg'" />*@      
+                @*<img src='@srcImg' onerror="this.src = 'https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg'" />*@ 
                 <img src='@srcImg' onerror="this.src = '/Content/Images/thesocialcoffeeshop.jpg'" />
             </div>
         </div>
@@ -163,6 +163,14 @@
                     }
                 </a>
             </div>
+            @if (Model.IsHost)
+            {
+                <a href="@Url.Action("ShowNoShow", "Hangout", new { id = Model.Id })">Show or No show</a>
+            }
+            else
+            {
+                <a href="@Url.Action("Rate", "Hangout", new { id = Model.Id })">Rate</a>
+            }
         </div>
         <div class="attendees">
             @if (Model.AttendingList.Any())

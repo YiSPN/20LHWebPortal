@@ -24,7 +24,7 @@
                         var base6464 = Convert.ToBase64String(Model.ImageContent);
                         var srcImg = String.Format("data:image/png;base64,{0}", base6464);
                     }
-                    <img src='@srcImg' onerror="this.src = 'https://www.ciee.org/study-abroad/images/programs/0191/headers/desktop/wollongong-australia-outdoor-leadership-environmental-education-main.jpg'" />
+                    <img src='@srcImg' onerror="this.src = '/Content/Images/thesocialcoffeeshop.jpg'" />
                 </div>
             </div>
         </div>
@@ -49,14 +49,11 @@
         <section class="who">
             <div class="organizer">
                 <div class="organizer-image">
-                    @*<div>
-                            <img src="https://c1.staticflickr.com/1/149/426074142_5337cf5a70_z.jpg?zz=1" alt="@Model.HostName" />
-                        </div>*@
-                    @*@{
+                    @{
                         var base64 = Convert.ToBase64String(Model.HostUser.ImageContent);
                         var imgSrc = String.Format("data:image/png;base64,{0}", base64);
-                    }*@
-                    @*<a href="@Url.Action("Member", "Account", new { userId = Model.HostUser.UserId })">
+                    }
+                    <a href="@Url.Action("Member", "Account", new { userId = Model.HostUser.UserId })">
                         @if (Model.HostUser.Gender.Equals("male"))
                         {
                             <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/male.png'" />
@@ -65,7 +62,7 @@
                         {
                             <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/female.png'" />
                         }
-                    </a>*@
+                    </a>
                 </div>
             </div>
             <div class="attendees">
