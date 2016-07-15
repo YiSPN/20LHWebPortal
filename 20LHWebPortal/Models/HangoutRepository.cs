@@ -259,6 +259,8 @@ namespace _20LHWebPortal.Models
                 Description = hangout.Description,
                 Id = hangout.Id,
                 Name = hangout.Name,
+                Address = hangout.Address,
+                ContactInfo = hangout.ContactInfo,
                 OpenSpots = hangout.PartySize - allAtendees.Count(),
                 HostName = GetUserName(hangout.UserCreator),
                 MaleOpenSpots = (hangout.PartySize/2) - hangout.MaleAttendingCount,

@@ -26,7 +26,7 @@ namespace _20LHWebPortal.Controllers
             _hangoutRepository = hangoutRepository;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
             var userId = User.Identity.GetUserId();
             var userInfo = new UserViewModel();
@@ -34,7 +34,10 @@ namespace _20LHWebPortal.Controllers
             userInfo.Gender = _hangoutRepository.GetUserGender(userId);
             userInfo.Name = _hangoutRepository.GetUserName(userId);
             userInfo.NoShows = _hangoutRepository.GetStrikeCount(userId);
-            return View(userInfo);
+
+            var hangout = _hangoutRepository.GetHangoutViewModelById(userId, id);
+
+            return View(hangout);
         }
 
          

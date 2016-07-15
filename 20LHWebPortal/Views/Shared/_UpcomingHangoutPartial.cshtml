@@ -6,7 +6,7 @@
 
 <div class="event upcoming" data-event-id="@Model.Id">
     <div class="header">
-        <div class="title">@Model.Name</div>
+        <div class="title">@Model.Name <a href="@Url.Action("Index", "Hangout", new { id = Model.Id })">(more info ...)</a></div>
         <div class="banner">
             <div>
                 @*<img src="http://gtspirit.com/wp-content/uploads/2016/02/McLaren-Preview-Event3.jpg" alt="banner" />*@
