@@ -10,10 +10,11 @@ namespace _20LHWebPortal.Controllers
     [RequireHttps]
     public class HomeController : BaseController
     {
+        [Authorize]
         public ActionResult Index()
         {
-            //return RedirectToAction("Upcoming", "Hangout");
-            return View();
+            return RedirectToAction("Upcoming", "Hangout");
+            //return View();
 
         }
 
