@@ -2,8 +2,15 @@
 
 <h4>Member</h4>
 
+@if(String.IsNullOrEmpty(Model.Name))
+{
+    <h3>No name.</h3>
+}
+else
+{
+    <h3>@Model.Name</h3>
+}
 
-<h3>@Model.Name</h3>
 @if(false) //need to check if no picture then show default.
 {
     <div>
@@ -19,7 +26,7 @@ else
                 var base64 = Convert.ToBase64String(Model.ImageContent);
                 var imgSrc = String.Format("data:image/png;base64,{0}", base64);
             }
-            <img src='@imgSrc' style="max-width:200px; max-height:200px;" onerror="this.src ='/Content/Images/user.png'"/>
+            <img src='@imgSrc' style="max-width:200px; max-height:200px;" onerror="this.src ='/Content/Images/defaulticon.jpg'"/>
         </div>
     </div>
 }

@@ -174,9 +174,9 @@ namespace _20LHWebPortal.Models
         public List<ActivityViewModel> ListActivityLog()
         {
             var returnList = new List<ActivityViewModel>();
-            var activities = from m in ActivityLog_db.ActivityLogs
+            var activities = (from m in ActivityLog_db.ActivityLogs
                              orderby m.TimeStamp descending
-                                    select m;
+                                    select m).Take(30);
             foreach (var a in activities.ToList())
             {
                 var activity = new ActivityViewModel

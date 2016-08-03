@@ -13,7 +13,9 @@
                 var imgSrc = String.Format("data:image/png;base64,{0}", base64);
             }
             <a href="@Url.Action("Member", "Account", new { userId = Model.User.UserId })">
-                <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/user.png'" />
+                <img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/defaulticon.jpg'" />
+
+                @*<img src='@imgSrc' style="max-width:100px; max-height:100px;" onerror="this.src ='/Content/Images/user.png'" />*@
             </a>
             @*<img src="/Content/Images/user.png" alt="user photo"/>*@
         </div>
@@ -28,11 +30,26 @@
                 {
                     activity = "joined ";
                 }
-                <span>@Html.ActionLink(
+                if (String.IsNullOrEmpty(Model.name))
+                {
+                    <span>
+                        @Html.ActionLink(
+                         "No name",
+                         "Member", "Account",
+                         new { userId = Model.userId }, new { })&nbsp;
+                </span>
+                }
+                else
+                {
+                    <span>
+                        @Html.ActionLink(
                          @Model.name,
                          "Member", "Account",
-                         new { userId = Model.userId }, new { } )&nbsp;</span>
-                
+                         new { userId = Model.userId }, new { })&nbsp;
+                    </span>
+                }
+
+
                 @*<span>@Model.name&nbsp;</span>*@
                 <span>@activity&nbsp;</span>
                 <span>@Model.hangoutName</span>

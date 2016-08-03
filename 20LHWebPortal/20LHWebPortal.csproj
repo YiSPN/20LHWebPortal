@@ -348,6 +348,8 @@
       <DependentUpon>uiComponents.css</DependentUpon>
     </Content>
     <Content Include="Content\Images\Custom\20lh_logo.png" />
+    <Content Include="Content\Images\defaulticon.jpg" />
+    <Content Include="Content\Images\neutralgender.png" />
     <Content Include="Content\Images\thesocialcoffeeshop.jpg" />
     <Content Include="Content\Images\event-banner.jpg" />
     <Content Include="Content\Images\female.png" />
