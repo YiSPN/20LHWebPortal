@@ -12,8 +12,8 @@ namespace _20LHWebPortal.Controllers
     {
         public ActionResult Index()
         {
-            //return RedirectToAction("Upcoming", "Hangout");
-            return View();
+            return RedirectToAction("Upcoming", "Hangout");
+            //return View();
 
         }
 
