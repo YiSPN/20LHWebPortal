@@ -87,7 +87,7 @@ namespace _20LHWebPortal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Upcoming", "Hangout");
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -164,14 +164,14 @@ namespace _20LHWebPortal.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
+                    
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Upcoming", "Hangout");
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -295,7 +295,7 @@ namespace _20LHWebPortal.Controllers
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("Upcoming", "Hangout"));
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
         //
@@ -349,7 +349,7 @@ namespace _20LHWebPortal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Upcoming", "Hangout");
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -372,7 +372,7 @@ namespace _20LHWebPortal.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Upcoming", "Hangout");
+                return RedirectToAction("Index", "Manage");
             }
 
             if (ModelState.IsValid)
@@ -391,12 +391,13 @@ namespace _20LHWebPortal.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToAction("Upcoming", "Hangout");
+                        return RedirectToLocal(returnUrl);
                     }
                 }
                 AddErrors(result);
             }
 
+            ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
 
@@ -465,7 +466,7 @@ namespace _20LHWebPortal.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Upcoming", "Hangout");
+            return RedirectToAction("Index", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
